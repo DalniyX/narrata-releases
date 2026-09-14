@@ -8,12 +8,12 @@
 <p align="center">Рабочая среда нарративного дизайнера и сценариста: графы диалогов и квестов, база персонажей, холсты, проверка сценария и командная работа через GitHub — бесплатно и без своего сервера.</p>
 
 <p align="center">
-  <a href="https://github.com/DalniyX/narrata-releases/releases/latest"><img alt="Версия" src="https://img.shields.io/github/v/release/DalniyX/narrata-releases?style=for-the-badge&color=6366f1&label=%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F"></a>
-  <a href="https://github.com/DalniyX/narrata-releases/releases"><img alt="Скачивания" src="https://img.shields.io/github/downloads/DalniyX/narrata-releases/total?style=for-the-badge&color=10b981&label=%D1%81%D0%BA%D0%B0%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B9"></a>
+  <a href="https://github.com/DalniyX/narrata-releases/releases/latest"><img alt="версия" src="https://img.shields.io/github/v/release/DalniyX/narrata-releases?style=for-the-badge&color=6366f1&label=%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F"></a>
+  <a href="https://github.com/DalniyX/narrata-releases/releases"><img alt="скачиваний" src="https://img.shields.io/github/downloads/DalniyX/narrata-releases/total?style=for-the-badge&color=10b981&label=%D1%81%D0%BA%D0%B0%D1%87%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B9"></a>
   <img alt="Windows и Android" src="https://img.shields.io/badge/Windows%20%7C%20Android-18181b?style=for-the-badge">
 </p>
 
-<p align="center"><a href="https://github.com/DalniyX/narrata-releases/releases/latest"><b>⬇️ Скачать 2.5.1 для Windows и Android</b></a></p>
+<p align="center"><a href="https://github.com/DalniyX/narrata-releases/releases/latest"><b>⬇️ Скачать для Windows и Android</b></a></p>
 
 <p align="center"><img src="assets/screenshots/01-%D0%B3%D1%80%D0%B0%D1%84-%D1%81%D1%8E%D0%B6%D0%B5%D1%82%D0%B0.png" alt="Граф сцены: реплики, выборы, условия и переменные" width="900"></p>
 
