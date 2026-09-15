@@ -12,6 +12,8 @@
 - Submenus of the top menu (“View → Theme”, “Workspace”) open sideways even at the left edge of the screen; stacked only on phones.
 
 ### Phones and tablets
+- **A phone in landscape** no longer gets the desktop layout (menu bar, environment strip, side inspector): a touch screen up to 520 px tall counts as a narrow screen. Tablets keep the desktop layout.
+- A two-finger pinch no longer scales the whole app — the scale lives in settings; graph and diagram canvases zoom on their own.
 - “Interface scale” on Android no longer pushes the layout past the screen edge: the whole interface grows while the screen width stays the same. The system font scale is not applied — use this setting to go larger.
 - Character relations diagram: a tap on a character opens the card on the first try (a wider touch zone, a slight finger jitter is not a drag), a two-finger pinch zooms. The click on a character is more reliable on desktop too.
 - The sidebar, inspector and docked windows resize by finger on the first try: a wider grab zone, scrolling no longer steals the gesture.
