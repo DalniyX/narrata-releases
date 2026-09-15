@@ -31,34 +31,12 @@
 - 🤝 **Team through GitHub** — sync, tasks, chat, roles and private folders
 - 📱 **Windows and Android** — the same projects on a computer and a phone
 
-## Screenshots
-
-<table>
-  <tr>
-    <td align="center" width="50%"><img src="assets/screenshots/02-%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6%D0%B0.png" alt="Карточка персонажа: роль, арка, актёр озвучки, реплики по сценам"><br><sub>Карточка персонажа: роль, арка, актёр озвучки, реплики по сценам</sub></td>
-    <td align="center" width="50%"><img src="assets/screenshots/03-%D1%85%D0%BE%D0%BB%D1%81%D1%82-%D1%81%D1%8E%D0%B6%D0%B5%D1%82%D0%B0.png" alt="Холст: заметки, файлы проекта, ссылки и группы на одной доске"><br><sub>Холст: заметки, файлы проекта, ссылки и группы на одной доске</sub></td>
-  </tr>
-  <tr>
-    <td align="center" width="50%"><img src="assets/screenshots/04-%D1%81%D0%B2%D1%8F%D0%B7%D0%B8-%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6%D0%B5%D0%B9.png" alt="Схема связей персонажей"><br><sub>Схема связей персонажей</sub></td>
-    <td align="center" width="50%"><img src="assets/screenshots/05-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D1%81%D1%86%D0%B5%D0%BD%D0%B0%D1%80%D0%B8%D1%8F.png" alt="Проверка сценария: тупики, недостижимые ветки, ошибки в условиях"><br><sub>Проверка сценария: тупики, недостижимые ветки, ошибки в условиях</sub></td>
-  </tr>
-  <tr>
-    <td align="center" width="50%"><img src="assets/screenshots/06-%D1%80%D0%B5%D0%B6%D0%B8%D0%BC-%D1%87%D1%82%D0%B5%D0%BD%D0%B8%D1%8F.png" alt="Режим чтения: сцена как пьеса"><br><sub>Режим чтения: сцена как пьеса</sub></td>
-    <td align="center" width="50%"><img src="assets/screenshots/07-%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B.png" alt="Документы Markdown с вики-ссылками"><br><sub>Документы Markdown с вики-ссылками</sub></td>
-  </tr>
-  <tr>
-    <td align="center" width="50%"><img src="assets/screenshots/08-%D1%8D%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82-%D0%B2-%D0%B4%D0%B2%D0%B8%D0%B6%D0%BA%D0%B8.png" alt="Экспорт в движки: Yarn Spinner, Ink, Ren'Py, Unity, Godot, Unreal"><br><sub>Экспорт в движки: Yarn Spinner, Ink, Ren'Py, Unity, Godot, Unreal</sub></td>
-    <td align="center" width="50%"><img src="assets/screenshots/09-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B0-%D0%B4%D0%BE%D1%81%D0%BA%D0%B0-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87.png" alt="Команда через GitHub: доска задач, чат, проверка правок"><br><sub>Команда через GitHub: доска задач, чат, проверка правок</sub></td>
-  </tr>
-  <tr>
-    <td align="center" width="50%"><img src="assets/screenshots/10-%D1%82%D0%B5%D0%BB%D0%B5%D1%84%D0%BE%D0%BD.png" alt="Android: те же проекты на телефоне"><br><sub>Android: те же проекты на телефоне</sub></td>
-  </tr>
-</table>
-
 ## Installation
 
 - **Windows 10 and 11** — download `Narrata-Setup-….exe` from the [releases page](https://github.com/DalniyX/narrata-releases/releases/latest) and run it. The installer is not code-signed yet, so Windows may show “Unknown publisher”: click “More info” → “Run anyway”. After that the app updates itself.
 - **Android** — download the `.apk` from the same page and open it on the phone; allow installs from this source once. The app offers new versions by itself.
+
+**Requirements:** Windows 10 (1809) or 11, 64-bit, 4 GB RAM, 400 MB of disk space · Android 7.0 or newer with an up-to-date Android System WebView. Betas ship for Windows only.
 
 ## Community and support
 
