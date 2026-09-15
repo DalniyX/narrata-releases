@@ -2,7 +2,7 @@
 
 Редакция от 13 сентября 2026 г.
 
-Настоящее соглашение заключается между вами (далее — «Пользователь») и правообладателем программы Narrata — Dalniy (далее — «Правообладатель»). Устанавливая, копируя, запуская или иным образом используя Narrata, вы подтверждаете, что прочитали соглашение и принимаете его условия. Если вы не согласны с условиями, не устанавливайте и не используйте программу.
+Настоящее соглашение заключается между вами (далее — «Пользователь») и правообладателем программы Narrata — DalniyX (далее — «Правообладатель»). Устанавливая, копируя, запуская или иным образом используя Narrata, вы подтверждаете, что прочитали соглашение и принимаете его условия. Если вы не согласны с условиями, не устанавливайте и не используйте программу.
 
 ## 1. Термины
 
@@ -108,7 +108,7 @@ Copyright © 2026 DalniyX
 
 Version of September 13, 2026
 
-This agreement is made between you (the "User") and the owner of the Narrata software, Dalniy (the "Licensor"). By installing, copying, running or otherwise using Narrata, you confirm that you have read this agreement and accept its terms. If you do not agree, do not install or use the software.
+This agreement is made between you (the "User") and the owner of the Narrata software, DalniyX (the "Licensor"). By installing, copying, running or otherwise using Narrata, you confirm that you have read this agreement and accept its terms. If you do not agree, do not install or use the software.
 
 ## 1. Definitions
 
