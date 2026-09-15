@@ -2,7 +2,7 @@
 <html lang="ru" class="i18n-boot">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Narrata — рабочая среда нарративного дизайнера</title>
 <meta name="description" content="Графы диалогов и квестов, база персонажей, холст, проверка сценария и команда через GitHub — без своего сервера. Windows и Android.">
 <meta name="theme-color" content="#09090b">
@@ -58,7 +58,8 @@
   /* overflow-x: hidden — на html, а не на body: на body это ломает position: sticky в шапке
      (любой предок с overflow, отличным от visible, перестаёт быть «просто предком» для sticky —
      он сам становится границей прилипания). На html такого эффекта нет, он и так корень прокрутки. */
-  html { scroll-behavior: smooth; overflow-x: hidden; }
+  /* Щипок не меняет масштаб страницы (meta viewport + touch-action): страница сама адаптивная. */
+  html { scroll-behavior: smooth; overflow-x: hidden; touch-action: pan-x pan-y; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
   }
@@ -329,6 +330,15 @@
   .dl-btn .dl-text b { display: block; font-size: 14.5px; }
   .dl-btn .dl-text small { display: block; font-size: 11.5px; color: rgba(255,255,255,.75); margin-top: 2px; }
   .dl-btn.btn-glass .dl-text small { color: var(--faint); }
+  /* Минимальные требования — две тихие карточки под кнопками, читаются одним взглядом. */
+  .req-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 560px; margin: 26px auto 0; text-align: left; }
+  @media (max-width: 480px) { .req-grid { grid-template-columns: 1fr; } }
+  .req-card { border: 1px solid var(--line); background: rgba(24, 24, 27, .6); border-radius: 14px; padding: 12px 14px; }
+  .req-head { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 6px; }
+  .req-head .icon { width: 16px; height: 16px; color: var(--muted); }
+  .req-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+  .req-card li { font-size: 12px; color: var(--faint); padding-left: 14px; position: relative; }
+  .req-card li::before { content: ''; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent-2); }
   .fine-print { font-size: 12px; color: var(--faint); margin-top: 18px; }
   .fine-print a { color: var(--muted); border-bottom: 1px dotted var(--line-strong); }
   .fine-print a:hover { color: var(--text); }
@@ -539,6 +549,25 @@
 
         <p class="fine-print" id="otherPlatformNote" hidden data-i18n="download.otherPlatform">Сборки для вашей системы нет — доступны Windows и Android.</p>
 
+        <div class="req-grid" aria-label="Минимальные требования">
+          <div class="req-card">
+            <div class="req-head"><svg class="icon" aria-hidden="true"><use href="#i-devices"/></svg><b data-i18n="req.windows">Windows</b></div>
+            <ul>
+              <li data-i18n="req.winOs">Windows 10 (1809) или 11, 64-бит</li>
+              <li data-i18n="req.winRam">4 ГБ памяти, 400 МБ на диске</li>
+              <li data-i18n="req.winUpdates">Обновляется сама, без прав администратора</li>
+            </ul>
+          </div>
+          <div class="req-card">
+            <div class="req-head"><svg class="icon" aria-hidden="true"><use href="#i-devices"/></svg><b data-i18n="req.android">Android</b></div>
+            <ul>
+              <li data-i18n="req.androidOs">Android 7.0 и новее</li>
+              <li data-i18n="req.androidWebView">Свежий Android System WebView</li>
+              <li data-i18n="req.androidStable">Только стабильные версии — беты выходят для Windows</li>
+            </ul>
+          </div>
+        </div>
+
         <p class="fine-print">
           <span data-i18n="download.closedSource">Программа с закрытым исходным кодом.</span>
           <a href="https://github.com/DalniyX/narrata-releases/blob/main/LICENSE.md" target="_blank" rel="noopener" data-i18n="download.license">Лицензионное соглашение</a>
@@ -588,8 +617,8 @@
   </figure>
 </div>
 
-<script src="i18n.js?v=9"></script>
-<script src="app.js?v=9"></script>
+<script src="i18n.js?v=11"></script>
+<script src="app.js?v=11"></script>
 <script>
   // Снимаем блокировку показа страницы сразу после того, как app.js подставил тексты.
   document.documentElement.classList.remove('i18n-boot');
