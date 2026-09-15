@@ -1,5 +1,22 @@
 # What's new
 
+## 2.5.1 — 2026-09-16
+
+### Character base
+- **References** in the card: link a project folder with concepts and sketches — the pictures show up as a grid in the card, a click opens the file (previews in a folder project on the desktop).
+- **Tags** (“alive”, “chapter 2”) and the character **palette** (up to six colours for the artist): tags are shown and searched in the panel, a click on a tag filters everyone with it; colours appear as dots in the row.
+
+### Interface
+- “About” lists the minimum requirements; the publisher is filled in the `Narrata.exe` properties and the installer.
+- **Light theme** now uses an inverted colour scale: grey panels, cards and lists (settings, the new-project window, the guide, the activity bar) are light, and new screens look right from the start.
+- Submenus of the top menu (“View → Theme”, “Workspace”) open sideways even at the left edge of the screen; stacked only on phones.
+
+### Phones and tablets
+- “Interface scale” on Android no longer pushes the layout past the screen edge: the whole interface grows while the screen width stays the same. The system font scale is not applied — use this setting to go larger.
+- Character relations diagram: a tap on a character opens the card on the first try (a wider touch zone, a slight finger jitter is not a drag), a two-finger pinch zooms. The click on a character is more reliable on desktop too.
+- The sidebar, inspector and docked windows resize by finger on the first try: a wider grab zone, scrolling no longer steals the gesture.
+- Android no longer shows “Help with translation”, “Check your translation” or the “Get beta versions” toggle: betas ship for Windows only, phones get stable versions.
+
 ## 2.5.0 — 2026-09-15
 
 ### Relationship map, actors, branch playthrough
