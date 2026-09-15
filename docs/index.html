@@ -106,12 +106,18 @@
   @media (prefers-reduced-motion: reduce) { .ambient span { animation: none; } }
   @media (max-width: 720px) { .ambient span { filter: blur(60px); opacity: .12; } }
 
-  /* Курсор-реактивное свечение за заголовком — тонкая деталь, выключается на тач-устройствах */
+  /* Курсор-реактивное свечение за заголовком — тонкая деталь, выключается на тач-устройствах.
+     Слой лежит на всю ширину секции (а не контейнера): раньше он кончался в 20 % за краем контейнера,
+     и на широких экранах градиент обрезался вертикальной кромкой. Снизу — мягкое затухание маской,
+     чтобы у нижней границы секции тоже не было среза. */
+  .hero { position: relative; overflow: hidden; }
   .cursor-glow {
-    position: absolute; inset: -20%; z-index: -1; pointer-events: none; opacity: 0;
+    position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
     background: radial-gradient(480px circle at var(--gx, 50%) var(--gy, 30%), rgba(91,91,240,.18), transparent 60%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent); mask-image: linear-gradient(to bottom, #000 60%, transparent);
     transition: opacity .4s ease;
   }
+  .hero > .container { z-index: 1; }
   .has-hover .cursor-glow { opacity: 1; }
 
   /* ---------- прогресс прокрутки ---------- */
@@ -437,8 +443,8 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero" id="top">
+    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
     <div class="container" style="position:relative">
-      <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
       <div class="reveal">
         <span class="badge">
