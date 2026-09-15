@@ -46,7 +46,7 @@
 
 ## Community and support
 
-[Boosty](https://boosty.to/narrata/donate) · [DonationAlerts](https://dalink.to/dalniyx)
+[Website](https://dalniyx.github.io/narrata-releases/) · [Telegram](https://t.me/DalniyX) · [Boosty](https://boosty.to/narrata/donate) · [DonationAlerts](https://dalink.to/dalniyx)
 
 ## Feedback
 
