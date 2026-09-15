@@ -15,7 +15,7 @@
 
 <p align="center"><a href="https://github.com/DalniyX/narrata-releases/releases/latest"><b>⬇️ Download for Windows and Android</b></a></p>
 
-<p align="center"><sub>Full change history: [English](CHANGELOG.en.md) · [русский](CHANGELOG.md)</sub></p>
+<p align="center"><sub>Full change history: <a href="CHANGELOG.en.md">English</a> · <a href="CHANGELOG.md">русский</a></sub></p>
 
 <p align="center"><img src="assets/screenshots/01-%D0%B3%D1%80%D0%B0%D1%84-%D1%81%D1%8E%D0%B6%D0%B5%D1%82%D0%B0.png" alt="Граф сцены: реплики, выборы, условия и переменные" width="900"></p>
 
