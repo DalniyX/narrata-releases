@@ -1,5 +1,15 @@
 # What's new
 
+## 2.5.2 — 2026-09-16
+
+### What's new
+- **Text goals** (“Project → Text goals…”, a counter in the status bar): words in the project and written today, a daily and a project goal, the last week as bars, each file’s share. Graph lines and choices plus Markdown documents are counted; history stays on this device.
+- **“The Lighthouse” demo** on the start screen: a small finished story — a graph with choices, a condition and a variable, three characters with relationships, tags and a palette, documents with wiki links, a canvas. Opens with one button, as a fresh project every time.
+- **Import dialogues from Ink, Yarn Spinner and Twine** (“File → Export and import”): each file becomes a graph — nodes, labelled and conditional choices, variables (into the project list), “Condition” and “Variable” nodes, speakers into the character base. Anything left unparsed is listed in the report.
+
+### Improvements and fixes
+- Bug fixes and small improvements.
+
 ## 2.5.1 — 2026-09-16
 
 ### Character base
@@ -7,7 +17,7 @@
 - **Tags** (“alive”, “chapter 2”) and the character **palette** (up to six colours for the artist): tags are shown and searched in the panel, a click on a tag filters everyone with it; colours appear as dots in the row.
 
 ### Interface
-- “About” lists the minimum requirements; the publisher is filled in the `Narrata.exe` properties and the installer.
+- The publisher is filled in the `Narrata.exe` properties and the installer.
 - **Light theme** now uses an inverted colour scale: grey panels, cards and lists (settings, the new-project window, the guide, the activity bar) are light, and new screens look right from the start.
 - Submenus of the top menu (“View → Theme”, “Workspace”) open sideways even at the left edge of the screen; stacked only on phones.
 
