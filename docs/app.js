@@ -7,6 +7,10 @@ const REPO = 'DalniyX/narrata-releases';
 const LANG_KEY = 'narrata_lang';
 const CACHE_KEY = 'narrata_release_cache_v2';
 const CACHE_TTL = 10 * 60 * 1000; // 10 минут — как кеш аналитики в Narrata Studio
+// Планы ведутся в Narrata Studio и лежат в репозитории релизов; raw-файл не тратит лимит запросов к API GitHub.
+const ROADMAP_URL = `https://raw.githubusercontent.com/${REPO}/HEAD/roadmap.json`;
+const ROADMAP_CACHE_KEY = 'narrata_roadmap_cache_v1';
+const ROADMAP_STATUSES = ['planned', 'progress', 'done'];
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -60,6 +64,7 @@ function applyLang(lang) {
 
   renderFeatures(lang);
   renderGallery(lang);
+  renderRoadmap();
   applyRelease(); // переводит уже загруженные данные о версии на новый язык
 }
 
@@ -361,6 +366,74 @@ async function loadRelease() {
   }
 }
 
+// ---------- планы ----------
+
+let roadmapData = null;
+
+async function fetchRoadmap() {
+  try {
+    const cached = JSON.parse(localStorage.getItem(ROADMAP_CACHE_KEY) || 'null');
+    if (cached && Date.now() - cached.at < CACHE_TTL) return cached.data;
+  } catch {
+    // нет кеша — спросим GitHub
+  }
+  const res = await fetch(ROADMAP_URL, { cache: 'no-cache' });
+  if (!res.ok) throw new Error(`roadmap: ${res.status}`);
+  const data = await res.json();
+  try {
+    localStorage.setItem(ROADMAP_CACHE_KEY, JSON.stringify({ data, at: Date.now() }));
+  } catch {
+    // кеш необязателен
+  }
+  return data;
+}
+
+const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const safeLink = (value) => (/^https:\/\/[^\s"<>]+$/.test(String(value ?? '')) ? String(value) : '');
+/** Текст на языке страницы, иначе на другом — карточка без перевода всё равно видна. */
+const pickLang = (pair) => (pair && typeof pair === 'object' ? pair[currentLang] || pair.en || pair.ru || '' : String(pair ?? ''));
+
+/** Блок «Планы»: три колонки по статусу. Нет файла или карточек — блока и ссылки в меню нет. */
+function renderRoadmap() {
+  const section = $('#roadmap');
+  const grid = $('#roadmapGrid');
+  if (!section || !grid) return;
+  const items = Array.isArray(roadmapData?.items) ? roadmapData.items.filter((i) => i && ROADMAP_STATUSES.includes(i.status) && pickLang(i.title)) : [];
+  section.hidden = !items.length;
+  const navLink = $('#navRoadmap');
+  if (navLink) navLink.hidden = !items.length;
+  if (!items.length) return;
+  const dict = I18N[currentLang] || I18N.en;
+  grid.innerHTML = ROADMAP_STATUSES.map((status, col) => {
+    const list = items.filter((i) => i.status === status);
+    const cards = list
+      .map((item) => {
+        const text = pickLang(item.text);
+        const link = safeLink(item.link);
+        return `<article class="rm-item"><h3>${escapeHtml(pickLang(item.title))}</h3>${text ? `<p>${escapeHtml(text)}</p>` : ''}${link ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>${escapeHtml(dict['roadmap.details'])}</a>` : ''}</article>`;
+      })
+      .join('');
+    return `<div class="rm-col reveal d${col + 1}" data-status="${status}"><div class="rm-col-head"><span class="dot"></span>${escapeHtml(dict[`roadmap.${status}`])}<span class="count">${list.length}</span></div>${cards || `<p class="rm-empty">${escapeHtml(dict['roadmap.empty'])}</p>`}</div>`;
+  }).join('');
+  const foot = $('#roadmapFoot');
+  const board = safeLink(roadmapData.board);
+  const updated = /^\d{4}-\d{2}-\d{2}$/.test(String(roadmapData.updatedAt ?? '')) ? new Date(`${roadmapData.updatedAt}T00:00:00`).toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+  if (foot) {
+    foot.hidden = !board && !updated;
+    foot.innerHTML = `${updated ? `<span>${escapeHtml(dict['roadmap.updated'])}: ${escapeHtml(updated)}</span>` : ''}${board ? `<a href="${escapeHtml(board)}" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>${escapeHtml(dict['roadmap.board'])}</a>` : ''}`;
+  }
+  observeReveals(grid);
+}
+
+async function loadRoadmap() {
+  try {
+    roadmapData = await fetchRoadmap();
+  } catch {
+    roadmapData = null; // файла ещё нет или сеть недоступна — блок просто не показывается
+  }
+  renderRoadmap();
+}
+
 // ---------- прокрутка: шапка, прогресс, появление блоков, активная ссылка ----------
 
 function observeReveals(root = document) {
@@ -452,4 +525,5 @@ document.addEventListener('DOMContentLoaded', () => {
   wireCursorGlow();
   observeReveals();
   void loadRelease();
+  void loadRoadmap();
 });
