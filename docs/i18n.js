@@ -66,6 +66,17 @@ const I18N = {
     'gallery.prev': 'Назад',
     'gallery.next': 'Вперёд',
     'gallery.zoom': 'Смотреть крупнее',
+    'nav.roadmap': 'Планы',
+    'roadmap.eyebrow': 'Планы',
+    'roadmap.title': 'Что готовим дальше',
+    'roadmap.subtitle': 'Над чем идёт работа и что запланировано. Список обновляется вместе с программой.',
+    'roadmap.planned': 'В планах',
+    'roadmap.progress': 'В разработке',
+    'roadmap.done': 'Готово',
+    'roadmap.empty': 'Пока пусто',
+    'roadmap.details': 'Подробнее на GitHub',
+    'roadmap.board': 'Вся доска на GitHub',
+    'roadmap.updated': 'Обновлено',
 
     features: {
       items: {
@@ -156,6 +167,17 @@ const I18N = {
     'gallery.prev': 'Previous',
     'gallery.next': 'Next',
     'gallery.zoom': 'View full-size',
+    'nav.roadmap': 'Roadmap',
+    'roadmap.eyebrow': 'Roadmap',
+    'roadmap.title': 'What’s coming next',
+    'roadmap.subtitle': 'What’s being built now and what’s planned. The list is updated alongside the app.',
+    'roadmap.planned': 'Planned',
+    'roadmap.progress': 'In progress',
+    'roadmap.done': 'Done',
+    'roadmap.empty': 'Nothing here yet',
+    'roadmap.details': 'Details on GitHub',
+    'roadmap.board': 'Full board on GitHub',
+    'roadmap.updated': 'Updated',
 
     features: {
       items: {
