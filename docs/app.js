@@ -5,7 +5,7 @@
 
 const REPO = 'DalniyX/narrata-releases';
 const LANG_KEY = 'narrata_lang';
-const CACHE_KEY = 'narrata_release_cache_v1';
+const CACHE_KEY = 'narrata_release_cache_v2';
 const CACHE_TTL = 10 * 60 * 1000; // 10 минут — как кеш аналитики в Narrata Studio
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -243,9 +243,10 @@ function writeCache(payload) {
 async function fetchRelease() {
   const cached = readCache();
   if (cached) return cached;
-  const [releaseRes, repoRes] = await Promise.all([
+  const [releaseRes, repoRes, allRes] = await Promise.all([
     fetch(`https://api.github.com/repos/${REPO}/releases/latest`, { headers: { Accept: 'application/vnd.github+json' } }),
     fetch(`https://api.github.com/repos/${REPO}`, { headers: { Accept: 'application/vnd.github+json' } }),
+    fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`, { headers: { Accept: 'application/vnd.github+json' } }),
   ]);
   if (!releaseRes.ok) throw new Error(`GitHub: ${releaseRes.status}`);
   const release = await releaseRes.json();
@@ -253,7 +254,14 @@ async function fetchRelease() {
   const assets = Array.isArray(release.assets) ? release.assets : [];
   const exe = assets.find((a) => /\.exe$/i.test(a.name));
   const apk = assets.find((a) => /\.apk$/i.test(a.name));
-  const downloads = assets.reduce((sum, a) => sum + (Number(a.download_count) || 0), 0);
+  // Как в Narrata Studio: только установщик и APK всех опубликованных версий. latest.yml и .blockmap
+  // качает автообновление при каждой проверке — это не люди, их не считаем.
+  const all = allRes.ok ? await allRes.json() : [release];
+  const downloads = (Array.isArray(all) ? all : [release])
+    .filter((r) => !r.draft)
+    .flatMap((r) => (Array.isArray(r.assets) ? r.assets : []))
+    .filter((a) => /\.(exe|apk)$/i.test(a.name))
+    .reduce((sum, a) => sum + (Number(a.download_count) || 0), 0);
   const payload = {
     version: String(release.tag_name || '').replace(/^v/, ''),
     url: release.html_url,
