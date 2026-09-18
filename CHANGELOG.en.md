@@ -1,5 +1,18 @@
 # What's new
 
+## 2.5.3 — 2026-09-18
+
+### Fixes
+- A character card opened from the **relationship diagram** no longer hides under it: a window opened later is always on top.
+- Relationship diagram: characters can be **dragged**, the canvas moves smoothly, and after a two-finger pinch the remaining finger keeps panning instead of getting stuck.
+- Android: GitHub sign-in no longer fails with “Unable to resolve host” while you confirm the code in the browser — the app waits for the network and checks again.
+- Android: the status bar is hidden and no longer pushes the interface down (swipe from the top to show it); the screen height follows the visible area, so the bottom no longer slides under the system bars.
+
+### Improvements
+- **“Place on canvas”** in the file menu (long press on a phone): the canvas opens and a tap on an empty spot places the document card — instead of dragging with a finger.
+- **Updates your way** (“Settings → Updates”): automatic checks, automatic downloads and, on Android, downloads over mobile data. If your version is no longer supported, the app asks you to update anyway.
+- Android: app data no longer goes into the Google backup or moves to a new phone — the GitHub access went along with it. Projects are protected by their own copies in “Documents/Narrata/Backups”.
+
 ## 2.5.2 — 2026-09-16
 
 ### What's new
