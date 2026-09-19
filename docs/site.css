@@ -404,13 +404,13 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--line); }
 .guide-search { display: flex; align-items: center; gap: 8px; padding: 0 12px; margin-bottom: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; color: var(--faint); }
 .guide-search:focus-within { border-color: rgba(91,91,240,.55); }
 .guide-search input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--text); font: inherit; font-size: 13.5px; padding: 10px 0; }
-#guideToc { display: flex; flex-direction: column; gap: 2px; }
-#guideToc a { display: block; padding: 8px 12px; border-radius: 9px; border-left: 2px solid transparent; transition: background .2s ease, border-color .2s ease; }
-#guideToc a b { display: block; font-size: 13.5px; font-weight: 600; color: var(--muted); }
-#guideToc a small { display: block; font-size: 11.5px; color: var(--faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-#guideToc a:hover { background: rgba(255,255,255,.04); }
-#guideToc a.active { background: var(--accent-soft); border-left-color: var(--accent-2); }
-#guideToc a.active b { color: var(--text); }
+.guide-toc { display: flex; flex-direction: column; gap: 2px; }
+.guide-toc a { display: block; padding: 8px 12px; border-radius: 9px; border-left: 2px solid transparent; transition: background .2s ease, border-color .2s ease; }
+.guide-toc a b { display: block; font-size: 13.5px; font-weight: 600; color: var(--muted); }
+.guide-toc a small { display: block; font-size: 11.5px; color: var(--faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.guide-toc a:hover { background: rgba(255,255,255,.04); }
+.guide-toc a.active { background: var(--accent-soft); border-left-color: var(--accent-2); }
+.guide-toc a.active b { color: var(--text); }
 .guide-section { scroll-margin-top: 24px; padding: 28px 30px; margin-bottom: 18px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
 .guide-section h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; margin: 0 0 14px; }
 .guide-body { color: #d4d4d8; font-size: 15px; line-height: 1.7; }
@@ -431,10 +431,30 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--line); }
   .guide { padding-top: 28px; }
   .guide-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .guide-nav { position: static; max-height: none; overflow: visible; }
-  #guideToc { flex-direction: row; overflow-x: auto; gap: 6px; padding-bottom: 4px; scrollbar-width: none; }
-  #guideToc a { flex: none; border-left: 0; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
-  #guideToc a small { display: none; }
-  #guideToc a b { font-size: 13px; white-space: nowrap; }
+  .guide-toc { flex-direction: row; overflow-x: auto; gap: 6px; padding-bottom: 4px; scrollbar-width: none; }
+  .guide-toc a { flex: none; border-left: 0; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+  .guide-toc a small { display: none; }
+  .guide-toc a b { font-size: 13px; white-space: nowrap; }
   .guide-section { padding: 20px 18px; border-radius: 16px; }
   .guide-body { font-size: 14.5px; }
 }
+
+/* ---------- страница «Что нового» (changelog.html) ---------- */
+.change-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 14px; margin-bottom: 14px; }
+.change-head h2 { margin: 0; font-size: 26px; letter-spacing: -.02em; }
+.change-current { padding: 3px 11px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #34d399; background: rgba(52,211,153,.12); border: 1px solid rgba(52,211,153,.35); align-self: center; }
+.change-date { margin-left: auto; font-size: 13px; color: var(--faint); }
+.guide-body h3.change-kind { display: inline-flex; align-items: center; gap: 8px; margin: 18px 0 8px; padding: 4px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 600; letter-spacing: .02em; color: #d4d4d8; background: rgba(255,255,255,.05); border: 1px solid var(--line); }
+.guide-body h3.change-kind:first-child { margin-top: 0; }
+.guide-body h3.change-kind::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #a1a1aa; }
+.change-kind.kind-new { color: #c7c7ff; border-color: rgba(139,139,255,.35); } .change-kind.kind-new::before { background: #8b8bff; }
+.change-kind.kind-fix { color: #a7f3d0; border-color: rgba(52,211,153,.35); } .change-kind.kind-fix::before { background: #34d399; }
+.change-kind.kind-improve { color: #fde68a; border-color: rgba(251,191,36,.35); } .change-kind.kind-improve::before { background: #fbbf24; }
+.change-kind.kind-design { color: #fbcfe8; border-color: rgba(244,114,182,.35); } .change-kind.kind-design::before { background: #f472b6; }
+.change-kind.kind-other::before { background: #71717a; }
+.guide-body ul + h3.change-kind { margin-top: 20px; }
+/* Плашка версии на главной — ссылка на «Что нового» этой версии. */
+a.badge { transition: border-color .2s ease, background .2s ease; }
+a.badge:hover { border-color: rgba(139,139,255,.45); background: rgba(91,91,240,.1); }
+.badge .more { color: #c7c7ff; font-weight: 600; }
+.badge .more::before { content: "·"; margin: 0 8px 0 2px; color: var(--faint); font-weight: 400; }
