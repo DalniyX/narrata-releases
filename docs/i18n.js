@@ -16,6 +16,7 @@ const I18N = {
 
     'hero.badgePrefix': 'Версия',
     'hero.badgeSuffix': 'уже доступна',
+    'hero.badgeMore': 'Что нового',
     'hero.line1': 'Пишите истории.',
     'hero.line2': 'Стройте миры.',
     'hero.line3': 'Не теряйте нить.',
@@ -121,6 +122,7 @@ const I18N = {
 
     'hero.badgePrefix': 'Version',
     'hero.badgeSuffix': 'is out now',
+    'hero.badgeMore': 'What’s new',
     'hero.line1': 'Write your story.',
     'hero.line2': 'Branch it freely.',
     'hero.line3': 'Never lose the thread.',
