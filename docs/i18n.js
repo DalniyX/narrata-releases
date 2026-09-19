@@ -10,6 +10,7 @@ const I18N = {
     'nav.features': 'Возможности',
     'nav.screenshots': 'Скриншоты',
     'nav.download': 'Загрузка',
+    'nav.guide': 'Руководство',
     'nav.cta': 'Скачать',
 
     'hero.badgePrefix': 'Версия',
@@ -54,6 +55,8 @@ const I18N = {
     'req.androidOs': 'Android 7.0 и новее',
     'req.androidWebView': 'Свежий Android System WebView',
     'req.androidStable': 'Только стабильные версии — беты выходят для Windows',
+    'req.androidTablet': 'Рекомендуется для планшетов',
+    'download.androidTablet': 'На Android рекомендуется планшет: на телефоне всё работает, но графам и холсту на большом экране просторнее.',
 
     'footer.changelog': 'История изменений',
     'footer.license': 'Лицензия',
@@ -111,6 +114,7 @@ const I18N = {
     'nav.features': 'Features',
     'nav.screenshots': 'Screenshots',
     'nav.download': 'Download',
+    'nav.guide': 'Guide',
     'nav.cta': 'Download',
 
     'hero.badgePrefix': 'Version',
@@ -155,6 +159,8 @@ const I18N = {
     'req.androidOs': 'Android 7.0 or newer',
     'req.androidWebView': 'An up-to-date Android System WebView',
     'req.androidStable': 'Stable versions only — betas ship for Windows',
+    'req.androidTablet': 'Recommended for tablets',
+    'download.androidTablet': 'On Android a tablet is recommended: everything works on a phone, but graphs and the canvas have more room on a big screen.',
 
     'footer.changelog': 'Change history',
     'footer.license': 'License',
