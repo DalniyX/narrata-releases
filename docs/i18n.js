@@ -84,15 +84,15 @@ const I18N = {
 
     features: {
       items: {
-        graphs: { title: 'Графы диалогов и квестов', desc: 'Ветвления, условия, переменные и симулятор прохождения прямо в редакторе.' },
+        graphs: { title: 'Графы диалогов и квестов', desc: 'Ветвления, условия и переменные; диалог проходится как в игре прямо на графе — с портретами говорящих. Играбельная версия одним HTML-файлом — для заказчика или тестировщика.' },
         characters: { title: 'База персонажей', desc: 'Карточки, связи между героями, актёры озвучки и реплики по сценам.' },
         canvas: { title: 'Холст', desc: 'Заметки, документы, картинки и ссылки — на одной доске рядом с графом.' },
         check: { title: 'Проверка сценария', desc: 'Тупики, недостижимые ветки и ошибки в условиях — до того, как это увидит игрок.' },
-        documents: { title: 'Документы', desc: 'Markdown с вики-ссылками, правка Word и Excel прямо в программе.' },
+        documents: { title: 'Документы', desc: 'Markdown с вики-ссылками и режим фокуса — только текст, без панелей. Правка Word и Excel прямо в программе.' },
         localization: { title: 'Локализация и озвучка', desc: 'Таблица переводов, XLIFF и сценарий для актёров дубляжа.' },
         engines: { title: 'Экспорт в движки', desc: 'Unity, Godot, Unreal, Ren’Py, Ink, Yarn Spinner, Twine — без ручной сборки JSON.' },
         team: { title: 'Команда через GitHub', desc: 'Синхронизация, задачи, чат, роли и закрытые папки — без своего сервера.' },
-        devices: { title: 'Windows и Android', desc: 'Один и тот же проект на компьютере и в телефоне, с самообновлением.' },
+        devices: { title: 'Windows и Android', desc: 'Один и тот же проект на компьютере и на планшете, с самообновлением.' },
       },
     },
 
@@ -189,15 +189,15 @@ const I18N = {
 
     features: {
       items: {
-        graphs: { title: 'Dialogue and quest graphs', desc: 'Branches, conditions, variables and a playthrough simulator, right in the editor.' },
+        graphs: { title: 'Dialogue and quest graphs', desc: 'Branches, conditions and variables; play a dialogue like a game right on the graph, with speaker portraits. A playable version as one HTML file — for a client or a tester.' },
         characters: { title: 'Character base', desc: 'Cards, relationships between characters, voice actors and lines by scene.' },
         canvas: { title: 'Canvas', desc: 'Notes, documents, pictures and links — one board next to the graph.' },
         check: { title: 'Script check', desc: 'Dead ends, unreachable branches and broken conditions — before a player finds them.' },
-        documents: { title: 'Documents', desc: 'Markdown with wiki links, Word and Excel editing right in the app.' },
+        documents: { title: 'Documents', desc: 'Markdown with wiki links and a focus mode — just the text, no panels. Word and Excel editing right in the app.' },
         localization: { title: 'Localization and voice-over', desc: 'A translation table, XLIFF, and scripts for voice actors.' },
         engines: { title: 'Engine export', desc: 'Unity, Godot, Unreal, Ren’Py, Ink, Yarn Spinner, Twine — no hand-rolled JSON.' },
         team: { title: 'Team through GitHub', desc: 'Sync, tasks, chat, roles and private folders — no server of your own.' },
-        devices: { title: 'Windows and Android', desc: 'The same project on a computer and a phone, with self-updates.' },
+        devices: { title: 'Windows and Android', desc: 'The same project on a computer and a tablet, with self-updates.' },
       },
     },
 
