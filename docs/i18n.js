@@ -11,6 +11,7 @@ const I18N = {
     'nav.screenshots': 'Скриншоты',
     'nav.download': 'Загрузка',
     'nav.guide': 'Руководство',
+    'nav.toTop': 'Наверх',
     'nav.cta': 'Скачать',
 
     'hero.badgePrefix': 'Версия',
@@ -115,6 +116,7 @@ const I18N = {
     'nav.screenshots': 'Screenshots',
     'nav.download': 'Download',
     'nav.guide': 'Guide',
+    'nav.toTop': 'Back to top',
     'nav.cta': 'Download',
 
     'hero.badgePrefix': 'Version',
