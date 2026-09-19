@@ -306,6 +306,9 @@ function applyRelease() {
   const dict = I18N[currentLang] || I18N.en;
   const v = `v${releaseData.version}`;
   $('#badgeVersion').textContent = v;
+  // Плашка ведёт к изменениям именно этой версии на странице «Что нового».
+  const badge = $('#badgeLink');
+  if (badge) badge.href = `changelog.html#v${releaseData.version}`;
 
   const winMeta = releaseData.exe ? `${v} · ${formatSize(releaseData.exe.size)}` : dict['download.unavailable'];
   const androidMeta = releaseData.apk ? `${v} · ${formatSize(releaseData.apk.size)}` : dict['download.unavailable'];
