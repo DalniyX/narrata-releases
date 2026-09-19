@@ -9,7 +9,6 @@
 
 <p align="center">
   <a href="https://github.com/DalniyX/narrata-releases/releases/latest"><img alt="version" src="https://img.shields.io/github/v/release/DalniyX/narrata-releases?style=for-the-badge&color=6366f1&label=version"></a>
-  <a href="https://github.com/DalniyX/narrata-releases/releases"><img alt="downloads" src="https://img.shields.io/github/downloads/DalniyX/narrata-releases/total?style=for-the-badge&color=10b981&label=downloads"></a>
   <img alt="Windows and Android" src="https://img.shields.io/badge/Windows%20%7C%20Android-18181b?style=for-the-badge">
 </p>
 
