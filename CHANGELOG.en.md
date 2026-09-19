@@ -1,5 +1,11 @@
 # What's new
 
+## 2.5.4 — 2026-09-19
+
+### Fixes
+- **Update checks without a GitHub sign-in** no longer hit “GitHub has temporarily limited requests”: without a sign-in GitHub allows 60 requests an hour per address, which a VPN or a shared network used up. The app now reads the version list from a backup file in the releases repository.
+- **Bug fixes** and small improvements.
+
 ## 2.5.3 — 2026-09-18
 
 ### Fixes
