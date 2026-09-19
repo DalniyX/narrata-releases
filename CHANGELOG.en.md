@@ -6,8 +6,12 @@
 - **Play on the canvas**: “Play” walks the dialogue as a player right on the graph — the current node and the path taken are highlighted, the camera follows, choices are picked in the bottom panel or with keys 1–9, conditions and variables work. “Play from here” in the node menu starts anywhere. The detailed simulator with a log is in the Graph menu.
 - **Playable version of the project** (“File → Export and import → Playable version (HTML)”): one small file where the dialogues can be played in any browser without Narrata — with a scene picker, a step back and speaker colours. Handy for a client or a tester.
 
-### Fixes
-- Android: the interface fits the screen again on any phone — no empty strip at the top, and the bottom bar no longer slides off the edge. The status bar and the gesture bar are now dark like the app instead of white.
+### Look and feel
+- **Speaker portraits** on line nodes, and playing through looks like a game: a scene with the location picture, a large portrait, text typed out letter by letter. The same in the playable HTML.
+- **Start screen**: recent projects are cards with a thumbnail of the main graph. **Project colour** — a thin stripe along the top of the window and a dot by the name (click the dot, or “Project colour” in the card menu): projects open side by side are easy to tell apart.
+- **Focus mode** for documents (the “Focus” button above the text): just the text in the middle, no panels, full-screen window, a words-this-session counter; Esc to leave.
+- **Daily goal ring** in the status bar — fills as you write and flashes briefly when the goal is reached.
+- An empty graph, canvas, character base and task board now greet you with a picture and a button for the first step. Nodes and links appear smoothly, tabs switch softly; with animations turned off in the system you won't see any of it.
 
 ## 2.5.4 — 2026-09-19
 
