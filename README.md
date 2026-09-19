@@ -20,15 +20,15 @@
 
 ## Features
 
-- 🕸️ **Dialogue and quest graphs** — branches, conditions, variables, a playthrough simulator
-- 👥 **Character base** — cards, relationships, voice actors, lines by scene
-- 🧩 **Canvas** — notes, documents, pictures and links on one board
-- ✅ **Script check** — dead ends, unreachable branches, broken conditions
-- 📜 **Documents** — Markdown with wiki links, Word and Excel editing right in the app
-- 🌍 **Localization and voice-over** — translation table, XLIFF, actor scripts
-- 🎮 **Engine export** — Unity, Godot, Unreal, Ren'Py, Ink, Yarn Spinner, Twine
-- 🤝 **Team through GitHub** — sync, tasks, chat, roles and private folders
-- 📱 **Windows and Android** — the same projects on a computer and a phone
+- 🕸️ **Dialogue and quest graphs** — Branches, conditions and variables; play a dialogue like a game right on the graph, with speaker portraits. A playable version as one HTML file — for a client or a tester.
+- 🤝 **Team through GitHub** — Sync, tasks, chat, roles and private folders — no server of your own.
+- 🧩 **Canvas** — Notes, documents, pictures and links — one board next to the graph.
+- ✅ **Script check** — Dead ends, unreachable branches and broken conditions — before a player finds them.
+- 📜 **Documents** — Markdown with wiki links and a focus mode — just the text, no panels. Word and Excel editing right in the app.
+- 🌍 **Localization and voice-over** — A translation table, XLIFF, and scripts for voice actors.
+- 🎮 **Engine export** — Unity, Godot, Unreal, Ren’Py, Ink, Yarn Spinner, Twine — no hand-rolled JSON.
+- 👥 **Character base** — Cards, relationships between characters, voice actors and lines by scene.
+- 📱 **Windows and Android** — The same project on a computer and a tablet, with self-updates.
 
 ## Installation
 
