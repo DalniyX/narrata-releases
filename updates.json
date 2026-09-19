@@ -1,6 +1,37 @@
 {
   "releases": [
     {
+      "tag_name": "v2.5.4",
+      "name": "2.5.4",
+      "body": "<!-- lang:ru -->\r\n### Исправления\r\n- **Проверка обновлений без входа в GitHub** больше не упирается в «GitHub временно ограничил число запросов»: без входа GitHub даёт 60 запросов в час на адрес, и за VPN или общей сетью их не хватало. Теперь программа берёт список версий из запасного файла в репозитории релизов.\r\n- **Исправлены ошибки** и внесены мелкие улучшения.\r\n<!-- /lang -->\r\n\r\n---\r\n\r\n<!-- lang:en -->\r\n### Fixes\r\n- **Update checks without a GitHub sign-in** no longer hit “GitHub has temporarily limited requests”: without a sign-in GitHub allows 60 requests an hour per address, which a VPN or a shared network used up. The app now reads the version list from a backup file in the releases repository.\r\n- **Bug fixes** and small improvements.\r\n<!-- /lang -->\r\n\r\n<!-- narrata:min-version=2.5.2 -->",
+      "draft": false,
+      "prerelease": false,
+      "published_at": "2026-09-19T02:55:53Z",
+      "html_url": "https://github.com/DalniyX/narrata-releases/releases/tag/v2.5.4",
+      "assets": [
+        {
+          "name": "latest.yml",
+          "size": 1433,
+          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.4/latest.yml"
+        },
+        {
+          "name": "Narrata-2.5.4.apk",
+          "size": 4590253,
+          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.4/Narrata-2.5.4.apk"
+        },
+        {
+          "name": "Narrata-Setup-2.5.4.exe",
+          "size": 93079089,
+          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.4/Narrata-Setup-2.5.4.exe"
+        },
+        {
+          "name": "Narrata-Setup-2.5.4.exe.blockmap",
+          "size": 98153,
+          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.4/Narrata-Setup-2.5.4.exe.blockmap"
+        }
+      ]
+    },
+    {
       "tag_name": "v2.5.3",
       "name": "2.5.3",
       "body": "<!-- lang:ru -->\r\n### Исправления\r\n- Карточка персонажа, открытая из **схемы связей**, больше не прячется под схемой: окно, открытое позже, всегда сверху.\r\n- Схема связей: персонажей можно **перетаскивать**, холст двигается плавно, а после щипка двумя пальцами оставшийся палец продолжает сдвигать схему, а не залипает.\r\n- Android: вход через GitHub больше не обрывается ошибкой «Unable to resolve host», пока вы подтверждаете код в браузере, — программа дожидается сети и проверяет снова.\r\n- Android: строка состояния скрыта и не сдвигает интерфейс (появляется свайпом сверху), высота экрана считается по видимой области — низ больше не уходит под системные полосы.\r\n\r\n### Улучшения\r\n- **«Поместить на холст»** в меню файла (на телефоне — долгое нажатие): открывается холст, касание по пустому месту ставит карточку документа — вместо перетаскивания пальцем.\r\n- **Обновления — на ваш выбор** («Настройки → Обновления»): автоматическая проверка, автоматическая загрузка и на Android загрузка по мобильной сети. Если версия перестала поддерживаться, программа попросит обновиться в любом случае.\r\n- Android: данные приложения больше не попадают в резервную копию Google и не переносятся на новый телефон — вместе с ними туда уходил доступ к GitHub. Проекты защищены собственными копиями в «Документы/Narrata/Backups».\r\n<!-- /lang -->\r\n\r\n---\r\n\r\n<!-- lang:en -->\r\n### Fixes\r\n- A character card opened from the **relationship diagram** no longer hides under it: a window opened later is always on top.\r\n- Relationship diagram: characters can be **dragged**, the canvas moves smoothly, and after a two-finger pinch the remaining finger keeps panning instead of getting stuck.\r\n- Android: GitHub sign-in no longer fails with “Unable to resolve host” while you confirm the code in the browser — the app waits for the network and checks again.\r\n- Android: the status bar is hidden and no longer pushes the interface down (swipe from the top to show it); the screen height follows the visible area, so the bottom no longer slides under the system bars.\r\n\r\n### Improvements\r\n- **“Place on canvas”** in the file menu (long press on a phone): the canvas opens and a tap on an empty spot places the document card — instead of dragging with a finger.\r\n- **Updates your way** (“Settings → Updates”): automatic checks, automatic downloads and, on Android, downloads over mobile data. If your version is no longer supported, the app asks you to update anyway.\r\n- Android: app data no longer goes into the Google backup or moves to a new phone — the GitHub access went along with it. Projects are protected by their own copies in “Documents/Narrata/Backups”.\r\n<!-- /lang -->\r\n\r\n<!-- narrata:min-version=2.5.2 -->",
