@@ -33,7 +33,7 @@
 ## Installation
 
 - **Windows 10 and 11** — download `Narrata-Setup-….exe` from the [releases page](https://github.com/DalniyX/narrata-releases/releases/latest) and run it. The installer is not code-signed yet, so Windows may show “Unknown publisher”: click “More info” → “Run anyway”. After that the app updates itself.
-- **Android** — download the `.apk` from the same page and open it on the phone; allow installs from this source once. The app offers new versions by itself.
+- **Android** — download the `.apk` from the same page and open it on the device; allow installs from this source once. The app offers new versions by itself. **A tablet is recommended**: everything works on a phone, but graphs and the canvas have more room on a big screen.
 
 ### Requirements
 
@@ -42,6 +42,7 @@
 | Windows 10 (1809) or 11, 64-bit | Android 7.0 or newer |
 | 4 GB RAM, 400 MB of disk space | An up-to-date Android System WebView |
 | Updates itself, no administrator rights needed | Stable versions only — betas ship for Windows |
+|  | 📱 A tablet is recommended |
 
 ## Community and support
 
