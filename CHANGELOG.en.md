@@ -1,5 +1,14 @@
 # What's new
 
+## 2.5.5 — 2026-09-19
+
+### What's new
+- **Play on the canvas**: “Play” walks the dialogue as a player right on the graph — the current node and the path taken are highlighted, the camera follows, choices are picked in the bottom panel or with keys 1–9, conditions and variables work. “Play from here” in the node menu starts anywhere. The detailed simulator with a log is in the Graph menu.
+- **Playable version of the project** (“File → Export and import → Playable version (HTML)”): one small file where the dialogues can be played in any browser without Narrata — with a scene picker, a step back and speaker colours. Handy for a client or a tester.
+
+### Fixes
+- Android: the interface fits the screen again on any phone — no empty strip at the top, and the bottom bar no longer slides off the edge. The status bar and the gesture bar are now dark like the app instead of white.
+
 ## 2.5.4 — 2026-09-19
 
 ### Fixes
