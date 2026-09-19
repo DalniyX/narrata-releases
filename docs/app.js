@@ -503,6 +503,16 @@ function wireCursorGlow() {
   });
 }
 
+/** Кнопка «Наверх» — видна, когда прокрутили дальше первого экрана. */
+function wireToTop() {
+  const btn = $('#toTop');
+  if (!btn) return;
+  const onScroll = () => btn.classList.toggle('visible', window.scrollY > window.innerHeight * 0.8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
+}
+
 // ---------- запуск ----------
 
 function wireLangSwitch() {
@@ -523,6 +533,8 @@ document.addEventListener('DOMContentLoaded', () => {
   wireShowcase();
   wireScrollEffects();
   wireCursorGlow();
+  wireToTop();
+
   observeReveals();
   void loadRelease();
   void loadRoadmap();
