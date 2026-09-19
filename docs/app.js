@@ -3,7 +3,8 @@
 // с лайтбоксом. Без сборки и зависимостей — открывается как обычная статическая страница.
 'use strict';
 
-const REPO = 'DalniyX/narrata-releases';
+// Репозиторий релизов — из настроек программы (site-config.js собирает scripts/site-config.mjs).
+const REPO = (typeof SITE !== 'undefined' && SITE.repo) || 'DalniyX/narrata-releases';
 const LANG_KEY = 'narrata_lang';
 const CACHE_KEY = 'narrata_release_cache_v2';
 const CACHE_TTL = 10 * 60 * 1000; // 10 минут — как кеш аналитики в Narrata Studio
