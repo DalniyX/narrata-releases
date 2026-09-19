@@ -102,12 +102,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--accent-2), var(--accent-3)); z-index: 60; width: 0%; transition: width .1s linear; }
 
 /* ---------- шапка ---------- */
-/* position: sticky вместо fixed: у fixed-элементов на некоторых мобильных браузерах (в том числе
-   iOS Safari с viewport-fit=cover) ширина считается не от видимой области экрана, а от более
-   широкого «истинного» вьюпорта — шапку справа обрезает. sticky живёт в обычном потоке страницы
-   и такому не подвержен в принципе; «прилипание» к верху при прокрутке выглядит так же. */
+/* Шапка стоит вверху страницы и при прокрутке уезжает вместе с ней — не закрывает текст.
+   Вернуться наверх — круглая кнопка .to-top внизу справа. */
 header.site {
-  position: sticky; top: 14px; z-index: 50;
+  position: relative; z-index: 50;
   width: calc(100% - 28px); max-width: 980px; margin: 14px auto 0; border-radius: 18px;
   background: rgba(9, 9, 11, .7); backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
   border: 1px solid rgba(255,255,255,.08); transition: box-shadow .3s ease, background .3s ease;
@@ -123,7 +121,7 @@ header.site.scrolled { box-shadow: 0 10px 40px rgba(0,0,0,.45); background: rgba
 .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(255,255,255,.05); }
 .nav-right { display: flex; align-items: center; gap: 8px; }
 @media (max-width: 380px) {
-  header.site { top: 8px; width: calc(100% - 16px); margin-top: 8px; border-radius: 16px; }
+  header.site { width: calc(100% - 16px); margin-top: 8px; border-radius: 16px; }
   .nav-row { padding: 8px 8px 8px 12px; }
   .brand-name { display: none; }
 }
@@ -372,6 +370,23 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--line); }
 .foot-links .icon { width: 14px; height: 14px; }
 .foot-copy { font-size: 12px; color: var(--faint); }
 
+/* ---------- кнопка «Наверх»: появляется, когда страницу прокрутили вниз ----------
+   Не position: fixed — на части мобильных браузеров fixed-элемент считает ширину от «истинного» вьюпорта
+   и справа обрезается. Обёртка нулевой высоты прилипает к низу экрана (sticky),
+   а кнопка внутри неё стоит абсолютно — ширина берётся от самой страницы. */
+.to-top-dock { position: sticky; bottom: 0; height: 0; z-index: 55; pointer-events: none; }
+.to-top {
+  position: absolute; right: calc(20px + env(safe-area-inset-right)); bottom: calc(20px + env(safe-area-inset-bottom));
+  width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: var(--text); background: rgba(24, 24, 27, .82); border: 1px solid var(--line-strong); cursor: pointer;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 8px 26px rgba(0,0,0,.45);
+  opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .25s ease, transform .25s var(--ease), background .2s ease, border-color .2s ease;
+}
+.to-top.visible { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover { background: var(--accent-2); border-color: var(--accent-2); }
+.to-top .icon { width: 20px; height: 20px; transform: rotate(-90deg); }
+@media (max-width: 480px) { .to-top { width: 42px; height: 42px; right: calc(14px + env(safe-area-inset-right)); bottom: calc(14px + env(safe-area-inset-bottom)); } }
+
 /* ---------- значок «Руководство» в шапке: на узких экранах, где нет строки ссылок ---------- */
 .nav-guide { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; color: var(--muted); background: rgba(255,255,255,.05); border: 1px solid var(--line-strong); transition: color .2s ease, background .2s ease; }
 .nav-guide:hover { color: var(--text); background: rgba(255,255,255,.09); }
@@ -385,7 +400,7 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--line); }
 .guide-back:hover { color: var(--text); }
 .guide-head h1 { font-size: clamp(30px, 5vw, 48px); font-weight: 800; letter-spacing: -.02em; line-height: 1.08; margin: 0 0 10px; }
 .guide-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 40px; align-items: start; }
-.guide-nav { position: sticky; top: 96px; max-height: calc(100vh - 116px); overflow-y: auto; scrollbar-width: thin; }
+.guide-nav { position: sticky; top: 24px; max-height: calc(100vh - 48px); overflow-y: auto; scrollbar-width: thin; }
 .guide-search { display: flex; align-items: center; gap: 8px; padding: 0 12px; margin-bottom: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; color: var(--faint); }
 .guide-search:focus-within { border-color: rgba(91,91,240,.55); }
 .guide-search input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--text); font: inherit; font-size: 13.5px; padding: 10px 0; }
@@ -396,7 +411,7 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--line); }
 #guideToc a:hover { background: rgba(255,255,255,.04); }
 #guideToc a.active { background: var(--accent-soft); border-left-color: var(--accent-2); }
 #guideToc a.active b { color: var(--text); }
-.guide-section { scroll-margin-top: 96px; padding: 28px 30px; margin-bottom: 18px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+.guide-section { scroll-margin-top: 24px; padding: 28px 30px; margin-bottom: 18px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
 .guide-section h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; margin: 0 0 14px; }
 .guide-body { color: #d4d4d8; font-size: 15px; line-height: 1.7; }
 .guide-body p { margin: 0 0 12px; }
