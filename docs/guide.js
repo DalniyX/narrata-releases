@@ -109,7 +109,7 @@
         if (!current) return;
         $$('#guideToc a').forEach((a) => a.classList.toggle('active', a.dataset.id === current));
       },
-      { rootMargin: '-90px 0px -55% 0px' }
+      { rootMargin: '-24px 0px -55% 0px' }
     );
     $$('.guide-section').forEach((s) => observer.observe(s));
   }
@@ -135,9 +135,12 @@
     );
     $('#guideSearch').addEventListener('input', applySearch);
 
-    const header = $('#siteHeader');
-    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+    // Кнопка «Наверх» — видна, когда прокрутили дальше первого экрана.
+    const toTop = $('#toTop');
+    const onScroll = () => toTop?.classList.toggle('visible', window.scrollY > window.innerHeight * 0.8);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    toTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }));
   });
 })();
