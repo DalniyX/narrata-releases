@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="site.css?v=19">
+<link rel="stylesheet" href="site.css?v=21">
 </head>
 <body>
 
@@ -176,6 +176,22 @@
     </div>
   </section>
 
+  <!-- ===== ДЛЯ КОГО ===== -->
+  <section class="audience" id="audience">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="audience.eyebrow">Для кого</span>
+        <h2 class="title" data-i18n="audience.title">Кому это пригодится</h2>
+      </div>
+      <div class="aud-grid">
+        <div class="aud-card reveal"><svg class="icon" aria-hidden="true"><use href="#i-branch"/></svg><b data-i18n="audience.narrative">Нарративным дизайнерам</b><span data-i18n="audience.narrativeText">Ветвящиеся диалоги, условия и переменные — и проверка, что игрок нигде не застрянет.</span></div>
+        <div class="aud-card reveal d1"><svg class="icon" aria-hidden="true"><use href="#i-package"/></svg><b data-i18n="audience.indie">Инди-разработчикам</b><span data-i18n="audience.indieText">История и данные готовы к движку: Unity, Godot, Unreal, Ren’Py, Ink, Yarn Spinner.</span></div>
+        <div class="aud-card reveal d2"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><b data-i18n="audience.novel">Авторам визуальных новелл</b><span data-i18n="audience.novelText">Портреты, реплики и выборы; готовый диалог можно пройти прямо в браузере.</span></div>
+        <div class="aud-card reveal d3"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><b data-i18n="audience.teams">Небольшим командам</b><span data-i18n="audience.teamsText">Общий проект через GitHub: роли, задачи, чат и проверка правок — без своего сервера.</span></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== GALLERY ===== -->
   <section class="gallery" id="screenshots">
     <div class="container">
@@ -211,6 +227,24 @@
       </div>
       <div class="rm-grid" id="roadmapGrid"></div>
       <p class="rm-foot" id="roadmapFoot" hidden></p>
+    </div>
+  </section>
+
+  <!-- ===== ЧАСТЫЕ ВОПРОСЫ ===== -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="faq.eyebrow">Вопросы</span>
+        <h2 class="title" data-i18n="faq.title">Коротко о главном</h2>
+      </div>
+      <div class="faq-list reveal">
+        <details class="faq-item"><summary data-i18n="faq.q1">Это правда бесплатно?</summary><p data-i18n="faq.a1">Да. Без подписок, рекламы и платных функций: все возможности доступны сразу. Поддержать разработку можно по желанию — на Boosty или разовым донатом.</p></details>
+        <details class="faq-item"><summary data-i18n="faq.q2">Где хранятся мои проекты?</summary><p data-i18n="faq.a2">У вас: папкой на диске или внутри программы. Графы и документы — обычные файлы JSON и Markdown, их можно открыть и без Narrata. Ничего не уходит в интернет, пока вы сами не подключите репозиторий GitHub.</p></details>
+        <details class="faq-item"><summary data-i18n="faq.q3">Нужен ли сервер или аккаунт?</summary><p data-i18n="faq.a3">Нет. Программа работает без аккаунта и без сервера. GitHub нужен, только если хотите синхронизацию между устройствами или командную работу — хватит бесплатного репозитория.</p></details>
+        <details class="faq-item"><summary data-i18n="faq.q4">Чем отличается от Twine, Ink или articy:draft?</summary><p data-i18n="faq.a4">Narrata — рабочая среда целиком: граф, персонажи, документы и холст в одном проекте, с проверкой сценария и командной работой. Ink и Yarn Spinner — языки сценариев, и Narrata в них экспортирует; из Twine и Ink можно импортировать. От articy:draft отличается тем, что бесплатна и хранит проект обычными файлами.</p></details>
+        <details class="faq-item"><summary data-i18n="faq.q5">Windows пишет «Неизвестный издатель». Это нормально?</summary><p data-i18n="faq.a5">Да. У установщика пока нет платной цифровой подписи. Нажмите «Подробнее» → «Выполнить в любом случае». Файлы выкладываются только на странице релизов GitHub — скачивайте оттуда.</p></details>
+        <details class="faq-item"><summary data-i18n="faq.q6">Работает ли на телефоне?</summary><p data-i18n="faq.a6">Да, есть версия для Android с теми же проектами и самообновлением. Удобнее всего на планшете: графу и холсту нужен простор.</p></details>
+      </div>
     </div>
   </section>
 
@@ -311,9 +345,9 @@
 <!-- кнопка «Наверх» — появляется при прокрутке вниз -->
 <div class="to-top-dock"><button type="button" class="to-top" id="toTop" data-i18n-aria="nav.toTop" aria-label="Наверх"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
 
-<script src="site-config.js?v=19"></script>
-<script src="i18n.js?v=19"></script>
-<script src="app.js?v=19"></script>
+<script src="site-config.js?v=21"></script>
+<script src="i18n.js?v=21"></script>
+<script src="app.js?v=21"></script>
 <script>
   // Снимаем блокировку показа страницы сразу после того, как app.js подставил тексты.
   document.documentElement.classList.remove('i18n-boot');
