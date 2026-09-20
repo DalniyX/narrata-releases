@@ -1,5 +1,28 @@
 # What's new
 
+## 2.6.1 — 2026-09-20
+
+### What's new
+- **Live mode for notes** — a fourth view next to “Text”, “Side by side” and “Preview”: the text is shown formatted right away, while asterisks, hashes and backticks stay hidden. The symbols come back exactly where the cursor is, so the markup can still be edited by hand. Lists use bullets, wiki links drop their square brackets, “- [ ]” and “- [x]” become real checkboxes (a click ticks the task), images are shown inline, and typing “[[” suggests the names of the project’s files.
+- **A “Chance” node** in the Logic group: the playthrough takes one of the outgoing links by itself, and each share is written in the link label — “60%”, “40%”. Links without a label split the rest evenly, so two empty links are exactly 50-50. It works in the simulator, in “Play” on the canvas and in the playable HTML. For a chance inside a condition there is a `random` variable (a whole number from 0 to 99): “random < 30” fires in 30% of cases.
+- **Project settings** (“Project → Project settings…”) — everything about the open project in one window: name and colour, where it is stored, backups, the GitHub connection, writing goals and “Forget the project”.
+
+### Improvements
+- **Graphs open readable**: they used to be fitted whole, turning a large scene into tiny coloured rectangles. “Fit all” (Shift+F) still fits the graph without limits.
+- **The inspector no longer covers the node** you are editing: if the node ends up under the panel, the canvas shifts by itself.
+- **First steps tick themselves off**: a graph created, nodes connected, a character added, the check run, the guide opened — the ticks follow what you actually did, and the header shows “3 of 5”.
+- **The empty editor lists recent files** instead of repeating the project tree.
+- `characters.json` **is out of the way** in the tree: characters are edited in the World workspace, and the file can be brought back with “Show service files” in “Settings → Files and links”.
+- **File preview explains why it did not open**: the file is over 40 MB, the format cannot be displayed, the file is missing from disk or another program is holding it.
+- **Updates no longer install an in-between version.** If you skipped a few releases, the previously downloaded file is removed and the newest version is installed straight away.
+- **The Team workspace says plainly when the sign-in is gone**: the windows used to open as usual and quietly sync nothing. Now it shows that this is the copy stored on the device, with “Sign in” and “Disconnect” right there.
+
+### Design
+- **The light theme is no longer flat.** The backdrop, panels and cards were all the same white, and borders barely differed from the background. Now there are three levels of depth and visible lines; the black graph toolbar, black code chips, unreadable labels in the note graph and character relations, dark canvas cards and pale coloured tags are fixed along the way.
+- **The project colour stripe** in the header became soft — the colour is still there, but it no longer pulls the eye.
+- **The node inspector reads calmer**: field labels are set in normal text, and caps are left only on section headings.
+- The settings window no longer stretches over half the screen for a short section, and in the character list on a phone the role is not cut down to “Prota…”.
+
 ## 2.6.0 — 2026-09-20
 
 ### What's new
