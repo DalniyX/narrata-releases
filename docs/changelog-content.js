@@ -5,6 +5,28 @@ const CHANGES = {
  "ru": {
   "versions": [
    {
+    "version": "2.6.1",
+    "date": "2026-09-20",
+    "intro": "",
+    "groups": [
+     {
+      "title": "Новое",
+      "kind": "new",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>Живой режим заметок\u003c/strong> — четвёртый вид рядом с «Текст», «Рядом» и «Просмотр»: текст сразу виден с форматированием, а звёздочки, решётки и кавычки спрятаны. Символы возвращаются ровно там, где стоит курсор, поэтому разметку по-прежнему можно править руками. Списки идут точками, вики-ссылки — без квадратных скобок, «- [ ]» и «- [x]» становятся настоящими флажками (щелчок отмечает задачу), картинки показываются прямо в тексте, а после «[[» подсказываются имена файлов проекта.\u003c/li>\n\u003cli>\u003cstrong>Узел «Случайность»\u003c/strong> в группе «Логика»: прохождение само уходит по одной из связей, а доля каждой пишется в её подписи — «60%», «40%». Связи без подписи делят остаток поровну, поэтому две пустые связи дают ровно 50 на 50. Работает и в симуляторе, и в «Играть» на холсте, и в играбельном HTML. Для шанса внутри условия есть переменная \u003ccode>random\u003c/code> (целое от 0 до 99): «random &lt; 30» срабатывает в 30% случаев.\u003c/li>\n\u003cli>\u003cstrong>Настройки проекта\u003c/strong> («Проект → Настройки проекта…») — всё про открытый проект в одном окне: название и цвет, где он хранится, резервные копии, связь с GitHub, цели по тексту и «Забыть проект».\u003c/li>\n\u003c/ul>"
+     },
+     {
+      "title": "Улучшения",
+      "kind": "improve",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>Граф открывается читаемым\u003c/strong>: раньше он вписывался целиком и на большой сцене превращался в мелкие цветные прямоугольники. «Показать всё» (Shift+F) по-прежнему вмещает граф без ограничений.\u003c/li>\n\u003cli>\u003cstrong>Инспектор больше не закрывает узел\u003c/strong>, который правишь: если узел оказался под панелью, холст сдвигается сам.\u003c/li>\n\u003cli>\u003cstrong>Первые шаги отмечаются сами\u003c/strong>: создан граф, связаны узлы, заведён персонаж, пройдена проверка, открыто руководство — галочки ставятся по факту сделанного, а в заголовке видно «3 из 5».\u003c/li>\n\u003cli>\u003cstrong>Пустой редактор показывает недавние файлы\u003c/strong> вместо повторения дерева проекта.\u003c/li>\n\u003cli>\u003ccode>characters.json\u003c/code> \u003cstrong>больше не мешается\u003c/strong> в дереве: персонажи правятся в среде «Мир», а файл можно вернуть переключателем «Показывать служебные файлы» в «Настройки → Файлы и ссылки».\u003c/li>\n\u003cli>\u003cstrong>Предпросмотр файла объясняет, почему не открылся\u003c/strong>: файл больше 40 МБ, формат не показывается, файла нет на диске или он занят другой программой.\u003c/li>\n\u003cli>\u003cstrong>Обновления больше не ставят промежуточную версию.\u003c/strong> Если вы пропустили несколько выпусков, скачанный ранее файл удаляется, и устанавливается сразу свежая версия.\u003c/li>\n\u003cli>\u003cstrong>Среда «Команда» честно говорит, что вход потерян\u003c/strong>: раньше окна открывались как обычно и молча ничего не синхронизировали. Теперь видно, что показана копия на устройстве, и рядом кнопки «Войти» и «Отключить проект».\u003c/li>\n\u003c/ul>"
+     },
+     {
+      "title": "Оформление",
+      "kind": "design",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>Светлая тема перестала быть плоской.\u003c/strong> Подложка, панели и карточки были одним белым цветом, а границы почти не отличались от фона. Теперь три уровня глубины и заметные линии; заодно починены чёрная панель графа, чёрные плашки кода, нечитаемые подписи в графе заметок и в связях персонажей, тёмные карточки холста и бледные цветные метки.\u003c/li>\n\u003cli>\u003cstrong>Полоса цвета проекта\u003c/strong> в шапке стала мягкой — цвет различим, но внимание не тянет.\u003c/li>\n\u003cli>\u003cstrong>Инспектор узла читается спокойнее\u003c/strong>: подписи полей набраны обычным текстом, капс остался только у заголовков разделов.\u003c/li>\n\u003cli>Окно настроек больше не растягивается на пол-экрана при коротком разделе, а в списке персонажей на телефоне роль не обрезается до «Наста…».\u003c/li>\n\u003c/ul>"
+     }
+    ]
+   },
+   {
     "version": "2.6.0",
     "date": "2026-09-20",
     "intro": "",
@@ -505,6 +527,28 @@ const CHANGES = {
  },
  "en": {
   "versions": [
+   {
+    "version": "2.6.1",
+    "date": "2026-09-20",
+    "intro": "",
+    "groups": [
+     {
+      "title": "What's new",
+      "kind": "new",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>Live mode for notes\u003c/strong> — a fourth view next to “Text”, “Side by side” and “Preview”: the text is shown formatted right away, while asterisks, hashes and backticks stay hidden. The symbols come back exactly where the cursor is, so the markup can still be edited by hand. Lists use bullets, wiki links drop their square brackets, “- [ ]” and “- [x]” become real checkboxes (a click ticks the task), images are shown inline, and typing “[[” suggests the names of the project’s files.\u003c/li>\n\u003cli>\u003cstrong>A “Chance” node\u003c/strong> in the Logic group: the playthrough takes one of the outgoing links by itself, and each share is written in the link label — “60%”, “40%”. Links without a label split the rest evenly, so two empty links are exactly 50-50. It works in the simulator, in “Play” on the canvas and in the playable HTML. For a chance inside a condition there is a \u003ccode>random\u003c/code> variable (a whole number from 0 to 99): “random &lt; 30” fires in 30% of cases.\u003c/li>\n\u003cli>\u003cstrong>Project settings\u003c/strong> (“Project → Project settings…”) — everything about the open project in one window: name and colour, where it is stored, backups, the GitHub connection, writing goals and “Forget the project”.\u003c/li>\n\u003c/ul>"
+     },
+     {
+      "title": "Improvements",
+      "kind": "improve",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>Graphs open readable\u003c/strong>: they used to be fitted whole, turning a large scene into tiny coloured rectangles. “Fit all” (Shift+F) still fits the graph without limits.\u003c/li>\n\u003cli>\u003cstrong>The inspector no longer covers the node\u003c/strong> you are editing: if the node ends up under the panel, the canvas shifts by itself.\u003c/li>\n\u003cli>\u003cstrong>First steps tick themselves off\u003c/strong>: a graph created, nodes connected, a character added, the check run, the guide opened — the ticks follow what you actually did, and the header shows “3 of 5”.\u003c/li>\n\u003cli>\u003cstrong>The empty editor lists recent files\u003c/strong> instead of repeating the project tree.\u003c/li>\n\u003cli>\u003ccode>characters.json\u003c/code> \u003cstrong>is out of the way\u003c/strong> in the tree: characters are edited in the World workspace, and the file can be brought back with “Show service files” in “Settings → Files and links”.\u003c/li>\n\u003cli>\u003cstrong>File preview explains why it did not open\u003c/strong>: the file is over 40 MB, the format cannot be displayed, the file is missing from disk or another program is holding it.\u003c/li>\n\u003cli>\u003cstrong>Updates no longer install an in-between version.\u003c/strong> If you skipped a few releases, the previously downloaded file is removed and the newest version is installed straight away.\u003c/li>\n\u003cli>\u003cstrong>The Team workspace says plainly when the sign-in is gone\u003c/strong>: the windows used to open as usual and quietly sync nothing. Now it shows that this is the copy stored on the device, with “Sign in” and “Disconnect” right there.\u003c/li>\n\u003c/ul>"
+     },
+     {
+      "title": "Design",
+      "kind": "design",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>The light theme is no longer flat.\u003c/strong> The backdrop, panels and cards were all the same white, and borders barely differed from the background. Now there are three levels of depth and visible lines; the black graph toolbar, black code chips, unreadable labels in the note graph and character relations, dark canvas cards and pale coloured tags are fixed along the way.\u003c/li>\n\u003cli>\u003cstrong>The project colour stripe\u003c/strong> in the header became soft — the colour is still there, but it no longer pulls the eye.\u003c/li>\n\u003cli>\u003cstrong>The node inspector reads calmer\u003c/strong>: field labels are set in normal text, and caps are left only on section headings.\u003c/li>\n\u003cli>The settings window no longer stretches over half the screen for a short section, and in the character list on a phone the role is not cut down to “Prota…”.\u003c/li>\n\u003c/ul>"
+     }
+    ]
+   },
    {
     "version": "2.6.0",
     "date": "2026-09-20",
