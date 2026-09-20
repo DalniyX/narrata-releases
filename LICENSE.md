@@ -1,6 +1,6 @@
 # Лицензионное соглашение с конечным пользователем Narrata
 
-Редакция от 13 сентября 2026 г.
+Редакция от 20 сентября 2026 г.
 
 Настоящее соглашение заключается между вами (далее — «Пользователь») и правообладателем программы Narrata — DalniyX (далее — «Правообладатель»). Устанавливая, копируя, запуская или иным образом используя Narrata, вы подтверждаете, что прочитали соглашение и принимаете его условия. Если вы не согласны с условиями, не устанавливайте и не используйте программу.
 
@@ -18,6 +18,8 @@
 
 2.3. Добровольная поддержка автора (пожертвования, подписки) не является оплатой лицензии и не даёт дополнительных прав или гарантий.
 
+2.4. Программа не предназначена для лиц младше 13 лет. Если Пользователю менее 13 лет, использовать Программу можно только с согласия родителя или иного законного представителя, который принимает условия соглашения от его имени и отвечает за их соблюдение.
+
 ## 3. Ограничения
 
 Если иное прямо не разрешено применимым законом, Пользователь не вправе:
@@ -25,12 +27,13 @@
 - декомпилировать, дизассемблировать Программу, извлекать из неё исходный код, изменять её или создавать производные продукты на её основе;
 - обходить технические средства защиты, проверки целостности и цифровой подписи;
 - распространять, продавать, сдавать в аренду или сублицензировать Программу и её изменённые копии, а также размещать установщики на сторонних ресурсах без письменного разрешения Правообладателя (ссылки на официальную страницу загрузки разрешены);
+- извлекать из Программы графику, фоны, значки, иллюстрации и элементы оформления интерфейса и использовать их отдельно от Программы;
 - удалять или изменять сведения об авторстве, товарные знаки и уведомления об авторских правах;
 - использовать Программу для нарушения закона или прав третьих лиц.
 
 ## 4. Интеллектуальная собственность
 
-4.1. Исключительное право на Программу, её код, дизайн, название и логотип принадлежит Правообладателю. Соглашение не передаёт Пользователю этих прав, кроме прямо указанных в разделе 2.
+4.1. Исключительное право на Программу, её код, дизайн, название и логотип, а также на графику, фоны, значки, иллюстрации и оформление интерфейса принадлежит Правообладателю. Соглашение не передаёт Пользователю этих прав, кроме прямо указанных в разделе 2.
 
 4.2. В Программу входят компоненты с открытым исходным кодом (Electron, React и другие). Они распространяются на условиях собственных лицензий (MIT, Apache 2.0, BSD и других), и в отношении этих компонентов такие условия имеют приоритет.
 
@@ -48,7 +51,7 @@
 
 6.2. Проекты хранятся на устройстве Пользователя, а при подключении GitHub — также в репозиториях GitHub, выбранных Пользователем. Ключ доступа к GitHub хранится только на устройстве и шифруется средствами системы или паролем Пользователя.
 
-6.3. Программа обращается к интернету, чтобы: проверять и загружать обновления из GitHub Releases; загружать список благодарностей и переводы интерфейса; работать с GitHub по действию Пользователя (вход, синхронизация, задачи, чат); отправлять обращения из окна «Обратная связь» на сервер обратной связи Правообладателя, если Пользователь сам их отправит (обращения публикуются в открытом списке задач на GitHub); открывать ссылки, выбранные Пользователем.
+6.3. Программа обращается к интернету, чтобы: проверять и загружать обновления из GitHub Releases, в том числе запасной список версий (файл `updates.json` в репозитории релизов), когда GitHub ограничивает число запросов; загружать список благодарностей и переводы интерфейса; работать с GitHub по действию Пользователя (вход, синхронизация, задачи, чат); отправлять обращения из окна «Обратная связь» на сервер обратной связи Правообладателя, если Пользователь сам их отправит (обращения публикуются в открытом списке задач на GitHub); открывать ссылки, выбранные Пользователем.
 
 6.4. Сведения об ошибках хранятся на устройстве и передаются, только если Пользователь сам отправит отчёт.
 
@@ -106,7 +109,7 @@ Copyright © 2026 DalniyX
 
 # Narrata End User License Agreement
 
-Version of September 13, 2026
+Version of September 20, 2026
 
 This agreement is made between you (the "User") and the owner of the Narrata software, DalniyX (the "Licensor"). By installing, copying, running or otherwise using Narrata, you confirm that you have read this agreement and accept its terms. If you do not agree, do not install or use the software.
 
@@ -124,6 +127,8 @@ This agreement is made between you (the "User") and the owner of the Narrata sof
 
 2.3. Voluntary support of the author (donations, subscriptions) is not a license fee and grants no additional rights or warranties.
 
+2.4. The Software is not intended for people under 13. If the User is under 13, the Software may be used only with the consent of a parent or other legal guardian, who accepts this agreement on their behalf and is responsible for compliance with it.
+
 ## 3. Restrictions
 
 Unless expressly permitted by applicable law, the User may not:
@@ -131,12 +136,13 @@ Unless expressly permitted by applicable law, the User may not:
 - decompile or disassemble the Software, extract its source code, modify it or create derivative works based on it;
 - circumvent technical protection measures, integrity checks or code signatures;
 - distribute, sell, rent or sublicense the Software or modified copies of it, or publish its installers on third-party sites without the Licensor's written permission (links to the official download page are allowed);
+- extract graphics, backgrounds, icons, illustrations or interface design elements from the Software and use them separately from it;
 - remove or alter authorship information, trademarks or copyright notices;
 - use the Software to break the law or infringe the rights of others.
 
 ## 4. Intellectual property
 
-4.1. All exclusive rights to the Software, its code, design, name and logo belong to the Licensor. This agreement transfers no rights to the User other than those expressly stated in section 2.
+4.1. All exclusive rights to the Software, its code, design, name and logo, as well as to the graphics, backgrounds, icons, illustrations and interface design, belong to the Licensor. This agreement transfers no rights to the User other than those expressly stated in section 2.
 
 4.2. The Software includes open-source components (Electron, React and others). They are distributed under their own licenses (MIT, Apache 2.0, BSD and others), and those terms prevail for the respective components.
 
@@ -154,7 +160,7 @@ Unless expressly permitted by applicable law, the User may not:
 
 6.2. Projects are stored on the User's device and, when GitHub is connected, also in the GitHub repositories chosen by the User. The GitHub access token is stored only on the device and is encrypted by the operating system or with the User's password.
 
-6.3. The Software connects to the internet to: check for and download updates from GitHub Releases; download the supporters list and interface translations; work with GitHub at the User's request (sign-in, sync, tasks, chat); send requests from the Feedback window to the Licensor's feedback server when the User sends them (requests are published in the public issue list on GitHub); open links chosen by the User.
+6.3. The Software connects to the internet to: check for and download updates from GitHub Releases, including the fallback version list (the `updates.json` file in the releases repository) when GitHub limits the number of requests; download the supporters list and interface translations; work with GitHub at the User's request (sign-in, sync, tasks, chat); send requests from the Feedback window to the Licensor's feedback server when the User sends them (requests are published in the public issue list on GitHub); open links chosen by the User.
 
 6.4. Error information is kept on the device and is sent only if the User submits a report themselves.
 
