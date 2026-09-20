@@ -5,6 +5,28 @@ const CHANGES = {
  "ru": {
   "versions": [
    {
+    "version": "2.6.0",
+    "date": "2026-09-20",
+    "intro": "",
+    "groups": [
+     {
+      "title": "Новое",
+      "kind": "new",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>Проект одним файлом.\u003c/strong> «Файл → Экспорт и импорт → Проект в JSON…» сохраняет проект файлом \u003ccode>.narrata\u003c/code> — его удобно передать, положить в запас или открыть на другом компьютере. На Windows такой файл открывается двойным щелчком: Narrata спросит и сделает из него отдельный проект, а открытый останется на месте. Файлы прежних версий (\u003ccode>.gdbproject.json\u003c/code>) тоже открываются.\u003c/li>\n\u003cli>\u003cstrong>Раздел «Что такое Narrata»\u003c/strong> в руководстве: для кого программа, что в ней можно сделать, чем она отличается от других и чего в ней нет. «Справка → Руководство…» — и то же самое на сайте.\u003c/li>\n\u003cli>\u003cstrong>Руководство и «Что нового» на сайте\u003c/strong>: те же тексты, что в программе, с поиском, оглавлением и переключением языка — можно читать и делиться ссылкой, не открывая программу.\u003c/li>\n\u003c/ul>"
+     },
+     {
+      "title": "Оформление",
+      "kind": "design",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>Цвета узлов по смыслу\u003c/strong>: речь — индиго, логика — бирюза, содержимое — янтарь, служебные — зелёный и красный. Обводка узлов стала тоньше, с мягкой тенью: на большом графе глаз находит нужное быстрее.\u003c/li>\n\u003cli>\u003cstrong>Граф стал просторнее\u003c/strong>: панель инструментов свёрнута в плашку и раскрывается по щелчку, мини-карта приглушена, пока к ней не подвели курсор.\u003c/li>\n\u003cli>\u003cstrong>Полоса сред слева подписана\u003c/strong> — Сценарий, Мир, Произв., Команда: больше не нужно гадать по значкам.\u003c/li>\n\u003cli>\u003cstrong>Пустой редактор помогает начать\u003c/strong>: карточка «Первые шаги» с четырьмя ходами — создать граф, завести персонажа, проверить сценарий, открыть руководство. Скрывается одной кнопкой.\u003c/li>\n\u003cli>Подписи панелей и списков набраны обычным текстом вместо капса, а основным цветом стал фирменный индиго — синий остался в выборе цветов.\u003c/li>\n\u003cli>\u003cstrong>Окно обновления\u003c/strong> показывает, что именно изменилось: у разделов цветные метки (новое, исправления, улучшения, оформление), номер версии окрашен по виду выпуска.\u003c/li>\n\u003c/ul>"
+     },
+     {
+      "title": "Улучшения",
+      "kind": "improve",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>Новая редакция лицензионного соглашения\u003c/strong> от 20 сентября 2026: прямо указано, что графика, фоны, значки и оформление интерфейса защищены и не могут использоваться отдельно от программы; добавлен пункт о том, что программа не предназначена для детей младше 13 лет; уточнён список того, зачем программа обращается к интернету.\u003c/li>\n\u003cli>Исправлены ошибки и внесены мелкие улучшения.\u003c/li>\n\u003c/ul>"
+     }
+    ]
+   },
+   {
     "version": "2.5.5",
     "date": "2026-09-19",
     "intro": "",
@@ -483,6 +505,28 @@ const CHANGES = {
  },
  "en": {
   "versions": [
+   {
+    "version": "2.6.0",
+    "date": "2026-09-20",
+    "intro": "",
+    "groups": [
+     {
+      "title": "What's new",
+      "kind": "new",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>The project as a single file.\u003c/strong> “File → Export and import → Project to JSON…” saves the project as a \u003ccode>.narrata\u003c/code> file — easy to pass on, keep as a spare or open on another computer. On Windows such a file opens with a double click: Narrata asks and makes a separate project out of it, while the one open now stays as it is. Files from earlier versions (\u003ccode>.gdbproject.json\u003c/code>) still open too.\u003c/li>\n\u003cli>\u003cstrong>A “What is Narrata” section\u003c/strong> in the guide: who the app is for, what you can do in it, how it differs from others and what it deliberately does not do. “Help → Guide…” — and the same text on the website.\u003c/li>\n\u003cli>\u003cstrong>The guide and “What’s new” on the website\u003c/strong>: the same texts as in the app, with search, a table of contents and a language switch — read them or share a link without opening the app.\u003c/li>\n\u003c/ul>"
+     },
+     {
+      "title": "Design",
+      "kind": "design",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>Node colours now follow meaning\u003c/strong>: speech is indigo, logic is teal, content is amber, service nodes are green and red. Node borders became thinner with a soft shadow, so a large graph is easier to scan.\u003c/li>\n\u003cli>\u003cstrong>The graph got roomier\u003c/strong>: the toolbar is collapsed into a chip and opens on click, and the minimap stays dimmed until you point at it.\u003c/li>\n\u003cli>\u003cstrong>The environment bar on the left is labelled\u003c/strong> — Story, World, Production, Team: no more guessing by icons.\u003c/li>\n\u003cli>\u003cstrong>An empty editor helps you start\u003c/strong>: a “First steps” card with four moves — create a graph, add a character, check the script, open the guide. One button hides it.\u003c/li>\n\u003cli>Panel and list labels are set in normal text instead of caps, and the default accent colour is now the brand indigo — blue is still there in the colour picker.\u003c/li>\n\u003cli>\u003cstrong>The update window shows what actually changed\u003c/strong>: sections carry coloured labels (new, fixes, improvements, design) and the version number is tinted by release type.\u003c/li>\n\u003c/ul>"
+     },
+     {
+      "title": "Improvements",
+      "kind": "improve",
+      "html": "\u003cul>\n\u003cli>\u003cstrong>A new revision of the license agreement\u003c/strong>, dated September 20, 2026: it now states explicitly that the graphics, backgrounds, icons and interface design are protected and may not be used separately from the app; adds a clause that the app is not intended for children under 13; and clarifies the list of what the app connects to the internet for.\u003c/li>\n\u003cli>Fixed bugs and made small improvements.\u003c/li>\n\u003c/ul>"
+     }
+    ]
+   },
    {
     "version": "2.5.5",
     "date": "2026-09-19",
