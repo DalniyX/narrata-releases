@@ -14,9 +14,11 @@
 
 <p align="center"><a href="https://github.com/DalniyX/narrata-releases/releases/latest"><b>⬇️ Download for Windows and Android</b></a></p>
 
-<p align="center"><sub>Full change history: <a href="CHANGELOG.en.md">English</a> · <a href="CHANGELOG.md">русский</a></sub></p>
+<p align="center"><sub><a href="https://dalniyx.github.io/narrata-releases/changelog.html">What’s new</a> · Full change history: <a href="CHANGELOG.en.md">English</a> · <a href="CHANGELOG.md">русский</a></sub></p>
 
-<p align="center"><img src="docs/screenshots/01-%D0%B3%D1%80%D0%B0%D1%84-%D1%81%D1%8E%D0%B6%D0%B5%D1%82%D0%B0.png" alt="Граф сцены: реплики, выборы, условия и переменные" width="900"></p>
+<p align="center"><img src="docs/screenshots/01-graph.png" alt="Story graph: lines, choices, conditions and variables" width="900"></p>
+
+<p align="center"><img src="docs/screenshots/02-character-card.png" alt="Character card: role, goal, arc and relationships" width="440"> <img src="docs/screenshots/03-canvas.png" alt="Canvas: notes, documents and pictures on one board" width="440"></p>
 
 ## Features
 
@@ -33,16 +35,15 @@
 ## Installation
 
 - **Windows 10 and 11** — download `Narrata-Setup-….exe` from the [releases page](https://github.com/DalniyX/narrata-releases/releases/latest) and run it. The installer is not code-signed yet, so Windows may show “Unknown publisher”: click “More info” → “Run anyway”. After that the app updates itself.
-- **Android** — download the `.apk` from the same page and open it on the device; allow installs from this source once. The app offers new versions by itself. **A tablet is recommended**: everything works on a phone, but graphs and the canvas have more room on a big screen.
+- **Android** — download the `.apk` from the same page and open it on the device; allow installs from this source once. The app offers new versions by itself. A tablet works best: everything runs on a phone, but graphs and the canvas have more room on a big screen.
 
 ### Requirements
 
 | 🪟 Windows | 🤖 Android |
 | --- | --- |
-| Windows 10 (1809) or 11, 64-bit | Android 7.0 or newer |
+| Windows 10 (1809) or 11, 64-bit | Android 7.0 or newer · 📱 a tablet works best |
 | 4 GB RAM, 400 MB of disk space | An up-to-date Android System WebView |
 | Updates itself, no administrator rights needed | Stable versions only — betas ship for Windows |
-|  | 📱 A tablet is recommended |
 
 ## Community and support
 
