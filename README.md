@@ -60,9 +60,9 @@ Narrata is closed-source software; this repository only hosts the installers. In
 <!-- narrata:landing:end -->
 
 <!-- narrata:supporters:start -->
-## ❤️ Благодарности
+## ❤️ Thanks
 
-Спасибо всем, кто поддерживает Narrata!
+Thank you to everyone who supports Narrata!
 
-_Список пока пуст — станьте первым._
+_The list is empty so far — be the first._
 <!-- narrata:supporters:end -->
