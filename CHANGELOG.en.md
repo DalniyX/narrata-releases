@@ -1,5 +1,24 @@
 # What's new
 
+## 2.6.0 — 2026-09-20
+
+### What's new
+- **The project as a single file.** “File → Export and import → Project to JSON…” saves the project as a `.narrata` file — easy to pass on, keep as a spare or open on another computer. On Windows such a file opens with a double click: Narrata asks and makes a separate project out of it, while the one open now stays as it is. Files from earlier versions (`.gdbproject.json`) still open too.
+- **A “What is Narrata” section** in the guide: who the app is for, what you can do in it, how it differs from others and what it deliberately does not do. “Help → Guide…” — and the same text on the website.
+- **The guide and “What’s new” on the website**: the same texts as in the app, with search, a table of contents and a language switch — read them or share a link without opening the app.
+
+### Design
+- **Node colours now follow meaning**: speech is indigo, logic is teal, content is amber, service nodes are green and red. Node borders became thinner with a soft shadow, so a large graph is easier to scan.
+- **The graph got roomier**: the toolbar is collapsed into a chip and opens on click, and the minimap stays dimmed until you point at it.
+- **The environment bar on the left is labelled** — Story, World, Production, Team: no more guessing by icons.
+- **An empty editor helps you start**: a “First steps” card with four moves — create a graph, add a character, check the script, open the guide. One button hides it.
+- Panel and list labels are set in normal text instead of caps, and the default accent colour is now the brand indigo — blue is still there in the colour picker.
+- **The update window shows what actually changed**: sections carry coloured labels (new, fixes, improvements, design) and the version number is tinted by release type.
+
+### Improvements
+- **A new revision of the license agreement**, dated September 20, 2026: it now states explicitly that the graphics, backgrounds, icons and interface design are protected and may not be used separately from the app; adds a clause that the app is not intended for children under 13; and clarifies the list of what the app connects to the internet for.
+- Fixed bugs and made small improvements.
+
 ## 2.5.5 — 2026-09-19
 
 ### What's new
