@@ -1,3 +1,16 @@
 {
-  "items": []
+  "updatedAt": "2026-09-20",
+  "items": [
+    {
+      "status": "planned",
+      "title": {
+        "ru": "Работа без GitHub: своё хранилище Narrata",
+        "en": "Working without GitHub: Narrata's own storage"
+      },
+      "text": {
+        "ru": "Сейчас команда и синхронизация живут в вашем репозитории GitHub — это бесплатно и надёжно, но требует аккаунта. Когда-нибудь появится второй путь: вход по почте и хранилище Narrata, где проекты сами синхронизируются между устройствами и участниками, а доступ выдаётся и отзывается мгновенно. Работа без интернета, локальная копия проекта и выгрузка в обычные файлы останутся в любом случае, режим GitHub никуда не денется — он будет выбором при создании проекта. Сама программа останется бесплатной: хранилище — отдельная услуга, потому что серверы стоят денег.",
+        "en": "Today teamwork and sync live in your own GitHub repository — free and reliable, but it needs an account. One day there will be a second way: sign-in by email and Narrata's own storage, where projects sync between devices and teammates on their own and access can be granted or revoked instantly. Offline work, the local copy of the project and exporting it to ordinary files stay in any case, and the GitHub mode is not going anywhere — it will be a choice when a project is created. The app itself stays free: storage is a separate service, because servers cost money."
+      }
+    }
+  ]
 }
