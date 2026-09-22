@@ -69,28 +69,7 @@
       "prerelease": false,
       "published_at": "2026-09-18T17:30:25Z",
       "html_url": "https://github.com/DalniyX/narrata-releases/releases/tag/v2.5.3",
-      "assets": [
-        {
-          "name": "latest.yml",
-          "size": 4067,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.3/latest.yml"
-        },
-        {
-          "name": "Narrata-2.5.3.apk",
-          "size": 4588557,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.3/Narrata-2.5.3.apk"
-        },
-        {
-          "name": "Narrata-Setup-2.5.3.exe",
-          "size": 93076429,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.3/Narrata-Setup-2.5.3.exe"
-        },
-        {
-          "name": "Narrata-Setup-2.5.3.exe.blockmap",
-          "size": 97971,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.3/Narrata-Setup-2.5.3.exe.blockmap"
-        }
-      ]
+      "assets": []
     },
     {
       "tag_name": "v2.5.2",
@@ -101,21 +80,6 @@
       "published_at": "2026-09-16T04:37:19Z",
       "html_url": "https://github.com/DalniyX/narrata-releases/releases/tag/v2.5.2",
       "assets": [
-        {
-          "name": "latest.yml",
-          "size": 3064,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.2/latest.yml"
-        },
-        {
-          "name": "Narrata-2.5.2.apk",
-          "size": 4583569,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.2/Narrata-2.5.2.apk"
-        },
-        {
-          "name": "Narrata-Setup-2.5.2.exe",
-          "size": 93060295,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.2/Narrata-Setup-2.5.2.exe"
-        },
         {
           "name": "Narrata-Setup-2.5.2.exe.blockmap",
           "size": 98158,
