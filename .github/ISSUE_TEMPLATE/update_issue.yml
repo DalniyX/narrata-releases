@@ -1,0 +1,32 @@
+name: "Проблема с обновлением"
+description: "Обновление не скачалось, не установилось или программа не открылась после"
+title: "[Обновление] "
+labels: ["bug"]
+body:
+  - type: input
+    id: from
+    attributes:
+      label: С какой версии обновлялись
+    validations:
+      required: true
+  - type: input
+    id: to
+    attributes:
+      label: На какую версию
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Платформа
+      options:
+        - Windows
+        - Android
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: Что произошло
+    validations:
+      required: true

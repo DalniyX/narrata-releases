@@ -1,0 +1,55 @@
+name: "Сообщить об ошибке"
+description: "Что-то сломалось или работает не так"
+title: "[Ошибка] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо, что сообщаете об ошибке! Заполните поля ниже — это поможет быстрее разобраться.
+
+        **Важно:** задача будет видна всем в открытом списке — не прикладывайте сюда пароли, токены доступа или личные данные. Если нашли уязвимость (что-то, что может навредить другим пользователям), не публикуйте её здесь — напишите разработчику напрямую.
+  - type: input
+    id: version
+    attributes:
+      label: Версия Narrata
+      description: "Справка → О программе"
+      placeholder: "2.6.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Платформа
+      options:
+        - Windows
+        - Android
+        - Веб-версия
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: Что произошло
+      description: Опишите проблему как можно точнее
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Как повторить
+      description: Шаги, которые приводят к ошибке
+      placeholder: |
+        1. Откройте...
+        2. Нажмите...
+        3. Видно, что...
+  - type: textarea
+    id: expected
+    attributes:
+      label: Что ожидали увидеть
+  - type: textarea
+    id: log
+    attributes:
+      label: Журнал ошибок (необязательно)
+      description: "Справка → Обратная связь → «Журнал» → «Скопировать». Не содержит текстов проекта, сообщений и токенов."
+      render: text
