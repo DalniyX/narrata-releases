@@ -109,13 +109,7 @@
       "prerelease": false,
       "published_at": "2026-09-13T20:40:39Z",
       "html_url": "https://github.com/DalniyX/narrata-releases/releases/tag/v2.4.2",
-      "assets": [
-        {
-          "name": "Narrata-Setup-2.4.2.exe.blockmap",
-          "size": 98219,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.4.2/Narrata-Setup-2.4.2.exe.blockmap"
-        }
-      ]
+      "assets": []
     },
     {
       "tag_name": "v2.4.1",
