@@ -49,28 +49,7 @@
       "prerelease": false,
       "published_at": "2026-09-19T08:48:22Z",
       "html_url": "https://github.com/DalniyX/narrata-releases/releases/tag/v2.5.5",
-      "assets": [
-        {
-          "name": "latest.yml",
-          "size": 4889,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.5/latest.yml"
-        },
-        {
-          "name": "Narrata-2.5.5.apk",
-          "size": 4607246,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.5/Narrata-2.5.5.apk"
-        },
-        {
-          "name": "Narrata-Setup-2.5.5.exe",
-          "size": 93090624,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.5/Narrata-Setup-2.5.5.exe"
-        },
-        {
-          "name": "Narrata-Setup-2.5.5.exe.blockmap",
-          "size": 98057,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.5/Narrata-Setup-2.5.5.exe.blockmap"
-        }
-      ]
+      "assets": []
     },
     {
       "tag_name": "v2.5.4",
