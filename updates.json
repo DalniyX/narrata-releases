@@ -79,13 +79,7 @@
       "prerelease": false,
       "published_at": "2026-09-16T04:37:19Z",
       "html_url": "https://github.com/DalniyX/narrata-releases/releases/tag/v2.5.2",
-      "assets": [
-        {
-          "name": "Narrata-Setup-2.5.2.exe.blockmap",
-          "size": 98158,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.2/Narrata-Setup-2.5.2.exe.blockmap"
-        }
-      ]
+      "assets": []
     },
     {
       "tag_name": "v2.5.1",
@@ -95,28 +89,7 @@
       "prerelease": false,
       "published_at": "2026-09-15T21:13:46Z",
       "html_url": "https://github.com/DalniyX/narrata-releases/releases/tag/v2.5.1",
-      "assets": [
-        {
-          "name": "latest.yml",
-          "size": 6175,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.1/latest.yml"
-        },
-        {
-          "name": "Narrata-2.5.1.apk",
-          "size": 4567989,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.1/Narrata-2.5.1.apk"
-        },
-        {
-          "name": "Narrata-Setup-2.5.1.exe",
-          "size": 93054249,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.1/Narrata-Setup-2.5.1.exe"
-        },
-        {
-          "name": "Narrata-Setup-2.5.1.exe.blockmap",
-          "size": 98024,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.1/Narrata-Setup-2.5.1.exe.blockmap"
-        }
-      ]
+      "assets": []
     },
     {
       "tag_name": "v2.5.0",
@@ -126,28 +99,7 @@
       "prerelease": false,
       "published_at": "2026-09-15T01:50:25Z",
       "html_url": "https://github.com/DalniyX/narrata-releases/releases/tag/v2.5.0",
-      "assets": [
-        {
-          "name": "latest.yml",
-          "size": 19709,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.0/latest.yml"
-        },
-        {
-          "name": "Narrata-2.5.0.apk",
-          "size": 4560336,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.0/Narrata-2.5.0.apk"
-        },
-        {
-          "name": "Narrata-Setup-2.5.0.exe",
-          "size": 93043944,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.0/Narrata-Setup-2.5.0.exe"
-        },
-        {
-          "name": "Narrata-Setup-2.5.0.exe.blockmap",
-          "size": 98196,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.5.0/Narrata-Setup-2.5.0.exe.blockmap"
-        }
-      ]
+      "assets": []
     },
     {
       "tag_name": "v2.4.2",
@@ -158,21 +110,6 @@
       "published_at": "2026-09-13T20:40:39Z",
       "html_url": "https://github.com/DalniyX/narrata-releases/releases/tag/v2.4.2",
       "assets": [
-        {
-          "name": "latest.yml",
-          "size": 19779,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.4.2/latest.yml"
-        },
-        {
-          "name": "Narrata-2.4.2.apk",
-          "size": 4507886,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.4.2/Narrata-2.4.2.apk"
-        },
-        {
-          "name": "Narrata-Setup-2.4.2.exe",
-          "size": 93135641,
-          "browser_download_url": "https://github.com/DalniyX/narrata-releases/releases/download/v2.4.2/Narrata-Setup-2.4.2.exe"
-        },
         {
           "name": "Narrata-Setup-2.4.2.exe.blockmap",
           "size": 98219,
