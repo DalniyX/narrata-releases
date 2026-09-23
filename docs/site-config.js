@@ -13,5 +13,6 @@ const SITE = {
   "discord": "",
   "boosty": "https://boosty.to/narrata/donate",
   "donationAlerts": "https://dalink.to/dalniyx",
-  "patreon": ""
+  "patreon": "",
+  "tbank": ""
 };
