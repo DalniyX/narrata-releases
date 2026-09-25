@@ -507,6 +507,119 @@ function wireCursorGlow() {
   });
 }
 
+/** Значок в hero чуть «отплывает» от курсора, когда тот подходит близко — совсем немного, не гонка за
+ *  мышью. Плавность — не через CSS-transition (тот на каждое новое движение начинает кривую заново,
+ *  при живом курсоре получаются рывки), а через lerp в rAF-цикле: значок каждый кадр подтягивается к
+ *  цели на небольшую долю пути — это и даёт настоящую инерцию, а не серию мелких доездов. Тот же
+ *  пропуск на тач/reduce-motion, что у wireCursorGlow. */
+function wireHeroMarkFloat() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches || prefersReducedMotion) return;
+  const hero = $('.hero');
+  const mark = $('.hero-mark');
+  if (!hero || !mark) return;
+  const RADIUS = 260; // px — за пределами этого расстояния от центра значка эффект не действует
+  const MAX_OFFSET = 12; // px — предел смещения, чтобы «немного», а не полёт через весь блок
+  const EASE = 0.1; // доля расстояния до цели, которую значок проходит за кадр — меньше = плавнее/инертнее
+  let mouseX = null;
+  let mouseY = null;
+  let curX = 0;
+  let curY = 0;
+  let raf = 0;
+
+  function frame() {
+    let targetX = 0;
+    let targetY = 0;
+    if (mouseX !== null) {
+      const rect = mark.getBoundingClientRect();
+      const dx = rect.left + rect.width / 2 - mouseX;
+      const dy = rect.top + rect.height / 2 - mouseY;
+      const dist = Math.hypot(dx, dy);
+      if (dist < RADIUS && dist > 0.01) {
+        const strength = (1 - dist / RADIUS) * MAX_OFFSET;
+        targetX = (dx / dist) * strength;
+        targetY = (dy / dist) * strength;
+      }
+    }
+    curX += (targetX - curX) * EASE;
+    curY += (targetY - curY) * EASE;
+    mark.style.setProperty('--float-x', `${curX.toFixed(2)}px`);
+    mark.style.setProperty('--float-y', `${curY.toFixed(2)}px`);
+    // Останавливаем цикл, только когда значок реально дошёл до цели и курсор вне игры — не гоняем rAF впустую.
+    if (mouseX !== null || Math.abs(targetX - curX) > 0.05 || Math.abs(targetY - curY) > 0.05) {
+      raf = requestAnimationFrame(frame);
+    } else {
+      raf = 0;
+    }
+  }
+
+  hero.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!raf) raf = requestAnimationFrame(frame);
+  });
+  hero.addEventListener('mouseleave', () => {
+    mouseX = null;
+    mouseY = null;
+    if (!raf) raf = requestAnimationFrame(frame);
+  });
+}
+
+/** 3D-наклон окна с превью программы вслед за курсором — фирменный приём премиальных SaaS-сайтов.
+ *  Короткий CSS-transition (а не lerp-цикл, как у значка): курсор двигается только над одной,
+ *  довольно крупной картой, а не скачет между несколькими карточками — тех рывков здесь не будет. */
+function wireMockupTilt() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches || prefersReducedMotion) return;
+  const wrap = $('.mockup-tilt');
+  if (!wrap) return;
+  const MAX_TILT = 7; // градусов
+  let raf = 0;
+  wrap.addEventListener('mousemove', (e) => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      const rect = wrap.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      wrap.style.setProperty('--tilt-x', `${(px * MAX_TILT * 2).toFixed(2)}deg`);
+      wrap.style.setProperty('--tilt-y', `${(-py * MAX_TILT * 2).toFixed(2)}deg`);
+      raf = 0;
+    });
+  });
+  wrap.addEventListener('mouseleave', () => {
+    wrap.style.setProperty('--tilt-x', '0deg');
+    wrap.style.setProperty('--tilt-y', '0deg');
+  });
+}
+
+/** Параллакс фонового свечения: смещается медленнее контента при скролле, отсюда ощущение глубины. */
+function wireParallax() {
+  if (prefersReducedMotion) return;
+  const ambient = $('.ambient');
+  if (!ambient) return;
+  let raf = 0;
+  const onScroll = () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      ambient.style.setProperty('--parallax-y', `${Math.min(window.scrollY * 0.12, 140)}px`);
+      raf = 0;
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+/** Подсказка «прокрутите вниз»: гаснет, как только страницу реально начали листать, клик — плавный
+ *  переход к следующей секции (превью программы), а не просто декорация. */
+function wireScrollHint() {
+  const hint = $('#scrollHint');
+  if (!hint) return;
+  const onScroll = () => hint.classList.toggle('hidden', window.scrollY > 80);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  hint.addEventListener('click', () => {
+    const next = $('.hero-showcase') || $('#features');
+    if (next) next.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+  });
+}
+
 /** Кнопка «Наверх» — видна, когда прокрутили дальше первого экрана. */
 function wireToTop() {
   const btn = $('#toTop');
@@ -537,7 +650,11 @@ document.addEventListener('DOMContentLoaded', () => {
   wireShowcase();
   wireScrollEffects();
   wireCursorGlow();
+  wireHeroMarkFloat();
+  wireMockupTilt();
+  wireParallax();
   wireToTop();
+  wireScrollHint();
 
   observeReveals();
   void loadRelease();
