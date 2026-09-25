@@ -14,5 +14,10 @@ const SITE = {
   "boosty": "https://boosty.to/narrata/donate",
   "donationAlerts": "https://dalink.to/dalniyx",
   "patreon": "",
-  "tbank": ""
+  "tbank": "",
+  "snow": {
+    "enabled": false,
+    "start": "",
+    "end": ""
+  }
 };
