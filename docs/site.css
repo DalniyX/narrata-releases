@@ -68,7 +68,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .skip-link:focus { top: 16px; }
 
 /* ---------- фон: медленно плавающие цветные пятна ---------- */
-.ambient { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+/* --parallax-y пишет wireParallax в app.js по скроллу: фон смещается медленнее контента, отсюда
+   ощущение глубины. Важно: не transform — .ambient зафиксирован ровно по размеру окна (position:fixed),
+   и сдвиг transform обнажал бы пустой край сверху (там, откуда блок «уехал»). Вместо сдвига блок
+   растягивается вверх (top уходит в минус, bottom остаётся на 0) — он не покидает свои границы, а
+   становится больше их, так что перекрывает экран целиком при любом значении параллакса. */
+.ambient { position: fixed; top: calc(-1 * var(--parallax-y, 0px)); right: 0; bottom: 0; left: 0; z-index: 0; overflow: hidden; pointer-events: none; }
 .ambient span {
   position: absolute; border-radius: 50%; filter: blur(90px); opacity: .16;
   animation: drift 22s ease-in-out infinite;
@@ -95,11 +100,25 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent); mask-image: linear-gradient(to bottom, #000 60%, transparent);
   transition: opacity .4s ease;
 }
-.hero > .container { z-index: 1; }
+.hero > .container { z-index: 1; width: 100%; }
 .has-hover .cursor-glow { opacity: 1; }
 
 /* ---------- прогресс прокрутки ---------- */
 .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--accent-2), var(--accent-3)); z-index: 60; width: 0%; transition: width .1s linear; }
+
+/* ---------- подсказка «прокрутите вниз» ---------- */
+.scroll-hint {
+  position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 9px;
+  opacity: .65; transition: opacity .4s ease, transform .3s ease;
+}
+.scroll-hint:hover { opacity: 1; transform: translateX(-50%) translateY(2px); }
+.scroll-hint.hidden { opacity: 0; pointer-events: none; }
+.scroll-hint-mouse { width: 22px; height: 36px; border: 2px solid rgba(255, 255, 255, .35); border-radius: 999px; position: relative; }
+.scroll-hint-dot { position: absolute; top: 6px; left: 50%; width: 4px; height: 8px; margin-left: -2px; border-radius: 999px; background: var(--accent-2); animation: scroll-hint-dot 1.8s ease-in-out infinite; }
+@keyframes scroll-hint-dot { 0% { opacity: 1; transform: translateY(0); } 65% { opacity: 0; transform: translateY(14px); } 100% { opacity: 0; transform: translateY(0); } }
+@media (max-width: 900px) { .scroll-hint { display: none; } }
+@media (prefers-reduced-motion: reduce) { .scroll-hint-dot { animation: none; opacity: 1; } }
 
 /* ---------- шапка ---------- */
 /* Шапка стоит вверху страницы и при прокрутке уезжает вместе с ней — не закрывает текст.
@@ -146,10 +165,18 @@ header.site.scrolled { box-shadow: 0 10px 40px rgba(0,0,0,.45); background: rgba
   border: 1px solid transparent;
 }
 .btn .icon { width: 15px; height: 15px; }
-.btn-primary { color: #fff; background: linear-gradient(135deg, var(--accent-2), var(--accent-3)); box-shadow: 0 0 0 0 rgba(91,91,240,0), 0 6px 20px rgba(91,91,240,.28); }
+.btn-primary { position: relative; overflow: hidden; color: #fff; background: linear-gradient(135deg, var(--accent-2), var(--accent-3)); box-shadow: 0 0 0 0 rgba(91,91,240,0), 0 6px 20px rgba(91,91,240,.28); }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(91,91,240,.4); }
 .btn-primary:active { transform: translateY(0); }
 .btn-primary[aria-busy="true"] { opacity: .7; pointer-events: none; }
+/* Блик, пробегающий по кнопке при наведении — тонкая полировка, недорогая по коду. */
+.btn-primary::after {
+  content: ''; position: absolute; top: 0; left: -75%; width: 45%; height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,.4), transparent);
+  transform: skewX(-20deg); pointer-events: none; transition: left .65s ease;
+}
+.btn-primary:hover::after { left: 130%; }
+@media (prefers-reduced-motion: reduce) { .btn-primary::after { transition: none; left: -75%; } }
 .btn-glass { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); color: var(--text); }
 .btn-glass:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22); transform: translateY(-2px); }
 .btn-ghost { color: var(--muted); }
@@ -165,9 +192,10 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 .section-head { text-align: center; margin: 0 auto 48px; max-width: 640px; }
 .section-head .lead { margin: 0 auto; }
 
-/* reveal on scroll */
-.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+/* reveal on scroll — лёгкий scale вдобавок к подъёму: элемент не просто едет вверх, а слегка
+   «раскрывается», это и даёт более дорогое ощущение, чем чистый translateY. */
+.reveal { opacity: 0; transform: translateY(28px) scale(.97); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
 .reveal.d1 { transition-delay: .08s; } .reveal.d2 { transition-delay: .16s; } .reveal.d3 { transition-delay: .24s; } .reveal.d4 { transition-delay: .32s; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
@@ -179,6 +207,11 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 .hero { --head: 80px; margin-top: calc(-1 * var(--head)); padding: calc(100px + var(--head)) 0 40px; text-align: center; }
 @media (max-width: 640px) { .hero { --head: 70px; padding: calc(64px + var(--head)) 0 8px; } }
 @media (max-width: 380px) { .hero { padding: calc(56px + var(--head)) 0 8px; } }
+/* Раньше hero тёк сверху вниз и хвостом переходил в скриншот программы — теперь превью в своей секции
+   (.hero-showcase), а сам hero — один экран: контент по центру между шапкой и низом окна, а не прижат к верху. */
+@media (min-width: 901px) {
+  .hero { min-height: 100vh; display: flex; align-items: center; padding-top: var(--head); padding-bottom: 60px; }
+}
 .badge {
   display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 10px; border-radius: 999px;
   background: rgba(255,255,255,.04); border: 1px solid var(--line-strong); font-size: 12.5px; color: var(--muted);
@@ -209,15 +242,74 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
   .hero-req { line-height: 1.6; }
 }
 
+/* Текст слева, светящийся значок справа (вариант B) — на мобильном схлопывается обратно в один столбец. */
+.hero-top { display: flex; align-items: flex-start; gap: clamp(24px, 5vw, 64px); text-align: left; }
+.hero-copy { flex: 1 1 560px; min-width: 0; }
+.hero-copy .lead { margin-left: 0; margin-right: 0; }
+.hero-copy .hero-cta { justify-content: flex-start; }
+/* В две колонки заголовок уже не на всю ширину контейнера — без уменьшения он не влезает в свои
+   3 строки и сам собой переносится ещё раз, отсюда и «рваный» вид. Сжимаем размер под новую колонку. */
+@media (min-width: 901px) {
+  .hero-copy h1 { font-size: clamp(32px, 4.6vw, 68px); }
+}
+
+/* Правая колонка — не только значок: под ним плашка версии и живая строка со звёздами/скачиваниями,
+   одним статусным блоком, друг под другом в естественном порядке разметки. */
+.hero-side { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: clamp(30px, 5vw, 60px); }
+.hero-side .stat-row { justify-content: center; margin: 0; }
+
+.hero-mark {
+  /* Чуть меньше, чем раньше: плашка версии под ним из-за этого встаёт вровень с рядом кнопок слева,
+     а не заметно ниже — до этого «рассыпалось» по высоте между колонками. */
+  position: relative; width: clamp(170px, 21vw, 300px); aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  /* Лёгкое «отплывание» от курсора — JS пишет --float-x/--float-y кадр за кадром (wireHeroMarkFloat
+     в app.js, lerp в rAF-цикле). Плавность даёт сам lerp — CSS-transition здесь не нужен и даже вредит:
+     он бы переигрывал кривую на каждое новое значение переменной поверх уже плавного JS-движения. */
+  transform: translate(var(--float-x, 0px), var(--float-y, 0px));
+}
+.hero-mark-glow {
+  position: absolute; inset: -25%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(91, 91, 240, .55), rgba(139, 92, 246, .28) 45%, transparent 72%);
+  filter: blur(46px);
+  animation: hero-mark-pulse 3.6s ease-in-out infinite;
+}
+/* Статика вместо видео: PNG с настоящей альфой, никаких масок/блендов под неё не нужно — край сам по
+   себе прозрачный, чем и снимает всю возню, что была с чёрным фоном видео (см. историю правок ниже).
+   Левитация — на самой картинке, не на .hero-mark: контейнер уже занят JS-смещением от курсора
+   (--float-x/--float-y), а тут отдельный, независимый transform, оба складываются без конфликта. */
+.hero-mark-img { position: relative; width: 100%; height: 100%; object-fit: contain; pointer-events: none; animation: hero-mark-levitate 6s ease-in-out infinite; }
+@keyframes hero-mark-pulse { 0%, 100% { opacity: .5; transform: scale(.92); } 50% { opacity: .85; transform: scale(1.05); } }
+@keyframes hero-mark-levitate { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(-1.5deg); } }
+@media (prefers-reduced-motion: reduce) { .hero-mark-glow, .hero-mark-img { animation: none; } }
+
+@media (max-width: 900px) {
+  .hero-top { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+  .hero-copy .lead { margin-left: auto; margin-right: auto; }
+  .hero-copy .hero-cta { justify-content: center; }
+  /* На телефоне значок, плашка версии и счётчик скачиваний просто убраны: после нескольких раскладок
+     стало ясно, что они там не помогают решению скачать — только занимают узкий экран. Первый экран
+     сразу — заголовок, текст и кнопка. На десктопе — боковая колонка (вариант B), как и была. */
+  .hero-side { display: none; }
+}
+
 /* живая строка со звёздами/скачиваниями */
 .stat-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; margin: 30px 0 6px; font-size: 13px; color: var(--muted); }
 .stat-row .stat { display: inline-flex; align-items: center; gap: 6px; }
 .stat-row b { color: var(--text); font-variant-numeric: tabular-nums; }
 .stat-row .icon { width: 14px; height: 14px; color: var(--accent-2); }
 
+/* Отступы теперь у самой секции (раньше их нёс большой margin-top на .mockup-wrap, пока он жил внутри
+   hero) — сверху достаточно скромного зазора от hero, снизу секция Features и так даёт свои 120px. */
+.hero-showcase { padding: 20px 0 40px; }
+@media (max-width: 640px) { .hero-showcase { padding: 0 0 24px; } }
+
 /* макет окна программы с реальным скриншотом */
-.mockup-wrap { margin: 56px auto 0; max-width: 900px; }
-@media (max-width: 640px) { .mockup-wrap { margin-top: 36px; } }
+.mockup-wrap { margin: 0 auto; max-width: 900px; }
+/* 3D-наклон за курсором (wireMockupTilt в app.js, custom properties --tilt-x/--tilt-y) — на отдельной
+   обёртке .mockup-tilt, не на .mockup-wrap: у того уже есть .reveal, а .reveal.visible задаёт свой
+   transform с более высокой специфичностью и просто стёр бы наклон после появления секции на экране. */
+.mockup-tilt { transform: perspective(1000px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)); transition: transform .15s ease-out; }
+@media (prefers-reduced-motion: reduce) { .mockup-tilt { transition: none; transform: none; } }
 .mockup { border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); background: #0c0c10;
   box-shadow: 0 2px 6px rgba(0,0,0,.2), 0 20px 50px rgba(0,0,0,.45), 0 60px 120px rgba(0,0,0,.35), 0 0 90px rgba(91,91,240,.08);
   animation: float 7s ease-in-out infinite; }
@@ -240,8 +332,19 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
 .f-card {
   grid-column: span 2; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 26px; position: relative; overflow: hidden; transition: transform .35s var(--ease), border-color .35s ease, background .35s ease;
+  padding: 26px; position: relative; overflow: hidden;
+  /* transform — отдельно и быстрее: .35s с длинным хвостом (--ease) был рассчитан на разовое появление
+     при скролле, а не на быстрый провод мышкой по сетке карточек — при новом наведении карточка ещё не
+     успевала опуститься, отсюда рывки. border/background можно оставить медленнее — их незавершённость
+     не так заметна на глаз, как рывок transform. */
+  transition: transform .16s ease-out, border-color .35s ease, background .35s ease;
 }
+/* .f-card ещё и .reveal.dN (стагган появления при скролле) — у того своя transition-delay
+   (.08–.32s), и она въедается в transition-property ВСЕХ свойств элемента, включая наш transform,
+   причём навсегда, не только при первом появлении. Из-за этого наведение ощущалось с лагом — тем
+   заметнее, чем позже была очередь карточки в стаггере. Специфичность та же (.reveal.dN), решает
+   порядок в файле — эта запись ниже, значит и побеждает. */
+.f-card.reveal { transition-delay: 0s; }
 .f-card:hover { transform: translateY(-4px); border-color: rgba(91,91,240,.35); background: var(--card-hover); }
 .f-card.big { grid-column: span 3; }
 @media (max-width: 900px) { .bento { grid-template-columns: repeat(2, 1fr); } .f-card, .f-card.big { grid-column: span 1; } }
@@ -462,7 +565,9 @@ a.badge:hover { border-color: rgba(139,139,255,.45); background: rgba(91,91,240,
 /* ---------- «Для кого»: четыре карточки в ряд ---------- */
 .audience { padding: 0 0 8px; }
 .aud-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; max-width: var(--container); margin: 0 auto; }
-.aud-card { display: flex; flex-direction: column; gap: 8px; padding: 22px 20px; border-radius: var(--radius-sm); background: var(--card); border: 1px solid var(--line); transition: border-color .25s ease, transform .25s var(--ease); }
+.aud-card { display: flex; flex-direction: column; gap: 8px; padding: 22px 20px; border-radius: var(--radius-sm); background: var(--card); border: 1px solid var(--line); transition: border-color .25s ease, transform .16s ease-out; }
+/* Тот же утёкший transition-delay от .reveal.dN, что и у .f-card — см. комментарий там. */
+.aud-card.reveal { transition-delay: 0s; }
 .aud-card:hover { border-color: rgba(91,91,240,.35); transform: translateY(-3px); }
 .aud-card .icon { width: 22px; height: 22px; color: var(--accent-2); }
 .aud-card b { font-size: 15px; font-weight: 600; }
