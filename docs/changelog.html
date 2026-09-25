@@ -11,17 +11,17 @@
 <meta property="og:site_name" content="Narrata">
 <meta property="og:title" content="Что нового — Narrata">
 <!-- Превью ссылки: карточка «Превью ссылки на сайт» из Narrata Studio (npm run og:image). Адрес — абсолютный: так его понимают Telegram, Discord и соцсети. -->
-<meta property="og:image" content="https://dalniyx.github.io/narrata-releases/og-image.png">
+<meta property="og:image" content="https://narrata.space/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://dalniyx.github.io/narrata-releases/changelog.html">
+<meta property="og:url" content="https://narrata.space/changelog.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://dalniyx.github.io/narrata-releases/og-image.png">
+<meta name="twitter:image" content="https://narrata.space/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=2ef91d8f">
+<link rel="stylesheet" href="site.css?v=244f1341">
 </head>
 <body class="guide-page changes-page">
 
@@ -31,23 +31,15 @@
 <!-- спрайт иконок — тот же, что на главной (index.html) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2a2a63"/><stop offset="1" stop-color="#171736"/>
-    </linearGradient>
-    <symbol id="i-logo" viewBox="0 0 512 512">
-      <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#logoGrad)"/>
-      <g transform="translate(256 256) scale(1.12) translate(-256 -256)">
-        <path d="M136 132 a44 44 0 0 1 44 -44 h116 l80 80 v212 a44 44 0 0 1 -44 44 h-152 a44 44 0 0 1 -44 -44 z" fill="#ffffff"/>
-        <path d="M296 88 l80 80 h-80 z" fill="#c7d2fe"/>
-        <g stroke="#5b5bf0" stroke-width="20" stroke-linecap="round" fill="none">
-          <path d="M196 250 H224 C 256 250, 256 200, 292 200"/>
-          <path d="M224 250 C 256 250, 256 300, 292 300"/>
-          <path d="M186 356 H326" opacity="0.35"/>
-        </g>
-        <circle cx="188" cy="250" r="26" fill="#5b5bf0"/>
-        <circle cx="306" cy="200" r="20" fill="#5b5bf0"/>
-        <circle cx="306" cy="300" r="20" fill="#5b5bf0"/>
-      </g>
+    <radialGradient id="logoMarkGrad" cx="35%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#8b8bff"/><stop offset="1" stop-color="#5b5bf0"/>
+    </radialGradient>
+    <symbol id="i-logo" viewBox="0 0 120 120">
+      <path d="M38 60 H54 C 70 60, 70 34, 86 34" stroke="#8b8bff" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.9"/>
+      <path d="M54 60 C 70 60, 70 86, 86 86" stroke="#8b8bff" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.9"/>
+      <circle cx="38" cy="60" r="8" fill="url(#logoMarkGrad)"/>
+      <circle cx="86" cy="34" r="6" fill="#a78bfa"/>
+      <circle cx="86" cy="86" r="6" fill="#a78bfa"/>
     </symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 20h16"/></symbol>
     <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></symbol>
@@ -140,8 +132,8 @@
 <!-- кнопка «Наверх» — появляется при прокрутке вниз -->
 <div class="to-top-dock"><button type="button" class="to-top" id="toTop" data-i18n-aria="nav.toTop" aria-label="Наверх"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
 
-<script src="site-config.js?v=ed52b9a5"></script>
-<script src="i18n.js?v=6de3c2c9"></script>
+<script src="site-config.js?v=78b2db6f"></script>
+<script src="i18n.js?v=de8c43ac"></script>
 <script src="subpage.js?v=3ea8949e"></script>
 <script src="changelog-content.js?v=094221df"></script>
 <script src="changelog.js?v=203f310f"></script>
