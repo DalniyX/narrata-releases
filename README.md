@@ -14,7 +14,7 @@
 
 <p align="center"><a href="https://github.com/DalniyX/narrata-releases/releases/latest"><b>⬇️ Download for Windows and Android</b></a></p>
 
-<p align="center"><sub><a href="https://dalniyx.github.io/narrata-releases/changelog.html">What’s new</a> · Full change history: <a href="CHANGELOG.en.md">English</a> · <a href="CHANGELOG.md">русский</a></sub></p>
+<p align="center"><sub><a href="https://narrata.space/changelog.html">What’s new</a> · Full change history: <a href="CHANGELOG.en.md">English</a> · <a href="CHANGELOG.md">русский</a></sub></p>
 
 <p align="center"><img src="docs/screenshots/01-graph.png" alt="Story graph: lines, choices, conditions and variables" width="900"></p>
 
@@ -47,7 +47,7 @@
 
 ## Community and support
 
-[Website](https://dalniyx.github.io/narrata-releases/) · [Telegram](https://t.me/DalniyX) · [Boosty](https://boosty.to/narrata/donate) · [DonationAlerts](https://dalink.to/dalniyx)
+[Website](https://narrata.space/) · [Telegram](https://t.me/DalniyX) · [Boosty](https://boosty.to/narrata/donate) · [DonationAlerts](https://dalink.to/dalniyx)
 
 ## Feedback
 
