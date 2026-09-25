@@ -4,7 +4,7 @@
 const SITE = {
   "appName": "Narrata",
   "repo": "DalniyX/narrata-releases",
-  "website": "https://dalniyx.github.io/narrata-releases/",
+  "website": "https://narrata.space/",
   "github": "https://github.com/DalniyX/narrata-releases",
   "latest": "https://github.com/DalniyX/narrata-releases/releases/latest",
   "changelog": "https://github.com/DalniyX/narrata-releases/blob/HEAD/CHANGELOG.md",
