@@ -43,6 +43,10 @@ html { scroll-behavior: smooth; overflow-x: hidden; touch-action: pan-x pan-y; }
 }
 body {
   margin: 0;
+  /* Опорная точка для .snow (inset:0 на всю высоту страницы, не только окна) — сама по себе ничего
+     не меняет: остальные absolute-слои уже позиционируются от своих локальных контейнеров (.hero,
+     .mockup-imgwrap и т. п.), а не от body. */
+  position: relative;
   background: var(--bg);
   color: var(--text);
   font-family: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif;
@@ -87,6 +91,24 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   66% { transform: translate(-25px, 25px) scale(0.96); }
 }
 @media (prefers-reduced-motion: reduce) { .ambient span { animation: none; } }
+
+/* Снег — Studio → «Настройки» → «Снег на сайте» (docs/landing.json → SITE.snow, landing/app.js: wireSnow).
+   Сама анимация не проверяет prefers-reduced-motion: JS не создаёт ни одной частицы, если он включён.
+   position: absolute, не fixed: снег должен скроллиться вместе со страницей, как её собственный слой,
+   а не висеть поверх экрана отдельным параллаксом — резало глаз при прокрутке. Работает на всю высоту
+   документа (inset:0 от body, см. выше), а не только на первый экран. */
+.snow { position: absolute; inset: 0; z-index: 70; overflow: hidden; pointer-events: none; }
+/* Частицы уже разбросаны JS по всей высоте страницы (top: 0–100%) и падают на небольшое локальное
+   расстояние (--fall), а не от верха окна до низа — так снег ровно виден на любой прокрутке, не только
+   у самого верха. Плавное появление/исчезание (opacity) прячет момент, когда анимация допрыгивает до
+   конца и линейно перескакивает обратно к началу — иначе на коротком пути это было бы заметным рывком. */
+.snow span { position: absolute; border-radius: 50%; background: #fff; animation: snow-fall linear infinite; }
+@keyframes snow-fall {
+  0% { opacity: 0; transform: translate(0, 0); }
+  15% { opacity: var(--o, .6); }
+  85% { opacity: var(--o, .6); }
+  100% { opacity: 0; transform: translate(var(--drift, 0), var(--fall, 90px)); }
+}
 @media (max-width: 720px) { .ambient span { filter: blur(60px); opacity: .12; } }
 
 /* Курсор-реактивное свечение за заголовком — тонкая деталь, выключается на тач-устройствах.
@@ -432,9 +454,19 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 @media (max-width: 640px) { .download { padding: 72px 0 40px; } }
 .cta-card { position: relative; max-width: 780px; margin: 0 auto; text-align: center; padding: 56px 32px; border-radius: 28px; background: var(--card); overflow: hidden; }
 @media (max-width: 480px) { .cta-card { padding: 36px 20px; border-radius: 22px; } }
-.cta-card::before { content: ''; position: absolute; inset: 0; border-radius: 28px; padding: 1px; pointer-events: none;
-  background: linear-gradient(135deg, rgba(91,91,240,.4), rgba(139,92,246,.15), rgba(59,130,246,.35));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+@property --cta-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.cta-card::before { content: ''; position: absolute; inset: 0; border-radius: 28px; padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--cta-angle), rgba(91,91,240,.22) 0deg, rgba(91,91,240,.9) 55deg, #e4e4ff 95deg, rgba(139,92,246,1) 115deg, rgba(91,91,240,.45) 170deg, rgba(91,91,240,.22) 230deg, rgba(91,91,240,.22) 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: cta-border-spin 7s linear infinite, cta-border-pulse 2.6s ease-in-out infinite; }
+@keyframes cta-border-spin { to { --cta-angle: 360deg; } }
+/* filter вместо box-shadow: drop-shadow повторяет форму уже замаскированного кольца (тонкая рамка), а
+   box-shadow лёг бы на весь прямоугольник псевдоэлемента ещё до маски — светилось бы не там. */
+@keyframes cta-border-pulse {
+  0%, 100% { filter: drop-shadow(0 0 3px rgba(139,92,246,.4)); }
+  50% { filter: drop-shadow(0 0 10px rgba(139,92,246,.85)); }
+}
+@media (prefers-reduced-motion: reduce) { .cta-card::before { animation: none; filter: none; } }
 .cta-card h2 { margin-top: 0; }
 .cta-card .lead { margin: 0 auto 30px; }
 .download-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 10px; }
