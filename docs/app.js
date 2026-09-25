@@ -630,6 +630,55 @@ function wireToTop() {
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
 }
 
+// ---------- снег ----------
+// Studio → «Настройки» → «Снег на сайте»: общий переключатель плюс необязательный ежегодный диапазон
+// «ДД.ММ» без года (docs/landing.json → SITE.snow, site-config.js). Диапазон не задан — снег идёт всегда,
+// пока включено; начало позже конца — диапазон через Новый год (например 01.12 → 15.01).
+
+function inSnowRange(start, end) {
+  if (!start || !end) return true;
+  const toKey = (value) => {
+    const [d, m] = value.split('.').map(Number);
+    return m * 100 + d;
+  };
+  const now = new Date();
+  const cur = (now.getMonth() + 1) * 100 + now.getDate();
+  const from = toKey(start);
+  const to = toKey(end);
+  return from <= to ? cur >= from && cur <= to : cur >= from || cur <= to;
+}
+
+/** Частицы — один раз на загрузку, дальше чистая CSS-анимация (никакого JS в цикле кадров). Слой лежит
+ *  на всю высоту страницы (.snow: position absolute от body), поэтому частицы сразу разбросаны по всей
+ *  высоте (top: 0–100%), а не только у самого верха — иначе снег был бы виден только в первом экране.
+ *  Число частиц — пропорционально высоте страницы в «экранах», чтобы густота снега на глаз не менялась
+ *  от того, короткая страница или длинная. */
+function wireSnow() {
+  const snow = typeof SITE !== 'undefined' ? SITE.snow : null;
+  if (!snow || !snow.enabled || prefersReducedMotion || !inSnowRange(snow.start, snow.end)) return;
+  const layer = document.createElement('div');
+  layer.className = 'snow';
+  layer.setAttribute('aria-hidden', 'true');
+  const PER_SCREEN = 46;
+  const screens = Math.max(1, document.documentElement.scrollHeight / window.innerHeight);
+  const count = Math.round(PER_SCREEN * screens);
+  for (let i = 0; i < count; i++) {
+    const flake = document.createElement('span');
+    const size = (2 + Math.random() * 3.5).toFixed(1);
+    const duration = 7 + Math.random() * 9;
+    flake.style.left = `${(Math.random() * 100).toFixed(1)}%`;
+    flake.style.top = `${(Math.random() * 100).toFixed(1)}%`;
+    flake.style.width = flake.style.height = `${size}px`;
+    flake.style.setProperty('--o', (0.35 + Math.random() * 0.5).toFixed(2));
+    flake.style.setProperty('--drift', `${(Math.random() * 30 - 15).toFixed(0)}px`);
+    flake.style.setProperty('--fall', `${(50 + Math.random() * 90).toFixed(0)}px`);
+    flake.style.animationDuration = `${duration.toFixed(1)}s`;
+    flake.style.animationDelay = `-${(Math.random() * duration).toFixed(1)}s`;
+    layer.appendChild(flake);
+  }
+  document.body.appendChild(layer);
+}
+
 // ---------- запуск ----------
 
 function wireLangSwitch() {
@@ -655,6 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
   wireParallax();
   wireToTop();
   wireScrollHint();
+  wireSnow();
 
   observeReveals();
   void loadRelease();
