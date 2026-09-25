@@ -14,18 +14,18 @@
 <meta property="og:title" content="Narrata — рабочая среда нарративного дизайнера">
 <meta property="og:description" content="Графы диалогов и квестов, база персонажей, холст, проверка сценария и команда через GitHub — без своего сервера.">
 <!-- Превью ссылки: карточка «Превью ссылки на сайт» из Narrata Studio (npm run og:image). Адрес — абсолютный: так его понимают Telegram, Discord и соцсети. -->
-<meta property="og:image" content="https://dalniyx.github.io/narrata-releases/og-image.png">
+<meta property="og:image" content="https://narrata.space/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://dalniyx.github.io/narrata-releases/">
+<meta property="og:url" content="https://narrata.space/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://dalniyx.github.io/narrata-releases/og-image.png">
+<meta name="twitter:image" content="https://narrata.space/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="site.css?v=2ef91d8f">
+<link rel="stylesheet" href="site.css?v=244f1341">
 </head>
 <body>
 
@@ -37,23 +37,15 @@
 <!-- спрайт иконок: один набор, переиспользуется через <use> -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2a2a63"/><stop offset="1" stop-color="#171736"/>
-    </linearGradient>
-    <symbol id="i-logo" viewBox="0 0 512 512">
-      <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#logoGrad)"/>
-      <g transform="translate(256 256) scale(1.12) translate(-256 -256)">
-        <path d="M136 132 a44 44 0 0 1 44 -44 h116 l80 80 v212 a44 44 0 0 1 -44 44 h-152 a44 44 0 0 1 -44 -44 z" fill="#ffffff"/>
-        <path d="M296 88 l80 80 h-80 z" fill="#c7d2fe"/>
-        <g stroke="#5b5bf0" stroke-width="20" stroke-linecap="round" fill="none">
-          <path d="M196 250 H224 C 256 250, 256 200, 292 200"/>
-          <path d="M224 250 C 256 250, 256 300, 292 300"/>
-          <path d="M186 356 H326" opacity="0.35"/>
-        </g>
-        <circle cx="188" cy="250" r="26" fill="#5b5bf0"/>
-        <circle cx="306" cy="200" r="20" fill="#5b5bf0"/>
-        <circle cx="306" cy="300" r="20" fill="#5b5bf0"/>
-      </g>
+    <radialGradient id="logoMarkGrad" cx="35%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#8b8bff"/><stop offset="1" stop-color="#5b5bf0"/>
+    </radialGradient>
+    <symbol id="i-logo" viewBox="0 0 120 120">
+      <path d="M38 60 H54 C 70 60, 70 34, 86 34" stroke="#8b8bff" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.9"/>
+      <path d="M54 60 C 70 60, 70 86, 86 86" stroke="#8b8bff" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.9"/>
+      <circle cx="38" cy="60" r="8" fill="url(#logoMarkGrad)"/>
+      <circle cx="86" cy="34" r="6" fill="#a78bfa"/>
+      <circle cx="86" cy="86" r="6" fill="#a78bfa"/>
     </symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 20h16"/></symbol>
     <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></symbol>
@@ -110,53 +102,75 @@
   <!-- ===== HERO ===== -->
   <section class="hero" id="top">
     <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+    <button type="button" class="scroll-hint" id="scrollHint" data-i18n-aria="hero.scrollHint" aria-label="Прокрутить вниз">
+      <span class="scroll-hint-mouse"><span class="scroll-hint-dot"></span></span>
+    </button>
     <div class="container" style="position:relative">
 
-      <div class="reveal">
-        <a class="badge" id="badgeLink" href="changelog.html">
-          <span class="dot" aria-hidden="true"></span>
-          <span data-i18n="hero.badgePrefix">Версия</span>&nbsp;<b id="badgeVersion"><span class="skel"></span></b>&nbsp;<span data-i18n="hero.badgeSuffix">уже доступна</span>
-          <span class="more" data-i18n="hero.badgeMore">Что нового</span>
-        </a>
-      </div>
+      <div class="hero-top">
+        <div class="hero-copy">
+          <h1 class="reveal d1">
+            <span class="grad" data-i18n="hero.line1">Пишите истории.</span>
+            <span class="grad" data-i18n="hero.line2">Стройте миры.</span>
+            <span class="grad" data-i18n="hero.line3">Не теряйте нить.</span>
+          </h1>
 
-      <h1 class="reveal d1">
-        <span class="grad" data-i18n="hero.line1">Пишите истории.</span>
-        <span class="grad" data-i18n="hero.line2">Стройте миры.</span>
-        <span class="grad" data-i18n="hero.line3">Не теряйте нить.</span>
-      </h1>
+          <p class="lead reveal d2" data-i18n="hero.subtitle">
+            Рабочая среда нарративного дизайнера и сценариста: графы диалогов и квестов, база персонажей, холст,
+            проверка сценария и командная работа через GitHub — бесплатно и без своего сервера.
+          </p>
 
-      <p class="lead reveal d2" style="margin-left:auto;margin-right:auto" data-i18n="hero.subtitle">
-        Рабочая среда нарративного дизайнера и сценариста: графы диалогов и квестов, база персонажей, холст,
-        проверка сценария и командная работа через GitHub — бесплатно и без своего сервера.
-      </p>
-
-      <div class="hero-cta reveal d3">
-        <a class="btn btn-primary" id="heroDownload" data-link="latest" href="https://github.com/DalniyX/narrata-releases/releases/latest">
-          <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
-          <span id="heroDownloadLabel" data-i18n="hero.cta">Скачать бесплатно</span>
-        </a>
-        <a class="btn btn-glass" data-link="github" href="https://github.com/DalniyX/narrata-releases" target="_blank" rel="noopener">
-          <svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>
-          <span data-i18n="hero.ctaGithub">Репозиторий на GitHub</span>
-        </a>
-      </div>
-
-      <p class="hero-req reveal d3" data-i18n="hero.requirements">Windows 10/11 • Android • Бесплатно, закрытый код</p>
-
-      <div class="stat-row reveal d4" id="statRow" hidden>
-        <span class="stat" id="statStarsWrap" hidden><svg class="icon" aria-hidden="true"><use href="#i-star"/></svg><b id="statStars">0</b>&nbsp;<span data-i18n="hero.statStars">на GitHub</span></span>
-        <span class="stat" id="statDownloadsWrap" hidden><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg><b id="statDownloads">0</b>&nbsp;<span data-i18n="hero.statDownloads">скачиваний</span></span>
-      </div>
-
-      <div class="mockup-wrap reveal d4">
-        <div class="mockup">
-          <div class="mockup-bar">
-            <div class="dots"><i></i><i></i><i></i></div>
-            <span class="title" id="mockupTitle" data-i18n="hero.mockupTitle">Narrata — Граф сцены</span>
+          <div class="hero-cta reveal d3">
+            <a class="btn btn-primary" id="heroDownload" data-link="latest" href="https://github.com/DalniyX/narrata-releases/releases/latest">
+              <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
+              <span id="heroDownloadLabel" data-i18n="hero.cta">Скачать бесплатно</span>
+            </a>
+            <a class="btn btn-glass" data-link="github" href="https://github.com/DalniyX/narrata-releases" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>
+              <span data-i18n="hero.ctaGithub">Репозиторий на GitHub</span>
+            </a>
           </div>
-          <div class="mockup-imgwrap">
-            <img src="screenshots/01-graph.png" width="1600" height="1000" alt="" loading="eager" fetchpriority="high">
+
+          <p class="hero-req reveal d3" data-i18n="hero.requirements">Windows 10/11 • Android • Бесплатно, закрытый код</p>
+        </div>
+
+        <div class="hero-side reveal d2">
+          <div class="hero-mark" aria-hidden="true">
+            <div class="hero-mark-glow"></div>
+            <img class="hero-mark-img" src="hero-mark.png" alt="">
+          </div>
+
+          <a class="badge" id="badgeLink" href="changelog.html">
+            <span class="dot" aria-hidden="true"></span>
+            <span data-i18n="hero.badgePrefix">Версия</span>&nbsp;<b id="badgeVersion"><span class="skel"></span></b>&nbsp;<span data-i18n="hero.badgeSuffix">уже доступна</span>
+            <span class="more" data-i18n="hero.badgeMore">Что нового</span>
+          </a>
+
+          <div class="stat-row" id="statRow" hidden>
+            <span class="stat" id="statStarsWrap" hidden><svg class="icon" aria-hidden="true"><use href="#i-star"/></svg><b id="statStars">0</b>&nbsp;<span data-i18n="hero.statStars">на GitHub</span></span>
+            <span class="stat" id="statDownloadsWrap" hidden><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg><b id="statDownloads">0</b>&nbsp;<span data-i18n="hero.statDownloads">скачиваний</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ПРЕВЬЮ ПРОГРАММЫ ===== -->
+  <!-- Отдельная секция, а не хвост hero: раньше скриншот просто дотекал вниз тем же блоком, из-за
+       чего первый экран получался длинным и «мутным». Так hero — чистый, в один экран, а превью —
+       осознанно следующий шаг при скролле. -->
+  <section class="hero-showcase">
+    <div class="container">
+      <div class="mockup-wrap reveal">
+        <div class="mockup-tilt">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <span class="title" id="mockupTitle" data-i18n="hero.mockupTitle">Narrata — Граф сцены</span>
+            </div>
+            <div class="mockup-imgwrap">
+              <img src="screenshots/01-graph.png" width="1600" height="1000" alt="" loading="eager" fetchpriority="high">
+            </div>
           </div>
         </div>
       </div>
@@ -349,9 +363,9 @@
 <!-- кнопка «Наверх» — появляется при прокрутке вниз -->
 <div class="to-top-dock"><button type="button" class="to-top" id="toTop" data-i18n-aria="nav.toTop" aria-label="Наверх"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
 
-<script src="site-config.js?v=ed52b9a5"></script>
-<script src="i18n.js?v=6de3c2c9"></script>
-<script src="app.js?v=c5f56a3b"></script>
+<script src="site-config.js?v=78b2db6f"></script>
+<script src="i18n.js?v=de8c43ac"></script>
+<script src="app.js?v=65a48d4e"></script>
 <script>
   // Снимаем блокировку показа страницы сразу после того, как app.js подставил тексты.
   document.documentElement.classList.remove('i18n-boot');
