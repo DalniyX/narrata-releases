@@ -1,9 +1,7 @@
 <!-- narrata:landing:start -->
 <p align="center">
-  <img src="docs/icon.png" width="112" alt="Narrata">
+  <img src="docs/banner.png" alt="Narrata">
 </p>
-
-<h1 align="center">Narrata</h1>
 
 <p align="center">A workspace for narrative designers and writers: dialogue and quest graphs, a character base, canvases, script checks and team work through GitHub — free and without a server of your own.</p>
 
