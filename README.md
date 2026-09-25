@@ -51,6 +51,10 @@
 
 Found a bug or have an idea — use “Help → Feedback” in the app or [open an issue on GitHub](https://github.com/DalniyX/narrata-releases/issues).
 
+## Translations
+
+The interface is translated by the community. Missing your language, or want to improve one — translations are accepted as pull requests; instructions and a template are in the [`locales/`](https://github.com/DalniyX/narrata-releases/tree/main/locales) folder.
+
 ## License
 
 Narrata is closed-source software; this repository only hosts the installers. Installing means accepting the [end-user license agreement](LICENSE.md): copying, redistributing the installers elsewhere or decompiling the app without the copyright holder's permission is not allowed.
