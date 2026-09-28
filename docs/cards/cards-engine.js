@@ -120,6 +120,21 @@ function page({ width, height, body, css = '', accent = DEFAULT_ACCENT }) {
 const foot = (ctx, right) =>
   `<div class="foot">${LOGO}<span class="name">${esc(ctx.appName)}</span>${right ? `<span class="right">${inline(right)}</span>` : ''}</div>`;
 
+/**
+ * Кегль заголовка по длине текста и жёсткий предел строк (многоточие) — вместо фиксированного px.
+ * Раньше длинная фраза в заголовке растягивала блок и выталкивала подвал карточки за край: `overflow:
+ * hidden` на body (см. BASE_CSS) молча обрезал его вместе с текстом. До `soft` символов кегль как
+ * задуман; дальше плавно уменьшается до `min`, а `lines` не даёт занять больше нескольких строк в любом
+ * случае — так самая длинная фраза оседает многоточием, а не наездом на соседние блоки.
+ */
+function fitStyle(text, { base, min = Math.round(base * 0.5), soft = 18, hard = 90, lines: maxLines }) {
+  const len = String(text ?? '').replace(/\*\*/g, '').length;
+  const t = len <= soft ? 0 : Math.min(1, (len - soft) / (hard - soft));
+  const size = Math.round(base - (base - min) * t);
+  const clamp = maxLines ? `display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:${maxLines};overflow:hidden;` : '';
+  return `font-size:${size}px;${clamp}`;
+}
+
 /** Короткая строка пункта журнала: жирное начало («**Прохождение на холсте**: …») или первая фраза. */
 function shortItem(item) {
   const text = String(item ?? '').trim();
@@ -163,14 +178,14 @@ const TEMPLATES = [
     html: (v, ctx, size, lang) => {
       const items = lines(v.items).slice(0, 5);
       const body = `<div class="wrap"><span class="tag">${esc(ctx.appName)}</span>
-        <h1>${esc(v.title)}<br><span class="grad ver">${esc(v.version)}</span></h1>
-        <div class="grow list">${items.map((item) => `<div class="box row"><span class="dot"></span><span>${inline(item)}</span></div>`).join('')}</div>
+        <h1><span style="${fitStyle(v.title, { base: 78, lines: 2 })}">${esc(v.title)}</span><br><span class="grad ver">${esc(v.version)}</span></h1>
+        <div class="grow list">${items.map((item) => `<div class="box row"><span class="dot"></span><span class="rt">${inline(item)}</span></div>`).join('')}</div>
         ${foot(ctx, v.link)}</div>`;
       return page({
         ...size,
         body,
         accent: ctx.accent,
-        css: `.ver{font-size:1.5em;letter-spacing:-.04em}.list{display:flex;flex-direction:column;gap:16px;margin-top:36px}.row{display:flex;gap:24px;align-items:center;font-size:36px;font-weight:600;line-height:1.3;padding:28px 32px}.dot{flex:none;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 18px color-mix(in srgb,var(--accent-2) 70%,transparent)}`,
+        css: `.ver{font-size:1.5em;letter-spacing:-.04em}.list{display:flex;flex-direction:column;gap:16px;margin-top:36px}.row{display:flex;gap:24px;align-items:center;font-size:36px;font-weight:600;line-height:1.3;padding:28px 32px}.rt{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}.dot{flex:none;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 18px color-mix(in srgb,var(--accent-2) 70%,transparent)}`,
       });
     },
   },
@@ -194,7 +209,7 @@ const TEMPLATES = [
     html: (v, ctx, size) => {
       const keys = String(v.keys ?? '').trim();
       const body = `<div class="wrap"><span class="tag">💡 ${esc(v.label)}</span>
-        <h1>${inline(v.title)}</h1>
+        <h1 style="${fitStyle(v.title, { base: 78, lines: 2 })}">${inline(v.title)}</h1>
         ${keys ? `<div class="keys">${keys.split('+').map((k) => `<span class="key">${esc(k.trim())}</span>`).join('<span class="plus">+</span>')}</div>` : ''}
         <div class="grow"><p class="lead big">${inline(v.text)}</p></div>
         ${foot(ctx, ctx.siteShort)}</div>`;
@@ -202,7 +217,7 @@ const TEMPLATES = [
         ...size,
         body,
         accent: ctx.accent,
-        css: `.keys{display:flex;align-items:center;gap:16px;margin:18px 0 34px}.key{padding:18px 30px;border-radius:18px;background:#18181b;border:2px solid #3f3f46;border-bottom-width:6px;font-size:44px;font-weight:700}.plus{font-size:40px;color:#71717a}.big{font-size:40px;color:#d4d4d8;line-height:1.5}`,
+        css: `.keys{display:flex;align-items:center;gap:16px;margin:18px 0 34px}.key{padding:18px 30px;border-radius:18px;background:#18181b;border:2px solid #3f3f46;border-bottom-width:6px;font-size:44px;font-weight:700}.plus{font-size:40px;color:#71717a}.big{font-size:40px;color:#d4d4d8;line-height:1.5;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden}`,
       });
     },
   },
@@ -225,8 +240,8 @@ const TEMPLATES = [
     }),
     html: (v, ctx, size) => {
       const title = esc(v.title).replace(/\*\*(.+?)\*\*/g, '<span class="grad">$1</span>');
-      const body = `<div class="wrap"><span class="tag">${esc(v.label)}</span><h1 class="huge">${title}</h1><div class="grow"><p class="lead big">${inline(v.text)}</p></div>${foot(ctx, v.footer)}</div>`;
-      return page({ ...size, body, accent: ctx.accent, css: `.huge{font-size:100px}.big{font-size:40px;color:#d4d4d8;line-height:1.5;margin-top:10px}` });
+      const body = `<div class="wrap"><span class="tag">${esc(v.label)}</span><h1 style="${fitStyle(v.title, { base: 100, min: 44, lines: 3 })}">${title}</h1><div class="grow"><p class="lead big">${inline(v.text)}</p></div>${foot(ctx, v.footer)}</div>`;
+      return page({ ...size, body, accent: ctx.accent, css: `.big{font-size:40px;color:#d4d4d8;line-height:1.5;margin-top:10px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden}` });
     },
   },
   {
@@ -266,12 +281,12 @@ const TEMPLATES = [
           return `<div class="box step"><div class="num">${start + i}</div><div><div class="st">${inline(head)}</div>${rest.length ? `<div class="sd">${inline(rest.join(' — '))}</div>` : ''}</div></div>`;
         })
         .join('');
-      const body = `<div class="wrap"><span class="tag">${esc(v.label)}</span><h1>${title}</h1>${v.lead ? `<p class="lead">${inline(v.lead)}</p>` : ''}<div class="grow steps">${rows}</div>${foot(ctx, v.footer)}</div>`;
+      const body = `<div class="wrap"><span class="tag">${esc(v.label)}</span><h1 style="${fitStyle(v.title, { base: 78, lines: 2 })}">${title}</h1>${v.lead ? `<p class="lead">${inline(v.lead)}</p>` : ''}<div class="grow steps">${rows}</div>${foot(ctx, v.footer)}</div>`;
       return page({
         ...size,
         body,
         accent: ctx.accent,
-        css: `.steps{display:flex;flex-direction:column;gap:14px;margin-top:34px}.step{display:flex;gap:26px;align-items:flex-start;padding:22px 26px}.st{font-size:31px;font-weight:700;line-height:1.25}.sd{font-size:24px;color:#a1a1aa;line-height:1.42;margin-top:6px}`,
+        css: `.steps{display:flex;flex-direction:column;gap:14px;margin-top:34px}.step{display:flex;gap:26px;align-items:flex-start;padding:22px 26px}.st{font-size:31px;font-weight:700;line-height:1.25;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}.sd{font-size:24px;color:#a1a1aa;line-height:1.42;margin-top:6px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}.lead{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}`,
       });
     },
   },
@@ -296,12 +311,12 @@ const TEMPLATES = [
         const list = items.filter((i) => i.status === c.id).slice(0, 4);
         return `<div class="rc"><div class="rh"><span class="rd" style="background:${c.color}"></span>${esc(pick(c.label, lang))}<span class="rn">${items.filter((i) => i.status === c.id).length}</span></div>${list.map((i) => `<div class="box ri">${esc(i.title?.[lang] || i.title?.ru || i.title?.en || '')}</div>`).join('') || '<div class="re">—</div>'}</div>`;
       };
-      const body = `<div class="wrap"><span class="tag">${esc(ctx.appName)}</span><h1>${esc(v.title)}</h1><div class="grow rcols">${cols.map(col).join('')}</div>${foot(ctx, v.footer)}</div>`;
+      const body = `<div class="wrap"><span class="tag">${esc(ctx.appName)}</span><h1 style="${fitStyle(v.title, { base: 78, lines: 2 })}">${esc(v.title)}</h1><div class="grow rcols">${cols.map(col).join('')}</div>${foot(ctx, v.footer)}</div>`;
       return page({
         ...size,
         body,
         accent: ctx.accent,
-        css: `.rcols{display:flex;flex-direction:column;gap:26px;margin-top:30px}.rh{display:flex;align-items:center;gap:14px;font-size:34px;font-weight:700;margin-bottom:12px}.rd{width:16px;height:16px;border-radius:50%}.rn{font-size:22px;color:#71717a;font-weight:600}.ri{padding:20px 26px;font-size:30px;line-height:1.3;margin-bottom:10px}.re{color:#52525b;font-size:26px;padding-left:4px}`,
+        css: `.rcols{display:flex;flex-direction:column;gap:26px;margin-top:30px}.rh{display:flex;align-items:center;gap:14px;font-size:34px;font-weight:700;margin-bottom:12px}.rd{width:16px;height:16px;border-radius:50%}.rn{font-size:22px;color:#71717a;font-weight:600}.ri{padding:20px 26px;font-size:30px;line-height:1.3;margin-bottom:10px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}.re{color:#52525b;font-size:26px;padding-left:4px}`,
       });
     },
   },
@@ -323,12 +338,12 @@ const TEMPLATES = [
     html: (v, ctx, size) => {
       const names = lines(v.names).slice(0, 30);
       const title = esc(v.title).replace(/\*\*(.+?)\*\*/g, '<span class="grad">$1</span>');
-      const body = `<div class="wrap"><span class="tag">♥ ${esc(ctx.appName)}</span><h1>${title}</h1><p class="lead">${inline(v.text)}</p><div class="grow names">${names.map((n) => `<span class="nm">${esc(n)}</span>`).join('')}</div>${foot(ctx, ctx.siteShort)}</div>`;
+      const body = `<div class="wrap"><span class="tag">♥ ${esc(ctx.appName)}</span><h1 style="${fitStyle(v.title, { base: 78, lines: 2 })}">${title}</h1><p class="lead">${inline(v.text)}</p><div class="grow names">${names.map((n) => `<span class="nm">${esc(n)}</span>`).join('')}</div>${foot(ctx, ctx.siteShort)}</div>`;
       return page({
         ...size,
         body,
         accent: ctx.accent,
-        css: `.names{display:flex;flex-wrap:wrap;align-content:flex-start;gap:14px;margin-top:40px}.nm{padding:16px 30px;border-radius:999px;font-size:34px;font-weight:600;background:color-mix(in srgb,var(--accent) 14%,transparent);border:1px solid color-mix(in srgb,var(--accent-2) 35%,transparent);color:color-mix(in srgb,var(--accent-2) 40%,white)}`,
+        css: `.lead{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}.names{display:flex;flex-wrap:wrap;align-content:flex-start;gap:14px;margin-top:40px}.nm{max-width:100%;padding:16px 30px;border-radius:999px;font-size:34px;font-weight:600;background:color-mix(in srgb,var(--accent) 14%,transparent);border:1px solid color-mix(in srgb,var(--accent-2) 35%,transparent);color:color-mix(in srgb,var(--accent-2) 40%,white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}`,
       });
     },
   },
@@ -357,12 +372,12 @@ const TEMPLATES = [
         .slice(0, 6)
         .map((o) => `<div class="opt${o.pct === max && max > 0 ? ' win' : ''}"><div class="bar" style="width:${o.pct}%"></div><span class="ot">${inline(o.text)}</span><span class="op">${o.pct}%</span></div>`)
         .join('');
-      const body = `<div class="wrap"><span class="tag">🗳 ${esc(pick(T('Итоги голосования', 'Poll results'), lang))}</span><h1>${inline(v.title)}</h1><div class="opts">${rows}</div><div class="grow"><p class="lead res">${inline(v.result)}</p></div>${foot(ctx, ctx.siteShort)}</div>`;
+      const body = `<div class="wrap"><span class="tag">🗳 ${esc(pick(T('Итоги голосования', 'Poll results'), lang))}</span><h1 style="${fitStyle(v.title, { base: 78, lines: 2 })}">${inline(v.title)}</h1><div class="opts">${rows}</div><div class="grow"><p class="lead res">${inline(v.result)}</p></div>${foot(ctx, ctx.siteShort)}</div>`;
       return page({
         ...size,
         body,
         accent: ctx.accent,
-        css: `.opts{display:flex;flex-direction:column;gap:16px;margin-top:34px}.opt{position:relative;overflow:hidden;display:flex;align-items:center;gap:20px;padding:26px 30px;border-radius:22px;background:rgba(24,24,27,.78);border:1px solid #27272a;font-size:31px;font-weight:600}.bar{position:absolute;inset:0 auto 0 0;background:rgba(113,113,122,.22)}.win{border-color:color-mix(in srgb,var(--accent-2) 55%,transparent)}.win .bar{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 45%,transparent),color-mix(in srgb,var(--accent-2) 35%,transparent))}.ot,.op{position:relative}.op{margin-left:auto;font-weight:800}.res{margin-top:34px;font-size:32px;color:#d4d4d8}`,
+        css: `.opts{display:flex;flex-direction:column;gap:16px;margin-top:34px}.opt{position:relative;overflow:hidden;display:flex;align-items:center;gap:20px;padding:26px 30px;border-radius:22px;background:rgba(24,24,27,.78);border:1px solid #27272a;font-size:31px;font-weight:600}.bar{position:absolute;inset:0 auto 0 0;background:rgba(113,113,122,.22)}.win{border-color:color-mix(in srgb,var(--accent-2) 55%,transparent)}.win .bar{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 45%,transparent),color-mix(in srgb,var(--accent-2) 35%,transparent))}.ot,.op{position:relative}.ot{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.op{flex:none;margin-left:auto;font-weight:800}.res{margin-top:34px;font-size:32px;color:#d4d4d8;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}`,
       });
     },
   },
@@ -394,15 +409,15 @@ const TEMPLATES = [
     html: (v, ctx, size) => {
       const tier = (name, price, list, hot) =>
         name
-          ? `<div class="box tier${hot ? ' hot' : ''}"><div class="tn">${inline(name)}</div><div class="tp">${inline(price)}</div>${lines(list).map((l) => `<div class="tl"><span class="ck">✓</span>${inline(l)}</div>`).join('')}</div>`
+          ? `<div class="box tier${hot ? ' hot' : ''}"><div class="tn">${inline(name)}</div><div class="tp">${inline(price)}</div>${lines(list).map((l) => `<div class="tl"><span class="ck">✓</span><span class="tt">${inline(l)}</span></div>`).join('')}</div>`
           : '';
       const title = esc(v.title).replace(/\*\*(.+?)\*\*/g, '<span class="grad">$1</span>');
-      const body = `<div class="wrap"><span class="tag">${esc(ctx.appName)}</span><h1>${title}</h1><div class="grow tiers">${tier(v.t1, v.p1, v.l1)}${tier(v.t2, v.p2, v.l2, true)}</div>${foot(ctx, v.footer)}</div>`;
+      const body = `<div class="wrap"><span class="tag">${esc(ctx.appName)}</span><h1 style="${fitStyle(v.title, { base: 78, lines: 2 })}">${title}</h1><div class="grow tiers">${tier(v.t1, v.p1, v.l1)}${tier(v.t2, v.p2, v.l2, true)}</div>${foot(ctx, v.footer)}</div>`;
       return page({
         ...size,
         body,
         accent: ctx.accent,
-        css: `.tiers{display:flex;flex-direction:column;gap:20px;margin-top:30px}.tier{padding:30px 34px}.hot{border-color:color-mix(in srgb,var(--accent-2) 55%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 20%,transparent),rgba(24,24,27,.85))}.tn{font-size:36px;font-weight:800}.tp{font-size:30px;font-weight:700;color:color-mix(in srgb,var(--accent-2) 55%,white);margin:6px 0 16px}.tl{display:flex;gap:14px;font-size:26px;color:#d4d4d8;line-height:1.4;margin-top:8px}.ck{color:#34d399;font-weight:800}`,
+        css: `.tiers{display:flex;flex-direction:column;gap:20px;margin-top:30px}.tier{padding:30px 34px}.hot{border-color:color-mix(in srgb,var(--accent-2) 55%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 20%,transparent),rgba(24,24,27,.85))}.tn{font-size:36px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tp{font-size:30px;font-weight:700;color:color-mix(in srgb,var(--accent-2) 55%,white);margin:6px 0 16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tl{display:flex;gap:14px;font-size:26px;color:#d4d4d8;line-height:1.4;margin-top:8px}.tt{min-width:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}.ck{color:#34d399;font-weight:800}`,
       });
     },
   },
@@ -422,12 +437,12 @@ const TEMPLATES = [
       platforms: 'Windows · Android · Free',
     }),
     html: (v, ctx, size) => {
-      const body = `${OG_GRAPH}<div class="og"><div class="ol">${LOGO}<span class="on">${esc(ctx.appName)}</span></div><div class="ot">${inline(v.title)}</div><div class="os">${inline(v.text)}</div><div class="op">${esc(v.platforms)}</div></div>`;
+      const body = `${OG_GRAPH}<div class="og"><div class="ol">${LOGO}<span class="on">${esc(ctx.appName)}</span></div><div class="ot" style="${fitStyle(v.title, { base: 50, min: 30, soft: 40, hard: 100, lines: 2 })}">${inline(v.title)}</div><div class="os">${inline(v.text)}</div><div class="op">${esc(v.platforms)}</div></div>`;
       return page({
         ...size,
         body,
         accent: ctx.accent,
-        css: `.g1{width:640px;height:640px;top:-260px;left:-200px}.g2{width:600px;height:600px;bottom:-320px;right:-160px}.og{position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 84px}.ol{display:flex;align-items:center;gap:22px}.ol .logo{width:92px;height:92px}.on{font-size:64px;font-weight:800;letter-spacing:-.02em}.ot{font-size:50px;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-top:34px;max-width:500px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 55%,white),color-mix(in srgb,var(--accent-2) 45%,white));-webkit-background-clip:text;color:transparent}.os{font-size:27px;color:#a1a1aa;line-height:1.4;margin-top:18px;max-width:620px}.gr{position:absolute;right:40px;top:50%;transform:translateY(-50%);width:440px;height:400px}.op{margin-top:30px;font-size:22px;font-weight:600;color:color-mix(in srgb,var(--accent) 45%,white);letter-spacing:.04em}`,
+        css: `.g1{width:640px;height:640px;top:-260px;left:-200px}.g2{width:600px;height:600px;bottom:-320px;right:-160px}.og{position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 84px}.ol{display:flex;align-items:center;gap:22px}.ol .logo{width:92px;height:92px}.on{font-size:64px;font-weight:800;letter-spacing:-.02em}.ot{font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-top:34px;max-width:500px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 55%,white),color-mix(in srgb,var(--accent-2) 45%,white));-webkit-background-clip:text;color:transparent}.os{font-size:27px;color:#a1a1aa;line-height:1.4;margin-top:18px;max-width:620px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}.gr{position:absolute;right:40px;top:50%;transform:translateY(-50%);width:440px;height:400px}.op{margin-top:30px;font-size:22px;font-weight:600;color:color-mix(in srgb,var(--accent) 45%,white);letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}`,
       });
     },
   },
