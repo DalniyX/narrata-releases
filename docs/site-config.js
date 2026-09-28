@@ -8,15 +8,15 @@ const SITE = {
   "github": "https://github.com/DalniyX/narrata-releases",
   "latest": "https://github.com/DalniyX/narrata-releases/releases/latest",
   "changelog": "https://github.com/DalniyX/narrata-releases/blob/HEAD/CHANGELOG.md",
-  "license": "https://github.com/DalniyX/narrata-releases/blob/HEAD/LICENSE.md",
   "telegram": "https://t.me/DalniyX",
   "discord": "",
+  "roadmap": "roadmap.html",
   "boosty": "https://boosty.to/narrata/donate",
   "donationAlerts": "https://dalink.to/dalniyx",
   "patreon": "",
   "tbank": "",
   "snow": {
-    "enabled": false,
+    "enabled": true,
     "start": "",
     "end": ""
   }
