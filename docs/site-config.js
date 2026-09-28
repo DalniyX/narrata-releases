@@ -16,7 +16,7 @@ const SITE = {
   "patreon": "",
   "tbank": "",
   "snow": {
-    "enabled": true,
+    "enabled": false,
     "start": "",
     "end": ""
   }
