@@ -1,0 +1,175 @@
+// Создано scripts/license-site.mjs из legal/eula.ru.md и eula.en.md — не правьте вручную: правки пропадут.
+'use strict';
+
+const LICENSE = {
+ "ru": {
+  "title": "Лицензионное соглашение с конечным пользователем Narrata",
+  "subtitle": "Редакция от 24 сентября 2026 г.",
+  "intro": "\u003cp>Настоящее соглашение заключается между вами (далее — «Пользователь») и правообладателем программы Narrata — DalniyX (далее — «Правообладатель»). Устанавливая, копируя, запуская или иным образом используя Narrata, вы подтверждаете, что прочитали соглашение и принимаете его условия. Если вы не согласны с условиями, не устанавливайте и не используйте программу.\u003c/p>",
+  "sections": [
+   {
+    "id": "license-1",
+    "title": "1. Термины",
+    "hint": "",
+    "html": "\u003cul>\n\u003cli>«Программа» — Narrata для Windows и Android, включая обновления, установщики, документацию и встроенные материалы.\u003c/li>\n\u003cli>«Контент пользователя» — проекты, документы, графы, изображения и другие данные, которые Пользователь создаёт или добавляет в Программу.\u003c/li>\n\u003cli>«Сторонние сервисы» — внешние сервисы, с которыми Программа взаимодействует по действию Пользователя, в том числе GitHub.\u003c/li>\n\u003c/ul>"
+   },
+   {
+    "id": "license-2",
+    "title": "2. Лицензия",
+    "hint": "",
+    "html": "\u003cp>2.1. Правообладатель предоставляет Пользователю простую (неисключительную), безвозмездную, непередаваемую лицензию на использование Программы на любом количестве устройств, принадлежащих Пользователю или находящихся под его контролем, на территории всего мира и на весь срок действия исключительного права.\u003c/p>\n\u003cp>2.2. Программу можно использовать в личных и коммерческих целях, в том числе для создания игр, сценариев и документации.\u003c/p>\n\u003cp>2.3. Добровольная поддержка автора (пожертвования, подписки) не является оплатой лицензии и не даёт дополнительных прав или гарантий.\u003c/p>\n\u003cp>2.4. Программа не предназначена для лиц младше 13 лет. Если Пользователю менее 13 лет, использовать Программу можно только с согласия родителя или иного законного представителя, который принимает условия соглашения от его имени и отвечает за их соблюдение.\u003c/p>"
+   },
+   {
+    "id": "license-3",
+    "title": "3. Ограничения",
+    "hint": "",
+    "html": "\u003cp>Если иное прямо не разрешено применимым законом, Пользователь не вправе:\u003c/p>\n\u003cul>\n\u003cli>декомпилировать, дизассемблировать Программу, извлекать из неё исходный код, изменять её или создавать производные продукты на её основе, за исключением случаев и в пределах, прямо предусмотренных применимым законодательством (в частности, ст. 1280 ГК РФ);\u003c/li>\n\u003cli>обходить технические средства защиты, проверки целостности и цифровой подписи;\u003c/li>\n\u003cli>распространять, продавать, сдавать в аренду или сублицензировать Программу и её изменённые копии, а также размещать установщики на сторонних ресурсах без письменного разрешения Правообладателя (ссылки на официальную страницу загрузки разрешены);\u003c/li>\n\u003cli>извлекать из Программы графику, фоны, значки, иллюстрации и элементы оформления интерфейса и использовать их отдельно от Программы;\u003c/li>\n\u003cli>удалять или изменять сведения об авторстве, товарные знаки и уведомления об авторских правах;\u003c/li>\n\u003cli>использовать Программу для нарушения закона или прав третьих лиц.\u003c/li>\n\u003c/ul>"
+   },
+   {
+    "id": "license-4",
+    "title": "4. Интеллектуальная собственность",
+    "hint": "",
+    "html": "\u003cp>4.1. Исключительное право на Программу, её код, дизайн, название и логотип, а также на графику, фоны, значки, иллюстрации и оформление интерфейса принадлежит Правообладателю. Соглашение не передаёт Пользователю этих прав, кроме прямо указанных в разделе 2.\u003c/p>\n\u003cp>4.2. В Программу входят компоненты с открытым исходным кодом (Electron, React и другие). Они распространяются на условиях собственных лицензий (MIT, Apache 2.0, BSD и других), и в отношении этих компонентов такие условия имеют приоритет.\u003c/p>"
+   },
+   {
+    "id": "license-5",
+    "title": "5. Контент пользователя",
+    "hint": "",
+    "html": "\u003cp>5.1. Все права на Контент пользователя остаются у Пользователя. Правообладатель не получает на него никаких прав.\u003c/p>\n\u003cp>5.2. Пользователь сам отвечает за законность своего Контента и соблюдение прав третьих лиц, в том числе при совместной работе в репозиториях.\u003c/p>\n\u003cp>5.3. Пользователь сам отвечает за сохранность своих данных. Резервные копии и история версий в Программе — вспомогательные средства и не гарантируют сохранность данных.\u003c/p>\n\u003cp>5.4. В Программе используется сквозное шифрование для закрытых папок и сообщений чата. Правообладатель не хранит ключи шифрования Пользователя и не имеет технической возможности восстановить доступ к зашифрованным данным в случае утраты Пользователем пароля Программы или файлов ключей.\u003c/p>"
+   },
+   {
+    "id": "license-6",
+    "title": "6. Данные и конфиденциальность",
+    "hint": "",
+    "html": "\u003cp>6.1. Программа не собирает персональные данные и не передаёт Правообладателю сведения об использовании, аналитику или содержимое проектов.\u003c/p>\n\u003cp>6.2. Проекты хранятся на устройстве Пользователя, а при подключении GitHub — также в репозиториях GitHub, выбранных Пользователем. Ключ доступа к GitHub хранится только на устройстве и шифруется средствами системы или паролем Пользователя.\u003c/p>\n\u003cp>6.3. Программа обращается к интернету, чтобы: проверять и загружать обновления из GitHub Releases, в том числе запасной список версий (файл \u003ccode>updates.json\u003c/code> в репозитории релизов), когда GitHub ограничивает число запросов; загружать список благодарностей и переводы интерфейса; работать с GitHub по действию Пользователя (вход, синхронизация, задачи, чат); отправлять обращения из окна «Обратная связь» на сервер обратной связи Правообладателя, если Пользователь сам их отправит (обращения публикуются в открытом списке задач на GitHub); открывать ссылки, выбранные Пользователем.\u003c/p>\n\u003cp>6.4. Сведения об ошибках хранятся на устройстве и передаются, только если Пользователь сам отправит отчёт.\u003c/p>\n\u003cp>6.5. Использование GitHub и других Сторонних сервисов регулируется их собственными условиями и политикой конфиденциальности.\u003c/p>"
+   },
+   {
+    "id": "license-7",
+    "title": "7. Обновления",
+    "hint": "",
+    "html": "\u003cp>7.1. Программа может автоматически проверять наличие новых версий и загружать их. Обновление устанавливается с согласия Пользователя: по кнопке в Программе или через системный запрос Android.\u003c/p>\n\u003cp>7.2. Условия соглашения распространяются на все обновления, если к обновлению не приложена новая редакция соглашения.\u003c/p>\n\u003cp>7.3. Правообладатель вправе изменять, приостанавливать или прекращать развитие Программы и отдельных функций.\u003c/p>\n\u003cp>7.4. При использовании механизма автоматического обновления в Программе в обход официальных магазинов приложений Пользователь самостоятельно несёт риски, связанные с установкой обновлений (в том числе APK-файлов) на своё устройство.\u003c/p>"
+   },
+   {
+    "id": "license-8",
+    "title": "8. Отказ от гарантий",
+    "hint": "",
+    "html": "\u003cp>Программа предоставляется «как есть». В максимальной степени, допустимой применимым законом, Правообладатель не даёт никаких явных или подразумеваемых гарантий, в том числе гарантий пригодности для определённой цели, бесперебойной и безошибочной работы, совместимости с оборудованием и Сторонними сервисами, а также сохранности данных.\u003c/p>"
+   },
+   {
+    "id": "license-9",
+    "title": "9. Ограничение ответственности",
+    "hint": "",
+    "html": "\u003cp>9.1. В максимальной степени, допустимой применимым законом, за исключением случаев доказанного умышленного причинения вреда со стороны Правообладателя, Правообладатель не несёт ответственности за прямые и косвенные убытки, упущенную выгоду, потерю данных или перерывы в работе, возникшие в связи с использованием Программы или невозможностью её использовать, даже если Правообладатель знал о возможности таких убытков.\u003c/p>\n\u003cp>9.2. Программа предоставляется безвозмездно, поэтому совокупная ответственность Правообладателя ограничена суммой, фактически уплаченной Пользователем за лицензию, если иное не установлено императивными нормами закона.\u003c/p>\n\u003cp>9.3. Соглашение не ограничивает права Пользователя, которые по закону не могут быть ограничены.\u003c/p>"
+   },
+   {
+    "id": "license-10",
+    "title": "10. Срок действия и прекращение",
+    "hint": "",
+    "html": "\u003cp>10.1. Соглашение действует с момента начала использования Программы.\u003c/p>\n\u003cp>10.2. Пользователь может прекратить действие соглашения, удалив Программу со всех своих устройств.\u003c/p>\n\u003cp>10.3. При нарушении условий соглашения лицензия прекращается автоматически, и Пользователь обязан прекратить использование Программы и удалить её.\u003c/p>\n\u003cp>10.4. Разделы 4, 5, 8, 9 и 12 продолжают действовать после прекращения соглашения.\u003c/p>"
+   },
+   {
+    "id": "license-11",
+    "title": "11. Изменение соглашения",
+    "hint": "",
+    "html": "\u003cp>Правообладатель вправе изменять соглашение. Новая редакция публикуется вместе с новой версией Программы и применяется с момента установки этой версии. Если вы не согласны с новой редакцией, не устанавливайте обновление и прекратите использование Программы.\u003c/p>"
+   },
+   {
+    "id": "license-12",
+    "title": "12. Применимое право и споры",
+    "hint": "",
+    "html": "\u003cp>12.1. Соглашение регулируется законодательством Российской Федерации.\u003c/p>\n\u003cp>12.2. Споры разрешаются путём переговоров. Досудебный претензионный порядок обязателен. Срок ответа на претензию — 30 (тридцать) календарных дней. Если договориться не удалось, спор рассматривается в суде по месту нахождения Правообладателя, если иное не предусмотрено императивными нормами закона.\u003c/p>\n\u003cp>12.3. Если какое-либо положение соглашения будет признано недействительным, остальные положения сохраняют силу.\u003c/p>"
+   },
+   {
+    "id": "license-13",
+    "title": "13. Контакты",
+    "hint": "",
+    "html": "\u003cp>Вопросы по соглашению: \u003ca href=\"https://github.com/DalniyX/narrata-releases\" target=\"_blank\" rel=\"noopener\">https://github.com/DalniyX/narrata-releases\u003c/a>\u003c/p>\n\u003cp>Copyright © 2026 DalniyX\u003c/p>"
+   }
+  ]
+ },
+ "en": {
+  "title": "Narrata End User License Agreement",
+  "subtitle": "Version of September 24, 2026",
+  "intro": "\u003cp>This agreement is made between you (the &quot;User&quot;) and the owner of the Narrata software, DalniyX (the &quot;Licensor&quot;). By installing, copying, running or otherwise using Narrata, you confirm that you have read this agreement and accept its terms. If you do not agree, do not install or use the software.\u003c/p>",
+  "sections": [
+   {
+    "id": "license-1",
+    "title": "1. Definitions",
+    "hint": "",
+    "html": "\u003cul>\n\u003cli>&quot;Software&quot; means Narrata for Windows and Android, including updates, installers, documentation and bundled materials.\u003c/li>\n\u003cli>&quot;User Content&quot; means projects, documents, graphs, images and other data that the User creates in or adds to the Software.\u003c/li>\n\u003cli>&quot;Third-Party Services&quot; means external services the Software works with at the User&#x27;s request, including GitHub.\u003c/li>\n\u003c/ul>"
+   },
+   {
+    "id": "license-2",
+    "title": "2. License",
+    "hint": "",
+    "html": "\u003cp>2.1. The Licensor grants the User a non-exclusive, free of charge, non-transferable, worldwide license to use the Software on any number of devices owned or controlled by the User, for the full term of the Licensor&#x27;s rights.\u003c/p>\n\u003cp>2.2. The Software may be used for personal and commercial purposes, including creating games, scripts and documentation.\u003c/p>\n\u003cp>2.3. Voluntary support of the author (donations, subscriptions) is not a license fee and grants no additional rights or warranties.\u003c/p>\n\u003cp>2.4. The Software is not intended for people under 13. If the User is under 13, the Software may be used only with the consent of a parent or other legal guardian, who accepts this agreement on their behalf and is responsible for compliance with it.\u003c/p>"
+   },
+   {
+    "id": "license-3",
+    "title": "3. Restrictions",
+    "hint": "",
+    "html": "\u003cp>Unless expressly permitted by applicable law, the User may not:\u003c/p>\n\u003cul>\n\u003cli>decompile or disassemble the Software, extract its source code, modify it or create derivative works based on it, except in the cases and to the extent expressly permitted by applicable law (in particular, Article 1280 of the Civil Code of the Russian Federation);\u003c/li>\n\u003cli>circumvent technical protection measures, integrity checks or code signatures;\u003c/li>\n\u003cli>distribute, sell, rent or sublicense the Software or modified copies of it, or publish its installers on third-party sites without the Licensor&#x27;s written permission (links to the official download page are allowed);\u003c/li>\n\u003cli>extract graphics, backgrounds, icons, illustrations or interface design elements from the Software and use them separately from it;\u003c/li>\n\u003cli>remove or alter authorship information, trademarks or copyright notices;\u003c/li>\n\u003cli>use the Software to break the law or infringe the rights of others.\u003c/li>\n\u003c/ul>"
+   },
+   {
+    "id": "license-4",
+    "title": "4. Intellectual property",
+    "hint": "",
+    "html": "\u003cp>4.1. All exclusive rights to the Software, its code, design, name and logo, as well as to the graphics, backgrounds, icons, illustrations and interface design, belong to the Licensor. This agreement transfers no rights to the User other than those expressly stated in section 2.\u003c/p>\n\u003cp>4.2. The Software includes open-source components (Electron, React and others). They are distributed under their own licenses (MIT, Apache 2.0, BSD and others), and those terms prevail for the respective components.\u003c/p>"
+   },
+   {
+    "id": "license-5",
+    "title": "5. User Content",
+    "hint": "",
+    "html": "\u003cp>5.1. All rights to User Content remain with the User. The Licensor acquires no rights to it.\u003c/p>\n\u003cp>5.2. The User is solely responsible for the legality of their content and for respecting the rights of others, including when collaborating in repositories.\u003c/p>\n\u003cp>5.3. The User is responsible for keeping their data safe. Backups and version history in the Software are auxiliary tools and do not guarantee that data is preserved.\u003c/p>\n\u003cp>5.4. The Software uses end-to-end encryption for private folders and chat messages. The Licensor does not store the User&#x27;s encryption keys and has no technical means to restore access to encrypted data if the User loses their Software password or key files.\u003c/p>"
+   },
+   {
+    "id": "license-6",
+    "title": "6. Data and privacy",
+    "hint": "",
+    "html": "\u003cp>6.1. The Software does not collect personal data and does not send the Licensor usage information, analytics or project contents.\u003c/p>\n\u003cp>6.2. Projects are stored on the User&#x27;s device and, when GitHub is connected, also in the GitHub repositories chosen by the User. The GitHub access token is stored only on the device and is encrypted by the operating system or with the User&#x27;s password.\u003c/p>\n\u003cp>6.3. The Software connects to the internet to: check for and download updates from GitHub Releases, including the fallback version list (the \u003ccode>updates.json\u003c/code> file in the releases repository) when GitHub limits the number of requests; download the supporters list and interface translations; work with GitHub at the User&#x27;s request (sign-in, sync, tasks, chat); send requests from the Feedback window to the Licensor&#x27;s feedback server when the User sends them (requests are published in the public issue list on GitHub); open links chosen by the User.\u003c/p>\n\u003cp>6.4. Error information is kept on the device and is sent only if the User submits a report themselves.\u003c/p>\n\u003cp>6.5. The use of GitHub and other Third-Party Services is governed by their own terms and privacy policies.\u003c/p>"
+   },
+   {
+    "id": "license-7",
+    "title": "7. Updates",
+    "hint": "",
+    "html": "\u003cp>7.1. The Software may automatically check for and download new versions. Updates are installed with the User&#x27;s consent: with a button in the Software or through the Android system prompt.\u003c/p>\n\u003cp>7.2. This agreement applies to all updates unless an update comes with a new version of the agreement.\u003c/p>\n\u003cp>7.3. The Licensor may change, suspend or discontinue the Software or any of its features.\u003c/p>\n\u003cp>7.4. If the User uses the Software&#x27;s automatic update mechanism outside official app stores, the User is solely responsible for the risks of installing such updates (including APK files) on their device.\u003c/p>"
+   },
+   {
+    "id": "license-8",
+    "title": "8. Disclaimer of warranties",
+    "hint": "",
+    "html": "\u003cp>The Software is provided &quot;as is&quot;. To the maximum extent permitted by applicable law, the Licensor makes no warranties, express or implied, including warranties of fitness for a particular purpose, uninterrupted or error-free operation, compatibility with hardware or Third-Party Services, or preservation of data.\u003c/p>"
+   },
+   {
+    "id": "license-9",
+    "title": "9. Limitation of liability",
+    "hint": "",
+    "html": "\u003cp>9.1. To the maximum extent permitted by applicable law, except in cases of proven intentional harm by the Licensor, the Licensor is not liable for any direct or indirect damages, lost profits, loss of data or interruption of work arising from the use of or inability to use the Software, even if the Licensor was aware of the possibility of such damages.\u003c/p>\n\u003cp>9.2. The Software is provided free of charge, so the Licensor&#x27;s total liability is limited to the amount actually paid by the User for the license, unless mandatory law provides otherwise.\u003c/p>\n\u003cp>9.3. Nothing in this agreement limits rights of the User that cannot be limited by law.\u003c/p>"
+   },
+   {
+    "id": "license-10",
+    "title": "10. Term and termination",
+    "hint": "",
+    "html": "\u003cp>10.1. This agreement takes effect when the User starts using the Software.\u003c/p>\n\u003cp>10.2. The User may terminate the agreement by removing the Software from all of their devices.\u003c/p>\n\u003cp>10.3. The license terminates automatically if the User breaches this agreement; the User must then stop using and remove the Software.\u003c/p>\n\u003cp>10.4. Sections 4, 5, 8, 9 and 12 survive termination.\u003c/p>"
+   },
+   {
+    "id": "license-11",
+    "title": "11. Changes to this agreement",
+    "hint": "",
+    "html": "\u003cp>The Licensor may change this agreement. A new version is published together with a new version of the Software and applies from the moment that version is installed. If you do not agree with the new version, do not install the update and stop using the Software.\u003c/p>"
+   },
+   {
+    "id": "license-12",
+    "title": "12. Governing law and disputes",
+    "hint": "",
+    "html": "\u003cp>12.1. This agreement is governed by the laws of the Russian Federation.\u003c/p>\n\u003cp>12.2. Disputes are settled through negotiation. A pre-trial claim procedure is mandatory. The deadline to respond to a claim is 30 (thirty) calendar days. If no agreement is reached, the dispute is heard in a court at the Licensor&#x27;s location, unless mandatory law provides otherwise.\u003c/p>\n\u003cp>12.3. If any provision of this agreement is held invalid, the remaining provisions stay in force.\u003c/p>"
+   },
+   {
+    "id": "license-13",
+    "title": "13. Contact",
+    "hint": "",
+    "html": "\u003cp>Questions about this agreement: \u003ca href=\"https://github.com/DalniyX/narrata-releases\" target=\"_blank\" rel=\"noopener\">https://github.com/DalniyX/narrata-releases\u003c/a>\u003c/p>\n\u003cp>Copyright © 2026 DalniyX\u003c/p>"
+   }
+  ]
+ }
+};
