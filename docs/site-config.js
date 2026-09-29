@@ -11,10 +11,12 @@ const SITE = {
   "telegram": "https://t.me/DalniyX",
   "discord": "",
   "roadmap": "roadmap.html",
+  "showSupportOnSite": true,
   "boosty": "https://boosty.to/narrata/donate",
   "donationAlerts": "https://dalink.to/dalniyx",
   "patreon": "",
   "tbank": "",
+  "authorSite": "",
   "snow": {
     "enabled": false,
     "start": "",
