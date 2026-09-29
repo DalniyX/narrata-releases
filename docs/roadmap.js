@@ -64,20 +64,28 @@ function renderBoard(dict, lang, data) {
 
 // Файл грузится один раз и кешируется в памяти — переключение языка перерисовывает те же данные, не просит их заново.
 let roadmapData;
-SubPage.start({
-  render(lang, dict) {
-    if (roadmapData !== undefined) {
-      renderBoard(dict, lang, roadmapData);
-      return;
-    }
-    fetchRoadmap()
-      .then((data) => {
-        roadmapData = data;
-        renderBoard(dict, lang, data);
-      })
-      .catch(() => {
-        roadmapData = null;
-        renderBoard(dict, lang, null);
-      });
-  },
-});
+// Настройка выключена (app.config.jsonc → app.showRoadmap): кнопка и так спрятана везде на сайте, но сама
+// страница остаётся выложенной, и по прямой ссылке (старая закладка, поисковик) показывала бы актуальные
+// планы в обход выключателя — а именно эту утечку он и должен закрывать. Уводим на главную без запроса
+// к GitHub и без SubPage.start(): человек с прямой ссылкой не должен даже на миг увидеть содержимое.
+if (typeof SITE !== 'undefined' && !SITE.roadmap) {
+  location.replace('index.html');
+} else {
+  SubPage.start({
+    render(lang, dict) {
+      if (roadmapData !== undefined) {
+        renderBoard(dict, lang, roadmapData);
+        return;
+      }
+      fetchRoadmap()
+        .then((data) => {
+          roadmapData = data;
+          renderBoard(dict, lang, data);
+        })
+        .catch(() => {
+          roadmapData = null;
+          renderBoard(dict, lang, null);
+        });
+    },
+  });
+}
