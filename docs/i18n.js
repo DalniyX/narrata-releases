@@ -88,6 +88,7 @@ const I18N = {
 
     'footer.changelog': 'Что нового',
     'footer.license': 'Лицензия',
+    'footer.authorSite': 'Другие проекты автора',
 
     'lightbox.close': 'Закрыть',
     'lightbox.prev': 'Предыдущий',
@@ -220,6 +221,7 @@ const I18N = {
 
     'footer.changelog': 'What’s new',
     'footer.license': 'License',
+    'footer.authorSite': 'More by the author',
 
     'lightbox.close': 'Close',
     'lightbox.prev': 'Previous',
