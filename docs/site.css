@@ -546,6 +546,9 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--line); }
 .guide-toc a.active b { color: var(--text); }
 .guide-section { scroll-margin-top: 24px; padding: 28px 30px; margin-bottom: 18px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
 .guide-section h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; margin: 0 0 14px; }
+/* Пункты соглашения читаются подряд, один за другим — карточки можно поставить теснее, чем разделы
+   руководства (те самостоятельнее, между ними уместнее пауза). */
+.license-page .guide-section { margin-bottom: 8px; }
 .guide-body { color: #d4d4d8; font-size: 15px; line-height: 1.7; }
 .guide-body p { margin: 0 0 12px; }
 .guide-body p:last-child { margin-bottom: 0; }
