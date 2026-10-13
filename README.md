@@ -19,9 +19,9 @@
 
 <p align="center"><sub><a href="https://narrata.space/changelog.html">Что нового</a> · История изменений всех версий: <a href="CHANGELOG.md">русский</a> · <a href="CHANGELOG.en.md">English</a></sub></p>
 
-<p align="center"><img src="docs/screenshots/01-graph.png" alt="Story graph: lines, choices, conditions and variables" width="900"></p>
+<p align="center"><img src="docs/screenshots/01-graph.png" alt="Граф сюжета: реплики, выборы, условия и переменные" width="900"></p>
 
-<p align="center"><img src="docs/screenshots/02-character-card.png" alt="Character card: role, goal, arc and relationships" width="440"> <img src="docs/screenshots/03-canvas.png" alt="Canvas: notes, documents and pictures on one board" width="440"></p>
+<p align="center"><img src="docs/screenshots/02-character-card.png" alt="Карточка персонажа: роль, цель, арка и связи" width="440"> <img src="docs/screenshots/03-canvas.png" alt="Холст: заметки, документы и картинки на одной доске" width="440"></p>
 
 <table align="center">
   <tr>
