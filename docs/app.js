@@ -12,6 +12,8 @@ const CACHE_TTL = 10 * 60 * 1000; // 10 минут — как кеш анали�
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Телефон — своя, упрощённая композиция (см. конец site.css): без параллакса фона и с редким снегом.
+const isPhone = window.matchMedia('(max-width: 640px)').matches;
 
 // ---------- язык ----------
 
@@ -253,7 +255,10 @@ async function fetchRelease() {
   const release = await releaseRes.json();
   const repo = repoRes.ok ? await repoRes.json() : null;
   const assets = Array.isArray(release.assets) ? release.assets : [];
-  const exe = assets.find((a) => /\.exe$/i.test(a.name));
+  // «…-Update-…exe» качает автообновление, людям — красивый установщик «…-Setup-…exe»; у старых выпусков он один.
+  const exes = assets.filter((a) => /\.exe$/i.test(a.name) && !/uninstall/i.test(a.name));
+  const forPeople = exes.filter((a) => !/(^|[-_. ])update([-_. ]|$)/i.test(a.name));
+  const exe = forPeople.find((a) => !/portable/i.test(a.name)) || forPeople[0] || exes[0];
   const apk = assets.find((a) => /\.apk$/i.test(a.name));
   // Как в Narrata Studio: только установщик и APK всех опубликованных версий. latest.yml и .blockmap
   // качает автообновление при каждой проверке — это не люди, их не считаем.
@@ -261,7 +266,8 @@ async function fetchRelease() {
   const downloads = (Array.isArray(all) ? all : [release])
     .filter((r) => !r.draft)
     .flatMap((r) => (Array.isArray(r.assets) ? r.assets : []))
-    .filter((a) => /\.(exe|apk)$/i.test(a.name))
+    // «…-Update-…exe» качает автообновление у тех, кто программу уже поставил, — это не новые люди.
+    .filter((a) => /\.(exe|apk)$/i.test(a.name) && !/(^|[-_. ])update([-_. ]|$)/i.test(a.name))
     .reduce((sum, a) => sum + (Number(a.download_count) || 0), 0);
   const payload = {
     version: String(release.tag_name || '').replace(/^v/, ''),
@@ -295,6 +301,31 @@ function formatNumber(n) {
 let releaseData = null;
 const platform = detectPlatform();
 
+/** Порядок секций главной из Studio (SITE.sections). Видимость уже проставлена в HTML (site-config.mjs) —
+ *  здесь только порядок: секции переставляются сразу за hero, остальное на странице не трогается. */
+function applySectionOrder() {
+  const list = typeof SITE !== 'undefined' && Array.isArray(SITE.sections) ? SITE.sections : [];
+  let ref = $('.hero-block');
+  for (const { id, enabled } of list) {
+    const el = document.querySelector(`[data-section="${id}"]`);
+    if (!el || !ref) continue;
+    el.hidden = !enabled;
+    ref.after(el);
+    ref = el;
+  }
+}
+
+/** На телефоне с Android главная кнопка в блоке загрузки — Android: первой и яркой, как в hero. */
+function preferPlatformDownload() {
+  if (platform !== 'android') return;
+  const win = $('#dlWin');
+  const android = $('#dlAndroid');
+  if (!win || !android) return;
+  win.classList.replace('btn-primary', 'btn-glass');
+  android.classList.replace('btn-glass', 'btn-primary');
+  android.parentElement.insertBefore(android, win);
+}
+
 /** Подставляет уже загруженные данные о релизе в текущий язык — вызывается и после смены языка. */
 function applyRelease() {
   if (!releaseData) return;
@@ -304,6 +335,8 @@ function applyRelease() {
   // Плашка ведёт к изменениям именно этой версии на странице «Что нового».
   const badge = $('#badgeLink');
   if (badge) badge.href = `changelog.html#v${releaseData.version}`;
+  const clVer = $('#dlChangelogVer');
+  if (clVer) clVer.textContent = `(${v})`;
 
   const winMeta = releaseData.exe ? `${v} · ${formatSize(releaseData.exe.size)}` : dict['download.unavailable'];
   const androidMeta = releaseData.apk ? `${v} · ${formatSize(releaseData.apk.size)}` : dict['download.unavailable'];
@@ -317,7 +350,7 @@ function applyRelease() {
   if (primary) {
     $('#navDownload').href = primary.url;
     $('#heroDownload').href = primary.url;
-    $('#heroDownloadLabel').textContent = `${dict['hero.cta']} — ${primaryLabel}`;
+    $('#heroDownloadLabel').textContent = `${dict['hero.cta']} ${primaryLabel}`;
   }
 
   $('#otherPlatformNote').hidden = platform !== 'other';
@@ -493,35 +526,9 @@ function wireHeroMarkFloat() {
   });
 }
 
-/** 3D-наклон окна с превью программы вслед за курсором — фирменный приём премиальных SaaS-сайтов.
- *  Короткий CSS-transition (а не lerp-цикл, как у значка): курсор двигается только над одной,
- *  довольно крупной картой, а не скачет между несколькими карточками — тех рывков здесь не будет. */
-function wireMockupTilt() {
-  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches || prefersReducedMotion) return;
-  const wrap = $('.mockup-tilt');
-  if (!wrap) return;
-  const MAX_TILT = 7; // градусов
-  let raf = 0;
-  wrap.addEventListener('mousemove', (e) => {
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      const rect = wrap.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
-      const py = (e.clientY - rect.top) / rect.height - 0.5;
-      wrap.style.setProperty('--tilt-x', `${(px * MAX_TILT * 2).toFixed(2)}deg`);
-      wrap.style.setProperty('--tilt-y', `${(-py * MAX_TILT * 2).toFixed(2)}deg`);
-      raf = 0;
-    });
-  });
-  wrap.addEventListener('mouseleave', () => {
-    wrap.style.setProperty('--tilt-x', '0deg');
-    wrap.style.setProperty('--tilt-y', '0deg');
-  });
-}
-
 /** Параллакс фонового свечения: смещается медленнее контента при скролле, отсюда ощущение глубины. */
 function wireParallax() {
-  if (prefersReducedMotion) return;
+  if (prefersReducedMotion || isPhone) return;
   const ambient = $('.ambient');
   if (!ambient) return;
   let raf = 0;
@@ -536,7 +543,7 @@ function wireParallax() {
 }
 
 /** Подсказка «прокрутите вниз»: гаснет, как только страницу реально начали листать, клик — плавный
- *  переход к следующей секции (превью программы), а не просто декорация. */
+ *  переход к следующей секции (строка доверия под hero), а не просто декорация. */
 function wireScrollHint() {
   const hint = $('#scrollHint');
   if (!hint) return;
@@ -544,7 +551,7 @@ function wireScrollHint() {
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
   hint.addEventListener('click', () => {
-    const next = $('.hero-showcase') || $('#features');
+    const next = $('.trust-strip') || $('#features');
     if (next) next.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
   });
 }
@@ -561,7 +568,7 @@ function wireToTop() {
 
 // ---------- снег ----------
 // Studio → «Настройки» → «Снег на сайте»: общий переключатель плюс необязательный ежегодный диапазон
-// «ДД.ММ» без года (docs/landing.json → SITE.snow, site-config.js). Диапазон не задан — снег идёт всегда,
+// «ДД.ММ» без года (studio-data/landing.json → SITE.snow, site-config.js). Диапазон не задан — снег идёт всегда,
 // пока включено; начало позже конца — диапазон через Новый год (например 01.12 → 15.01).
 
 function inSnowRange(start, end) {
@@ -588,7 +595,7 @@ function wireSnow() {
   const layer = document.createElement('div');
   layer.className = 'snow';
   layer.setAttribute('aria-hidden', 'true');
-  const PER_SCREEN = 46;
+  const PER_SCREEN = isPhone ? 18 : 46;
   const screens = Math.max(1, document.documentElement.scrollHeight / window.innerHeight);
   const count = Math.round(PER_SCREEN * screens);
   for (let i = 0; i < count; i++) {
@@ -623,13 +630,14 @@ function wireLangSwitch() {
 
 document.addEventListener('DOMContentLoaded', () => {
   applyLang(detectLang());
+  applySectionOrder();
   wireLangSwitch();
+  preferPlatformDownload();
   wireLightbox();
   wireShowcase();
   wireScrollEffects();
   wireCursorGlow();
   wireHeroMarkFloat();
-  wireMockupTilt();
   wireParallax();
   wireToTop();
   wireScrollHint();
