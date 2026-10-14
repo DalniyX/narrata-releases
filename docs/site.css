@@ -1,4 +1,12 @@
 /* Стили сайта: общие для главной (index.html) и руководства (guide.html). */
+
+/* Шрифт Inter — со своего сайта (landing/fonts/, вариативный, лицензия OFL — fonts/OFL.txt), не с Google
+   Fonts: посетитель не отдаёт свой IP третьей стороне, а страница не зависит от чужого сервера.
+   Браузер качает только нужные подмножества (unicode-range): для русской страницы — кириллицу и латиницу. */
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url(fonts/inter-cyrillic-ext-wght-normal.woff2) format("woff2"); unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F; }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url(fonts/inter-cyrillic-wght-normal.woff2) format("woff2"); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url(fonts/inter-latin-ext-wght-normal.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url(fonts/inter-latin-wght-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
 /* ============================================================
    Палитра — те же токены, что в Narrata и Narrata Studio:
    тёмный нейтральный фон, синий акцент по умолчанию (#3b82f6),
@@ -26,6 +34,11 @@
   --container: 1120px;
   --ease: cubic-bezier(.16, 1, .3, 1);
 }
+/* На широких мониторах узкая колонка в 1120px тонет в пустом чёрном поле по бокам — весь сайт (не
+   только hero) выглядит мельче, чем должен. Раздвигаем контейнер в два шага для широких/очень широких
+   экранов — шрифты и картинки внутри (clamp с vw) сами вырастут следом, отдельно их трогать не нужно. */
+@media (min-width: 1440px) { :root { --container: 1240px; } }
+@media (min-width: 1800px) { :root { --container: 1360px; } }
 
 /* Пока язык не определён и тексты не подставлены — страница скрыта,
    чтобы не мелькнуть русским текстом иностранному посетителю. Снимается
@@ -45,7 +58,7 @@ body {
   margin: 0;
   /* Опорная точка для .snow (inset:0 на всю высоту страницы, не только окна) — сама по себе ничего
      не меняет: остальные absolute-слои уже позиционируются от своих локальных контейнеров (.hero,
-     .mockup-imgwrap и т. п.), а не от body. */
+     .sc-imgwrap и т. п.), а не от body. */
   position: relative;
   background: var(--bg);
   color: var(--text);
@@ -92,7 +105,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 @media (prefers-reduced-motion: reduce) { .ambient span { animation: none; } }
 
-/* Снег — Studio → «Настройки» → «Снег на сайте» (docs/landing.json → SITE.snow, landing/app.js: wireSnow).
+/* Снег — Studio → «Настройки» → «Снег на сайте» (studio-data/landing.json → SITE.snow, landing/app.js: wireSnow).
    Сама анимация не проверяет prefers-reduced-motion: JS не создаёт ни одной частицы, если он включён.
    position: absolute, не fixed: снег должен скроллиться вместе со страницей, как её собственный слой,
    а не висеть поверх экрана отдельным параллаксом — резало глаз при прокрутке. Работает на всю высоту
@@ -116,6 +129,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    и на широких экранах градиент обрезался вертикальной кромкой. Снизу — мягкое затухание маской,
    чтобы у нижней границы секции тоже не было среза. */
 .hero { position: relative; overflow: hidden; }
+/* Обрезаем только по горизонтали (иначе свечение даёт горизонтальную прокрутку): по вертикали свечение
+   значка (.hero-mark-glow, ниже краёв секции из-за размытия) раньше срезалось ровной линией по низу hero —
+   теперь мягко гаснет над строкой доверия. Старые браузеры без overflow: clip остаются с hidden. */
+@supports (overflow: clip) { .hero { overflow-x: clip; overflow-y: visible; } }
 .cursor-glow {
   position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
   background: radial-gradient(480px circle at var(--gx, 50%) var(--gy, 30%), rgba(91,91,240,.18), transparent 60%);
@@ -182,7 +199,9 @@ header.site.scrolled { box-shadow: 0 10px 40px rgba(0,0,0,.45); background: rgba
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  height: 38px; padding: 0 18px; border-radius: 999px; font-size: 13.5px; font-weight: 600;
+  /* Чуть квадратнее пилюли — скруглённый прямоугольник, не полная капсула; бейдж и переключатель
+     языка (RU/EN) остаются пилюлями намеренно — это статус/переключатель, а не кнопка действия. */
+  height: 38px; padding: 0 18px; border-radius: 12px; font-size: 13.5px; font-weight: 600;
   white-space: nowrap; transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease), border-color .25s ease;
   border: 1px solid transparent;
 }
@@ -229,14 +248,21 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 .hero { --head: 80px; margin-top: calc(-1 * var(--head)); padding: calc(100px + var(--head)) 0 40px; text-align: center; }
 @media (max-width: 640px) { .hero { --head: 70px; padding: calc(64px + var(--head)) 0 8px; } }
 @media (max-width: 380px) { .hero { padding: calc(56px + var(--head)) 0 8px; } }
-/* Раньше hero тёк сверху вниз и хвостом переходил в скриншот программы — теперь превью в своей секции
-   (.hero-showcase), а сам hero — один экран: контент по центру между шапкой и низом окна, а не прижат к верху. */
+/* Раньше hero тёк сверху вниз и хвостом переходил в скриншот программы — теперь справа значок программы
+   (.hero-mark), а демонстрация интерфейса — в секции «Скриншоты» ниже. Больше НЕ растягиваем hero на
+   весь экран (min-height: 100vh раньше держал следующую секцию, «Доверие», за пределами первого
+   экрана целиком) — высота теперь по содержимому, чуть плотнее сверху, чтобы «Доверие» было видно
+   сразу, без прокрутки. */
 @media (min-width: 901px) {
-  .hero { min-height: 100vh; display: flex; align-items: center; padding-top: var(--head); padding-bottom: 60px; }
+  .hero { padding: calc(44px + var(--head)) 0 20px; }
 }
 .badge {
-  display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 10px; border-radius: 999px;
-  background: rgba(255,255,255,.04); border: 1px solid var(--line-strong); font-size: 12.5px; color: var(--muted);
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 9px; border-radius: 999px;
+  /* Залитая индиго-плашка вместо нейтрального контура — по образцу референса. */
+  background: rgba(91,91,240,.14); border: 1px solid rgba(91,91,240,.3); font-size: 12px; color: var(--muted);
+  /* Компактная однострочная плашка: обычный пробел внутри «уже доступна» иначе может перенестись сам
+     по себе на вторую строку, стоит месту чуть сжаться — превращая плашку в две неровные строки. */
+  white-space: nowrap;
 }
 .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(52,211,153,.5); animation: pulse-dot 2.2s ease-in-out infinite; }
 @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(52,211,153,.45); } 50% { box-shadow: 0 0 0 5px rgba(52,211,153,0); } }
@@ -246,15 +272,18 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 
 .hero h1 {
   position: relative; font-size: clamp(40px, 8vw, 84px); font-weight: 800; letter-spacing: -.03em; line-height: 1.03;
-  margin: 26px 0 22px;
+  margin: 14px 0 14px;
 }
 .hero h1 span { display: block; }
+/* Первая строка — «Narrata», сам бренд — заметно крупнее остального заголовка, как заголовок-плашка
+   над строкой-подписью (см. референс): не отдельный элемент разметки, просто первый span покрупнее. */
+.hero h1 span:first-child { font-size: 1.45em; }
 .hero h1 .grad {
   background: linear-gradient(135deg, #fff 10%, var(--accent-2) 55%, var(--accent-3) 100%);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
-.hero .lead { font-size: clamp(16px, 2.2vw, 19px); max-width: 640px; margin: 0 auto 34px; }
-.hero-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px; }
+.hero .lead { font-size: clamp(16px, 2.2vw, 19px); max-width: 640px; margin: 0 auto 24px; }
+.hero-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; }
 .hero-req { font-size: 12.5px; color: var(--faint); letter-spacing: .01em; }
 .hero-req .sep { margin: 0 8px; opacity: .5; }
 /* Кнопки на телефоне — в столбик и во всю ширину, легче попасть пальцем. */
@@ -269,21 +298,22 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 .hero-copy { flex: 1 1 560px; min-width: 0; }
 .hero-copy .lead { margin-left: 0; margin-right: 0; }
 .hero-copy .hero-cta { justify-content: flex-start; }
+
 /* В две колонки заголовок уже не на всю ширину контейнера — без уменьшения он не влезает в свои
-   3 строки и сам собой переносится ещё раз, отсюда и «рваный» вид. Сжимаем размер под новую колонку. */
+   3 строки и сам собой переносится ещё раз, отсюда и «рваный» вид. Сжимаем размер под новую колонку,
+   чтобы каждая строка укладывалась в одну строку, а масштаб заголовка совпадал с референсом. */
 @media (min-width: 901px) {
-  .hero-copy h1 { font-size: clamp(32px, 4.6vw, 68px); }
+  .hero-copy h1 { font-size: clamp(34px, 4.3vw, 84px); }
 }
 
-/* Правая колонка — не только значок: под ним плашка версии и живая строка со звёздами/скачиваниями,
-   одним статусным блоком, друг под другом в естественном порядке разметки. */
-.hero-side { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: clamp(30px, 5vw, 60px); }
+/* Правая колонка: значок, под ним плашка версии и живая строка со звёздами/скачиваниями — снова
+   вместе, друг под другом, как и было изначально (только крупнее — см. .hero-mark ниже). */
+.hero-side { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: clamp(16px, 3vw, 36px); }
 .hero-side .stat-row { justify-content: center; margin: 0; }
 
 .hero-mark {
-  /* Чуть меньше, чем раньше: плашка версии под ним из-за этого встаёт вровень с рядом кнопок слева,
-     а не заметно ниже — до этого «рассыпалось» по высоте между колонками. */
-  position: relative; width: clamp(170px, 21vw, 300px); aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  /* Крупнее, чем в самой первой версии: значок — главный визуальный объект hero. */
+  position: relative; width: clamp(220px, 27vw, 440px); aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
   /* Лёгкое «отплывание» от курсора — JS пишет --float-x/--float-y кадр за кадром (wireHeroMarkFloat
      в app.js, lerp в rAF-цикле). Плавность даёт сам lerp — CSS-transition здесь не нужен и даже вредит:
      он бы переигрывал кривую на каждое новое значение переменной поверх уже плавного JS-движения. */
@@ -306,55 +336,61 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 
 @media (max-width: 900px) {
   .hero-top { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+  /* В столбце flex-basis: 560px — это уже высота, а не ширина: под кнопками оставалась пустота. */
+  .hero-copy { flex-basis: auto; }
   .hero-copy .lead { margin-left: auto; margin-right: auto; }
   .hero-copy .hero-cta { justify-content: center; }
   /* На телефоне значок, плашка версии и счётчик скачиваний просто убраны: после нескольких раскладок
      стало ясно, что они там не помогают решению скачать — только занимают узкий экран. Первый экран
-     сразу — заголовок, текст и кнопка. На десктопе — боковая колонка (вариант B), как и была. */
+     сразу — заголовок, текст и кнопка. На десктопе — боковая колонка, как и была. */
   .hero-side { display: none; }
 }
 
 /* живая строка со звёздами/скачиваниями */
-.stat-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; margin: 30px 0 6px; font-size: 13px; color: var(--muted); }
-.stat-row .stat { display: inline-flex; align-items: center; gap: 6px; }
-.stat-row b { color: var(--text); font-variant-numeric: tabular-nums; }
-.stat-row .icon { width: 14px; height: 14px; color: var(--accent-2); }
+.stat-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin: 30px 0 6px; font-size: 12px; color: var(--faint); }
+.stat-row .stat { display: inline-flex; align-items: center; gap: 5px; }
+.stat-row b { color: var(--muted); font-variant-numeric: tabular-nums; }
+.stat-row .icon { width: 12px; height: 12px; color: var(--faint); }
 
-/* Отступы теперь у самой секции (раньше их нёс большой margin-top на .mockup-wrap, пока он жил внутри
-   hero) — сверху достаточно скромного зазора от hero, снизу секция Features и так даёт свои 120px. */
-.hero-showcase { padding: 20px 0 40px; }
-@media (max-width: 640px) { .hero-showcase { padding: 0 0 24px; } }
+/* Hero + «Доверие» вместе держат минимум экран высотой (min-height: 100vh) — так «Возможности»
+   гарантированно не видны на первом экране НА ЛЮБОМ мониторе, а не только на тех, что мы успели
+   проверить руками: раньше запас перед следующей секцией был через фиксированный margin в пикселях,
+   и на достаточно широком/невысоком экране (например, широкий монитор — заголовок переносится
+   меньше строк, hero становится короче) его всё равно не хватало. display: flow-root — своя область
+   форматирования: у .hero отрицательный margin-top (уезжает под плавающую шапку), без flow-root он
+   «просочился» бы наружу и сдвинул саму .hero-block вверх вместе с высотой на экран. Если контента
+   меньше экрана — снизу просто пустое место до следующей секции, не обрезание и не наезд. */
+.hero-block { display: flow-root; }
+@media (min-width: 901px) { .hero-block { min-height: 100vh; } }
 
-/* макет окна программы с реальным скриншотом */
-.mockup-wrap { margin: 0 auto; max-width: 900px; }
-/* 3D-наклон за курсором (wireMockupTilt в app.js, custom properties --tilt-x/--tilt-y) — на отдельной
-   обёртке .mockup-tilt, не на .mockup-wrap: у того уже есть .reveal, а .reveal.visible задаёт свой
-   transform с более высокой специфичностью и просто стёр бы наклон после появления секции на экране. */
-.mockup-tilt { transform: perspective(1000px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)); transition: transform .15s ease-out; }
-@media (prefers-reduced-motion: reduce) { .mockup-tilt { transition: none; transform: none; } }
-.mockup { border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); background: #0c0c10;
-  box-shadow: 0 2px 6px rgba(0,0,0,.2), 0 20px 50px rgba(0,0,0,.45), 0 60px 120px rgba(0,0,0,.35), 0 0 90px rgba(91,91,240,.08);
-  animation: float 7s ease-in-out infinite; }
-@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-@media (prefers-reduced-motion: reduce) { .mockup { animation: none; } }
-.mockup-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #141417; border-bottom: 1px solid rgba(255,255,255,.06); }
-.mockup-bar .dots { display: flex; gap: 6px; }
-.mockup-bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: #2c2c31; }
-.mockup-bar .title { flex: 1; text-align: center; font-size: 11.5px; color: var(--faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 8px; }
-/* aspect-ratio на самом <img> ненадёжен, когда у тега остаются HTML-атрибуты width/height
-   (используются для явных размеров ещё до применения CSS) — поэтому соотношение сторон задаём
-   обёртке, а картинка просто заполняет её (тот же приём, что у .sc-imgwrap в витрине). */
-.mockup-imgwrap { position: relative; width: 100%; aspect-ratio: 1600 / 1000; overflow: hidden; }
-.mockup-imgwrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-@media (max-width: 480px) { .mockup { border-radius: 12px; } .mockup-bar { padding: 8px 10px; } }
+/* ---------- ДОВЕРИЕ: компактная строка фактов сразу под hero ---------- */
+.trust-strip { padding: 16px 0 0; }
+@media (max-width: 640px) { .trust-strip { padding: 16px 0 0; } }
+.trust-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; max-width: var(--container); margin: 0 auto; }
+@media (max-width: 860px) { .trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .trust-grid { grid-template-columns: 1fr; } }
+/* Без своего фона/рамки — карточкой выглядит только сам значок (.trust-icon), текст рядом лежит
+   прямо на фоне страницы, без «подложки» под ним (по образцу референса). */
+.trust-item { display: flex; align-items: center; gap: 12px; padding: 4px 0; }
+.trust-icon { flex: none; width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  background: rgba(91,91,240,.14); border: 1px solid rgba(91,91,240,.2); color: var(--accent-2); }
+.trust-icon .icon { width: 16px; height: 16px; }
+.trust-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.trust-text b { font-size: 13.5px; font-weight: 650; color: var(--text); }
+.trust-text small { font-size: 12px; color: var(--faint); }
 
 /* ---------- FEATURES (bento) ---------- */
 .features { padding: 120px 0 40px; }
 @media (max-width: 640px) { .features { padding: 72px 0 8px; } }
-.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+/* Пять карточек в первом ряду, четыре во втором — но не сеткой (grid держал бы вторую строку в тех
+   же 5 колонках, и четвёртая карточка кончалась бы раньше правого края, оставляя пустой хвост).
+   Flexbox с flex-grow:1 отдаёт этот «хвост» четырём карточкам второго ряда поровну — они сами
+   становятся немного шире и тянутся на всю ширину, единый ритм высоты сохраняется. */
+.bento { display: flex; flex-wrap: wrap; gap: 12px; }
 .f-card {
-  grid-column: span 2; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 26px; position: relative; overflow: hidden;
+  flex: 1 1 calc((100% - 48px) / 5);
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 22px; position: relative; overflow: hidden;
   /* transform — отдельно и быстрее: .35s с длинным хвостом (--ease) был рассчитан на разовое появление
      при скролле, а не на быстрый провод мышкой по сетке карточек — при новом наведении карточка ещё не
      успевала опуститься, отсюда рывки. border/background можно оставить медленнее — их незавершённость
@@ -368,14 +404,30 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
    порядок в файле — эта запись ниже, значит и побеждает. */
 .f-card.reveal { transition-delay: 0s; }
 .f-card:hover { transform: translateY(-4px); border-color: rgba(91,91,240,.35); background: var(--card-hover); }
-.f-card.big { grid-column: span 3; }
-@media (max-width: 900px) { .bento { grid-template-columns: repeat(2, 1fr); } .f-card, .f-card.big { grid-column: span 1; } }
-@media (max-width: 560px) { .bento { grid-template-columns: 1fr; gap: 10px; } .f-card { padding: 20px; } }
-.f-icon { width: 42px; height: 42px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+@media (max-width: 900px) { .f-card { flex-basis: calc((100% - 12px) / 2); } }
+@media (max-width: 560px) { .bento { gap: 10px; } .f-card { flex-basis: 100%; padding: 20px; } }
+.f-icon { width: 38px; height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
   background: linear-gradient(135deg, rgba(91,91,240,.22), rgba(139,92,246,.06)); border: 1px solid rgba(91,91,240,.18); color: var(--accent-2); }
-.f-icon .icon { width: 20px; height: 20px; }
+.f-icon .icon { width: 18px; height: 18px; }
 .f-card h3 { font-size: 16.5px; font-weight: 700; margin: 0 0 6px; letter-spacing: -.01em; }
 .f-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0; }
+
+/* ---------- КАК ЭТО РАБОТАЕТ: горизонтальный workflow с номерами и стрелками ---------- */
+.workflow { padding: 100px 0 40px; }
+@media (max-width: 640px) { .workflow { padding: 60px 0 8px; } }
+.workflow-row { display: flex; align-items: flex-start; justify-content: center; max-width: var(--container); margin: 0 auto; }
+.workflow-step { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 8px; padding: 0 16px; text-align: left; }
+.workflow-num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent-3)); color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.workflow-step b { font-size: 15px; font-weight: 650; }
+.workflow-step span { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.workflow-arrow { flex: none; align-self: flex-start; margin-top: 9px; width: 18px; height: 18px; color: var(--line-strong); }
+.workflow-arrow .icon { width: 100%; height: 100%; }
+@media (max-width: 780px) {
+  .workflow-row { flex-direction: column; align-items: stretch; gap: 18px; }
+  .workflow-step { padding: 0; }
+  .workflow-arrow { display: none; }
+}
 
 /* ---------- ГАЛЕРЕЯ: большой кадр во всю ширину контейнера + плёнка миниатюр ---------- */
 .gallery { padding: 120px 0 40px; }
@@ -387,7 +439,7 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 .sc-arrow .icon { width: 18px; height: 18px; }
 @media (max-width: 720px) { .sc-arrow { display: none; } }
 .sc-frame { flex: 1; min-width: 0; margin: 0; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); background: #0c0c10;
-  box-shadow: 0 2px 6px rgba(0,0,0,.2), 0 16px 40px rgba(0,0,0,.4), 0 0 60px rgba(91,91,240,.06); }
+  box-shadow: 0 2px 6px rgba(0,0,0,.2), 0 24px 60px rgba(0,0,0,.45), 0 0 90px rgba(91,91,240,.1); }
 .sc-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #141417; border-bottom: 1px solid rgba(255,255,255,.06); }
 .sc-bar .dots { display: flex; gap: 6px; flex: none; }
 .sc-bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: #2c2c31; }
@@ -450,8 +502,24 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 
 .download { padding: 120px 0 60px; }
 @media (max-width: 640px) { .download { padding: 72px 0 40px; } }
-.cta-card { position: relative; max-width: 780px; margin: 0 auto; text-align: center; padding: 56px 32px; border-radius: 28px; background: var(--card); overflow: hidden; }
-@media (max-width: 480px) { .cta-card { padding: 36px 20px; border-radius: 22px; } }
+/* Шире прежнего и в две колонки на десктопе — самый сильный CTA страницы, а не просто центральная
+   карточка: слева повод скачать и сами кнопки, справа требования, чтобы решение принималось сразу. */
+.cta-card { position: relative; max-width: 960px; margin: 0 auto; text-align: center; padding: 38px 44px 34px; border-radius: 28px; background: var(--card); overflow: hidden; }
+@media (max-width: 480px) { .cta-card { padding: 32px 20px; border-radius: 22px; } }
+.dl-cols { display: grid; grid-template-columns: 1.15fr .85fr; gap: 32px; align-items: start; text-align: left; }
+@media (max-width: 780px) { .dl-cols { grid-template-columns: 1fr; gap: 28px; text-align: center; } }
+.dl-main .download-grid { justify-content: flex-start; }
+@media (max-width: 780px) { .dl-main .download-grid { justify-content: center; } }
+.dl-main .fine-print { text-align: left; }
+@media (max-width: 780px) { .dl-main .fine-print { text-align: center; } }
+.dl-req-label { display: block; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--faint); margin-bottom: 10px; }
+.dl-req .req-grid { max-width: none; margin: 0; }
+.dl-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.dl-links a { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); transition: color .2s ease; }
+.dl-links a:hover { color: var(--text); }
+.dl-links .icon { width: 14px; height: 14px; }
+.dl-links small { color: var(--faint); font-variant-numeric: tabular-nums; }
+.dl-closed { text-align: center; margin-top: 10px; }
 @property --cta-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 .cta-card::before { content: ''; position: absolute; inset: 0; border-radius: 28px; padding: 2px; pointer-events: none;
   background: conic-gradient(from var(--cta-angle), rgba(91,91,240,.22) 0deg, rgba(91,91,240,.9) 55deg, #e4e4ff 95deg, rgba(139,92,246,1) 115deg, rgba(91,91,240,.45) 170deg, rgba(91,91,240,.22) 230deg, rgba(91,91,240,.22) 360deg);
@@ -466,7 +534,8 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 }
 @media (prefers-reduced-motion: reduce) { .cta-card::before { animation: none; filter: none; } }
 .cta-card h2 { margin-top: 0; }
-.cta-card .lead { margin: 0 auto 30px; }
+.cta-card .lead { margin: 0 0 18px; }
+@media (max-width: 780px) { .cta-card .lead { margin: 0 auto 18px; } }
 .download-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 10px; }
 .dl-btn { display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 16px; min-width: 230px; text-align: left; }
 @media (max-width: 480px) { .download-grid { flex-direction: column; } .dl-btn { min-width: 0; width: 100%; } }
@@ -477,19 +546,35 @@ h2.title { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing
 /* Минимальные требования — две тихие карточки под кнопками, читаются одним взглядом. */
 .req-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 560px; margin: 26px auto 0; text-align: left; }
 @media (max-width: 480px) { .req-grid { grid-template-columns: 1fr; } }
-.req-card { border: 1px solid var(--line); background: rgba(24, 24, 27, .6); border-radius: 14px; padding: 12px 14px; }
-.req-head { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 6px; }
-.req-head .icon { width: 16px; height: 16px; color: var(--muted); }
+/* Без своей рамки/фона — просто два столбца текста под общим заголовком «Минимальные требования»,
+   по образцу референса: не отдельная карточка на платформу, а единый компактный список. */
+.req-card { padding: 0; }
+.req-head { font-size: 12.5px; font-weight: 650; color: var(--text); margin-bottom: 6px; }
 .req-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
 .req-card li { font-size: 12px; color: var(--faint); padding-left: 14px; position: relative; }
 .req-card li::before { content: ''; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent-2); }
 .fine-print { font-size: 12px; color: var(--faint); margin-top: 18px; }
 .fine-print a { color: var(--muted); border-bottom: 1px dotted var(--line-strong); }
 .fine-print a:hover { color: var(--text); }
-.support-row { margin-top: 26px; padding-top: 26px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 22px; }
-.support-row a { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); transition: color .2s ease; }
-.support-row a:hover { color: #f472b6; }
-.support-row .icon { width: 15px; height: 15px; }
+/* Ссылки поддержки переехали в шапку (значок-сердце с выпадающим списком) — карточка загрузки
+   ими больше не занята, см. .support-menu ниже. */
+
+/* ---------- шапка: значок «Поддержать» с выпадающим списком ---------- */
+.support-menu { position: relative; }
+.support-menu summary { list-style: none; }
+.support-menu summary::-webkit-details-marker { display: none; }
+.support-menu[open] summary { color: var(--text); background: rgba(255,255,255,.09); }
+.support-menu[open] summary .icon { color: #f472b6; }
+.support-dropdown {
+  position: absolute; top: calc(100% + 10px); right: 0; z-index: 60; min-width: 220px;
+  display: flex; flex-direction: column; gap: 2px; padding: 8px;
+  background: rgba(20,20,23,.96); backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255,255,255,.1); border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.5);
+}
+.support-dropdown a { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border-radius: 9px; font-size: 13px; color: var(--muted); transition: color .2s ease, background .2s ease; }
+.support-dropdown a:hover { color: #f472b6; background: rgba(244,114,182,.1); }
+.support-dropdown .icon { width: 14px; height: 14px; flex: none; }
+@media (max-width: 380px) { .support-dropdown { right: -40px; } }
 
 /* ---------- FOOTER ---------- */
 footer { padding: 40px 0 32px; border-top: 1px solid var(--line); }
@@ -521,9 +606,9 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--line); }
 @media (max-width: 480px) { .to-top { width: 42px; height: 42px; right: calc(14px + env(safe-area-inset-right)); bottom: calc(14px + env(safe-area-inset-bottom)); } }
 
 /* ---------- значок «Руководство» в шапке: на узких экранах, где нет строки ссылок ---------- */
-.nav-guide { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; color: var(--muted); background: rgba(255,255,255,.05); border: 1px solid var(--line-strong); transition: color .2s ease, background .2s ease; }
-.nav-guide:hover { color: var(--text); background: rgba(255,255,255,.09); }
-.nav-guide .icon { width: 17px; height: 17px; }
+.nav-guide, .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; color: var(--muted); background: rgba(255,255,255,.05); border: 1px solid var(--line-strong); transition: color .2s ease, background .2s ease; cursor: pointer; }
+.nav-guide:hover, .icon-btn:hover { color: var(--text); background: rgba(255,255,255,.09); }
+.nav-guide .icon, .icon-btn .icon { width: 17px; height: 17px; }
 @media (min-width: 780px) { .nav-guide { display: none; } }
 
 /* ---------- страница руководства (guide.html) ---------- */
@@ -593,7 +678,7 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--line); }
 a.badge { transition: border-color .2s ease, background .2s ease; }
 a.badge:hover { border-color: rgba(139,139,255,.45); background: rgba(91,91,240,.1); }
 .badge .more { color: #c7c7ff; font-weight: 600; }
-.badge .more::before { content: "·"; margin: 0 8px 0 2px; color: var(--faint); font-weight: 400; }
+.badge .more::before { content: "·"; margin: 0 6px 0 2px; color: var(--faint); font-weight: 400; }
 
 /* ---------- «Для кого»: четыре карточки в ряд ---------- */
 .audience { padding: 0 0 8px; }
@@ -609,7 +694,8 @@ a.badge:hover { border-color: rgba(139,139,255,.45); background: rgba(91,91,240,
 @media (max-width: 520px) { .aud-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- частые вопросы ---------- */
-.faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+.faq-list { max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; align-items: start; }
+@media (max-width: 720px) { .faq-list { grid-template-columns: 1fr; max-width: 640px; } }
 .faq-item { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-sm); transition: border-color .25s ease; }
 .faq-item[open] { border-color: rgba(91,91,240,.35); }
 .faq-item summary { display: flex; align-items: center; gap: 12px; padding: 16px 20px; cursor: pointer; font-size: 15px; font-weight: 600; list-style: none; }
@@ -618,3 +704,75 @@ a.badge:hover { border-color: rgba(139,139,255,.45); background: rgba(91,91,240,
 .faq-item[open] summary::after { transform: rotate(45deg); color: var(--accent-2); }
 .faq-item summary:hover { color: var(--text); }
 .faq-item p { margin: 0; padding: 0 20px 18px; font-size: 14px; line-height: 1.6; color: var(--muted); }
+
+/* ---------- ТЕЛЕФОН: своя, более простая композиция ----------
+   Не уменьшенная копия десктопа: меньше декора (без плавающих пятен, подсветки за курсором, бегущей
+   рамки и бликов — на телефоне их всё равно не видно, а батарею они едят), спокойнее hero и плотные
+   карточки «значок слева — текст справа» вместо высоких плиток. Блок в конце файла намеренно: правила
+   выше задают десктоп, здесь — только то, чем телефон от него отличается. */
+@media (max-width: 640px) {
+  /* декор */
+  .ambient span:nth-child(n+2) { display: none; }
+  .ambient span { animation: none; opacity: .1; }
+  .cursor-glow, .scroll-progress { display: none; }
+  .btn-primary::after { display: none; }
+  .badge .dot { animation: none; }
+  .cta-card::before { animation: none; filter: none; background: linear-gradient(135deg, rgba(91,91,240,.7), rgba(139,92,246,.35)); }
+  .f-card:hover, .aud-card:hover, .rm-item:hover, .btn-primary:hover, .btn-glass:hover { transform: none; }
+
+  /* hero: заголовок скромнее, кнопки сразу на первом экране */
+  .hero { padding: calc(36px + var(--head)) 0 4px; }
+  .hero h1 { font-size: 30px; line-height: 1.1; margin: 8px 0 12px; }
+  .hero h1 span:first-child { font-size: 1.55em; margin-bottom: 4px; }
+  .hero .lead { font-size: 15px; line-height: 1.55; margin-bottom: 20px; }
+  .hero-req { font-size: 12px; }
+
+  /* строка доверия — две колонки, мелко */
+  .trust-strip { padding: 20px 0 0; }
+  .trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 10px; }
+  .trust-item { gap: 9px; align-items: flex-start; }
+  .trust-icon { width: 30px; height: 30px; border-radius: 9px; }
+  .trust-icon .icon { width: 14px; height: 14px; }
+  .trust-text b { font-size: 12.5px; line-height: 1.3; }
+  .trust-text small { font-size: 11.5px; }
+
+  /* заголовки секций */
+  .features, .gallery { padding: 56px 0 4px; }
+  .workflow { padding: 48px 0 4px; }
+  .download { padding: 56px 0 32px; }
+  .section-head { margin-bottom: 24px; }
+  .eyebrow { font-size: 11px; margin-bottom: 10px; }
+  h2.title { font-size: 25px; margin-bottom: 10px; }
+  .lead { font-size: 15px; line-height: 1.55; }
+
+  /* возможности и «для кого» — плотный список: значок слева, текст справа */
+  .bento { gap: 8px; }
+  .f-card { display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 14px; align-items: start; padding: 14px 16px; border-radius: 14px; }
+  .f-icon { grid-row: span 2; width: 34px; height: 34px; border-radius: 10px; margin: 0; }
+  .f-icon .icon { width: 16px; height: 16px; }
+  .f-card h3 { font-size: 15px; margin: 1px 0 3px; }
+  .f-card p { font-size: 13px; line-height: 1.5; }
+  .aud-grid { gap: 8px; }
+  .aud-card { display: grid; grid-template-columns: 22px minmax(0, 1fr); column-gap: 14px; row-gap: 3px; padding: 14px 16px; border-radius: 14px; }
+  .aud-card .icon { grid-row: span 2; margin-top: 1px; }
+  .aud-card b { font-size: 14.5px; }
+  .aud-card span { font-size: 13px; }
+
+  /* шаги — номер слева, без лишнего воздуха */
+  .workflow-row { gap: 14px; }
+  .workflow-step { display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 14px; row-gap: 2px; }
+  .workflow-num { grid-row: span 2; width: 30px; height: 30px; font-size: 12px; margin: 0; }
+  .workflow-step b { font-size: 14.5px; }
+
+  /* галерея: без «окна программы» с точками — просто кадр */
+  .sc-bar .dots { display: none; }
+
+  /* вопросы и загрузка */
+  .faq-list { gap: 8px; }
+  .faq-item summary { padding: 14px 16px; font-size: 14.5px; }
+  .faq-item p { padding: 0 16px 14px; font-size: 13.5px; }
+  .cta-card { padding: 26px 18px; border-radius: 20px; }
+  .cta-card::before { border-radius: 20px; }
+  .dl-cols { gap: 22px; }
+  footer { padding: 28px 0 24px; }
+}
