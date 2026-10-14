@@ -21,5 +21,31 @@ const SITE = {
     "enabled": false,
     "start": "",
     "end": ""
-  }
+  },
+  "sections": [
+    {
+      "id": "features",
+      "enabled": true
+    },
+    {
+      "id": "workflow",
+      "enabled": true
+    },
+    {
+      "id": "screenshots",
+      "enabled": true
+    },
+    {
+      "id": "audience",
+      "enabled": true
+    },
+    {
+      "id": "faq",
+      "enabled": true
+    },
+    {
+      "id": "download",
+      "enabled": true
+    }
+  ]
 };
