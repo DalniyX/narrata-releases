@@ -25,8 +25,10 @@ async function fetchRoadmap() {
     // нет кеша — спросим GitHub
   }
   const res = await fetch(ROADMAP_URL, { cache: 'no-cache' });
-  if (!res.ok) throw new Error(`roadmap: ${res.status}`);
-  const data = await res.json();
+  // 404 — планов ещё не публиковали: это ответ, а не сбой, кешируем его как «пусто», чтобы не спрашивать
+  // GitHub (и не сыпать 404 в консоль) на каждой странице.
+  if (!res.ok && res.status !== 404) throw new Error(`roadmap: ${res.status}`);
+  const data = res.ok ? await res.json() : null;
   try {
     localStorage.setItem(ROADMAP_CACHE_KEY, JSON.stringify({ data, at: Date.now() }));
   } catch {
