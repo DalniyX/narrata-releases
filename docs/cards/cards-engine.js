@@ -76,7 +76,7 @@ const lighten = (hex, amount) => {
   const [h, s, l] = hexToHsl(hex);
   return hslToHex(h, s, Math.min(94, l + amount));
 };
-/** Валидный #rrggbb или запасной цвет по умолчанию — на случай испорченного docs/cards.json. */
+/** Валидный #rrggbb или запасной цвет по умолчанию — на случай испорченного studio-data/cards.json. */
 const cleanAccent = (hex) => (/^#[0-9a-f]{6}$/i.test(hex || '') ? hex : DEFAULT_ACCENT);
 
 // Тот же значок, что на экране приветствия (WelcomeMark), но цвет — от выбранного акцента,
