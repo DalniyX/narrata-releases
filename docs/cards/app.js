@@ -3,11 +3,19 @@
 // же .wrap/.tag/h1 из движка иначе перебили бы стили этой страницы), а PNG рисует html-to-image прямо
 // внутри iframe и отдаёт родителю через postMessage — без сервера и без Electron.
 //
-// Шрифт в экспорте — системный, не Inter: у Google Fonts нет CORS-заголовка на сам CSS (проверено
-// напрямую), поэтому html-to-image не может встроить файл шрифта в картинку — только сослаться на него,
-// а этого достаточно для страницы, но не для растеризации. В предпросмотре (iframe рендерит как обычную
-// страницу) и в карточках из Studio (Electron, свой захват экрана) шрифт настоящий, отличие только здесь.
+// Шрифт — Inter со своего сайта (../fonts/), не с Google Fonts: тот же источник, CORS не нужен, поэтому
+// html-to-image встраивает файл шрифта прямо в PNG (fontEmbedCSS) — картинка с телефона такая же, как из
+// Studio. Раньше у Google Fonts не было CORS на CSS, и экспорт шёл системным шрифтом.
 'use strict';
+
+// Подмножества и диапазоны — как в landing/site.css (@fontsource-variable/inter 5.3.0).
+const INTER_SUBSETS = [
+  ['cyrillic', 'U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116'],
+  ['latin', 'U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD'],
+];
+const INTER_FONTS = INTER_SUBSETS.map(([subset, range]) => ({ url: new URL(`../fonts/inter-${subset}-wght-normal.woff2`, location.href).href, range }));
+const interFace = (src, range) => `@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:block;src:url(${src}) format("woff2");unicode-range:${range}}`;
+const INTER_CSS = INTER_FONTS.map((f) => interFace(f.url, f.range)).join('');
 
 const REPO = (typeof SITE !== 'undefined' && SITE.repo) || 'DalniyX/narrata-releases';
 const ROADMAP_URL = `https://raw.githubusercontent.com/${REPO}/HEAD/roadmap.json`;
@@ -18,10 +26,19 @@ const EXPORT_SCRIPT = `
 window.addEventListener('message', async (e) => {
   if (!e.data || e.data.type !== 'narrata-export') return;
   try {
-    // У Google Fonts нет CORS на CSS — html-to-image всё равно попробует встроить файл шрифта и просто
-    // нашумит в консоль об отказе. Раз встроить не даст в любом случае, убираем ссылку заранее: тише и быстрее.
-    document.querySelectorAll('link[rel=stylesheet]').forEach((el) => el.remove());
-    const blob = await htmlToImage.toBlob(document.body, { width: e.data.width, height: e.data.height, pixelRatio: 2, cacheBust: true, backgroundColor: '#09090b', skipFonts: true });
+    // Шрифт встраиваем сами: файлы с того же сайта превращаются в data: — html-to-image кладёт их в картинку.
+    // Не скачались (нет сети) — рисуем системным шрифтом, как раньше, но карточка всё равно получится.
+    let fontEmbedCSS = '';
+    try {
+      const faces = await Promise.all((e.data.fonts || []).map(async (f) => {
+        const file = await (await fetch(f.url)).blob();
+        const data = await new Promise((done, fail) => { const r = new FileReader(); r.onload = () => done(r.result); r.onerror = fail; r.readAsDataURL(file); });
+        return '@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;src:url(' + data + ') format("woff2");unicode-range:' + f.range + '}';
+      }));
+      fontEmbedCSS = faces.join('');
+    } catch (_) {}
+    const options = { width: e.data.width, height: e.data.height, pixelRatio: 2, cacheBust: true, backgroundColor: '#09090b' };
+    const blob = await htmlToImage.toBlob(document.body, fontEmbedCSS ? { ...options, fontEmbedCSS } : { ...options, skipFonts: true });
     parent.postMessage({ type: 'narrata-exported', blob }, '*');
   } catch (err) {
     parent.postMessage({ type: 'narrata-export-error', message: String((err && err.message) || err) }, '*');
@@ -174,7 +191,8 @@ async function buildCtx() {
     const accent = accentInput.value;
     const { html, width, height } = window.Cards.cardHtml({ template, values: fieldInputs(), sizeId, lang, accent }, ctx);
     currentSize = { width, height };
-    iframe.srcdoc = html.replace('</body>', `${EXPORT_SCRIPT}</body>`);
+    // Движок общий со Studio и ссылается на Google Fonts — здесь подменяем на свой Inter.
+    iframe.srcdoc = html.replace(/<link[^>]*fonts\.googleapis\.com[^>]*>/, `<style>${INTER_CSS}</style>`).replace('</body>', `${EXPORT_SCRIPT}</body>`);
     fitPreview(width, height);
   }
 
@@ -203,7 +221,7 @@ async function buildCtx() {
       }
       function cleanup() { clearTimeout(timeout); window.removeEventListener('message', handler); }
       window.addEventListener('message', handler);
-      iframe.contentWindow.postMessage({ type: 'narrata-export', width: currentSize.width, height: currentSize.height }, '*');
+      iframe.contentWindow.postMessage({ type: 'narrata-export', width: currentSize.width, height: currentSize.height, fonts: INTER_FONTS }, '*');
     });
   }
 
