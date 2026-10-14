@@ -47,10 +47,12 @@
     var repo = (typeof SITE !== 'undefined' && SITE.repo) || 'DalniyX/narrata-releases';
     fetch('https://raw.githubusercontent.com/' + repo + '/HEAD/roadmap.json', { cache: 'no-cache' })
       .then(function (res) {
-        return res.ok ? res.json() : null;
+        // 404 — планов ещё нет: кешируем как «пусто» (data: null), иначе запрос повторялся бы на каждой странице.
+        if (res.status === 404) return null;
+        return res.ok ? res.json() : undefined;
       })
       .then(function (data) {
-        if (data) {
+        if (data !== undefined) {
           try {
             localStorage.setItem(CACHE_KEY, JSON.stringify({ data: data, at: Date.now() }));
           } catch (error) {
