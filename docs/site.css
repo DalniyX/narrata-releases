@@ -174,7 +174,9 @@ header.site.scrolled { box-shadow: 0 10px 40px rgba(0,0,0,.45); background: rgba
 .logo-mark { width: 30px; height: 30px; border-radius: 9px; overflow: hidden; flex: none; }
 .brand-name { font-weight: 700; letter-spacing: -.01em; font-size: 16px; }
 .nav-links { display: none; align-items: center; gap: 4px; }
-@media (min-width: 780px) { .nav-links { display: flex; } }
+/* Строка ссылок — с 900px: уже на 780–899 (планшет Android вертикально — 800px) она не влезала даже
+   сжатой, «Скачать» уезжала за край и страница ездила вбок. Там шапка как на телефоне. */
+@media (min-width: 900px) { .nav-links { display: flex; } }
 .nav-links a { font-size: 13.5px; color: var(--muted); padding: 8px 12px; border-radius: 9px; transition: color .2s ease, background .2s ease; }
 .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(255,255,255,.05); }
 .nav-right { display: flex; align-items: center; gap: 8px; }
@@ -183,9 +185,10 @@ header.site.scrolled { box-shadow: 0 10px 40px rgba(0,0,0,.45); background: rgba
   .nav-row { padding: 8px 8px 8px 12px; }
   .brand-name { display: none; }
 }
-/* Пока в шапке нет полных ссылок (они появляются с 780px), кнопке «Скачать» оставляем только
-   иконку — компактнее и меньше толкучки рядом с переключателем языка. Подпись остаётся в aria-label. */
-@media (max-width: 779px) {
+/* До 1024px кнопке «Скачать» оставляем только иконку: на телефоне и планшете вертикально (до 900px, полных
+   ссылок нет) — меньше толкучки рядом с переключателем языка, а на 900–1023 — чтобы строка ссылок
+   поместилась (см. «Узкие окна» ниже). Подпись остаётся в aria-label. */
+@media (max-width: 1023px) {
   #navDownload { width: 38px; height: 38px; padding: 0; border-radius: 50%; }
   #navDownload span { display: none; }
 }
@@ -609,7 +612,16 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--line); }
 .nav-guide, .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; color: var(--muted); background: rgba(255,255,255,.05); border: 1px solid var(--line-strong); transition: color .2s ease, background .2s ease; cursor: pointer; }
 .nav-guide:hover, .icon-btn:hover { color: var(--text); background: rgba(255,255,255,.09); }
 .nav-guide .icon, .icon-btn .icon { width: 17px; height: 17px; }
-@media (min-width: 780px) { .nav-guide { display: none; } }
+@media (min-width: 1024px) { .nav-guide { display: none; } }
+/* Узкие окна и планшеты горизонтально: 900–1023px. Полной строке ссылок нужно ~875px (с «Планами» ~950),
+   а шапке тут достаётся меньше. Здесь шапка плотнее: ссылки ближе, «GitHub» — только внизу страницы,
+   «Руководство» на главной — иконкой книги рядом с языком (на остальных страницах книги нет — там ссылка
+   остаётся). */
+@media (min-width: 900px) and (max-width: 1023px) {
+  .nav-links a { padding: 8px 9px; }
+  .nav-links a[data-link="github"], .nav-links a.nav-link-guide { display: none; }
+  .nav-guide { display: inline-flex; }
+}
 
 /* ---------- страница руководства (guide.html) ---------- */
 .guide { padding-top: 48px; padding-bottom: 72px; }
